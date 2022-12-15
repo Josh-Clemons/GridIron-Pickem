@@ -1,11 +1,12 @@
-import React from 'react'
-import Header from '../Header/Header'
+import React from 'react';
+import Header from '../Header/Header';
+import Playground from '../Playground/Playground';
 
 const App: React.FC = () => {
     return (
         <>
-            <h1>TypeScript is awesome</h1>
             <Header />
+            <Playground />
         </>
     )
 }
