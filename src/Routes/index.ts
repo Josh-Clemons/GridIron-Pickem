@@ -1,8 +1,8 @@
 import express from 'express';
-import { userRoute } from './user.router';
+import { userRouter } from './user.router';
 
 export const routes = express.Router();
 
 routes.use(
-    userRoute
+    userRouter
 );
