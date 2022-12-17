@@ -16,11 +16,6 @@ userRoute.get('/', (req: Request, res: Response) => {
 
 });
 
-interface User {
-    username: string;
-    password: string;
-}
-
 // register a new user
 userRoute.post('/register', async (req: Request, res: Response) => {
     const { username, password } = req?.body;
