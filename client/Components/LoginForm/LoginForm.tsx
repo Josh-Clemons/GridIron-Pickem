@@ -11,15 +11,28 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useDispatch } from 'react-redux';
+
+
+
 
 export default function LoginForm() {
+
+
+    const [email , setEmail] = React.useState<string>('');
+    const [password, setPassword] = React.useState<string>('');
+
+    const dispatch = useDispatch();
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const payload = {
+            username: email,
+            password: password
+        }
+
+        dispatch({ type: 'LOGIN', payload});
+
     };
 
     return (
@@ -49,6 +62,8 @@ export default function LoginForm() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <TextField
                             margin="normal"
@@ -59,6 +74,8 @@ export default function LoginForm() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button
                             type="submit"
@@ -69,11 +86,6 @@ export default function LoginForm() {
                             Sign In
                         </Button>
                         <Grid container>
-                            {/* <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid> */}
                             <Grid item>
                                 <Link href="#/register" variant="body1">
                                     {"Don't have an account? Register"}

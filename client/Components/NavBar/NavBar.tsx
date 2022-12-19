@@ -49,6 +49,18 @@ export default function NavBar() {
                         <ListItemText primary='Home' />
                     </ListItemButton>
                 </ListItem>
+
+                {/* Playground area for testing purposes */}
+                <ListItem disablePadding>
+                    <ListItemButton onClick={() => navigate('/playground')} >
+                        <ListItemIcon>
+                            {/* Find Icons I want */}
+                        </ListItemIcon>
+                        <ListItemText primary='Playground' />
+                    </ListItemButton>
+                </ListItem>
+
+
             </List>
             <Divider />
             <Button onClick={() => navigate('/login')}>
