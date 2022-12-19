@@ -22,8 +22,9 @@ function* loginUser(action: any) {
         // get the user information from the server
         yield put({ type: 'FETCH_USER' });
     } catch (error) {
-        console.log('Error with user login:', error);
+        // console.log('Error with user login:', error);
         yield put({ type: 'LOGIN_FAILED' });
+        
         
     }
 }
@@ -35,11 +36,11 @@ function* logoutUser(action:any) {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
         };
-
         // the config includes credentials which
         // allow the server session to recognize the user
         // when the server recognizes the user session
         // it will end the session
+        console.log('in logout SAGA')
         yield axios.post('/api/user/logout', config);
 
         // now that the session has ended on the server

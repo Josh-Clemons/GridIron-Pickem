@@ -12,26 +12,35 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 
 export default function NavBar() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const store: any = useSelector(store => store);
 
     const [state, setState] = React.useState({ left: false });
 
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/home');
+    }
+
     const toggleDrawer = (open: boolean) =>
-            (event: React.KeyboardEvent | React.MouseEvent) => {
-                if (
-                    event.type === 'keydown' &&
-                    ((event as React.KeyboardEvent).key === 'Tab' ||
-                        (event as React.KeyboardEvent).key === 'Shift')
-                ) {
-                    return;
-                }
-                setState({left: open });
-            };
+        (event: React.KeyboardEvent | React.MouseEvent) => {
+            if (
+                event.type === 'keydown' &&
+                ((event as React.KeyboardEvent).key === 'Tab' ||
+                    (event as React.KeyboardEvent).key === 'Shift')
+            ) {
+                return;
+            }
+            setState({ left: open });
+        };
 
     const list = () => (
         <Box
@@ -50,22 +59,36 @@ export default function NavBar() {
                     </ListItemButton>
                 </ListItem>
 
+
+                {store.user.id
+                    ?
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => navigate('/playground')} >
+                            <ListItemIcon>
+                                {/* Find Icons I want */}
+                            </ListItemIcon>
+                            <ListItemText primary='Playground' />
+                        </ListItemButton>
+                    </ListItem>
+                    :
+                    <></>}
                 {/* Playground area for testing purposes */}
-                <ListItem disablePadding>
-                    <ListItemButton onClick={() => navigate('/playground')} >
-                        <ListItemIcon>
-                            {/* Find Icons I want */}
-                        </ListItemIcon>
-                        <ListItemText primary='Playground' />
-                    </ListItemButton>
-                </ListItem>
+
 
 
             </List>
             <Divider />
-            <Button onClick={() => navigate('/login')}>
-                Login
-            </Button>
+            {store.user.id ?
+                <Button onClick={() => logout()}>
+                    Logout
+                </Button>
+                :
+                <Button onClick={() => navigate('/login')}>
+                    Login
+                </Button>
+            }
+
+
             <Button onClick={() => navigate('/register')}>
                 Register
             </Button>

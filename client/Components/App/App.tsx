@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // components and pages
 import NavBar from '../NavBar/NavBar';
@@ -8,13 +10,18 @@ import LandingPage from '../LandingPage/LandingPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
 import Playground from '../Playground/Playground';
-import { useSelector } from 'react-redux';
+import UserDashboard from '../UserDashboard/UserDashboard';
 
 
 
 const App: React.FC = () => {
+    const dispatch = useDispatch();
 
-    const store = useSelector(store => store);
+    useEffect(() => {
+        dispatch({type: 'FETCH_USER'});
+    }, []);
+
+    const store: any = useSelector(store => store);
 
     return (
         <Router>
@@ -23,8 +30,9 @@ const App: React.FC = () => {
                 <Route path="/" element={<Navigate replace to="/home" />} />
                 <Route path='/home' element={<LandingPage />} />
                 <Route path='/register' element={<RegisterPage />} />
-                <Route path='/login' element={<LoginPage />} />
+                <Route path='/login' element={store.user.id ? <Navigate replace to="/playground" /> : <LoginPage />} />
                 <Route path='/playground' element={<Playground />} />
+                <Route path='/dashboard' element={<UserDashboard />} />
             </Routes>
             <Footer />
             {JSON.stringify(store)}

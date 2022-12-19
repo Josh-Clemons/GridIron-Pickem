@@ -50,12 +50,9 @@ userRouter.post('/login', userStrategy.authenticate('local'), (req: Request, res
 });
 
 // logout
-// userRouter.post("/logout", (req, res) => {
-//     console.log('in /logout get')
-//     try {
-//         req.logout();
-//     } catch (err) {
-//         console.log('error in logout: ', err)
-//         res.sendStatus(500);
-//     }
-// });
+userRouter.post('/logout', function (req, res, next) {
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        res.sendStatus(200);
+    });
+});

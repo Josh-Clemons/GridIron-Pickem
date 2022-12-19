@@ -22,6 +22,7 @@ function* fetchUser(): Generator<any, any, any> {
         yield put({ type: 'SET_USER', payload: response.data });
     } catch (error) {
         console.log('User get request failed', error);
+        yield put({ type: 'UNSET_USER' });
     }
 }
 

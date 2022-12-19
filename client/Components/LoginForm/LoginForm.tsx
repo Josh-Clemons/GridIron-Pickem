@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -23,16 +25,19 @@ export default function LoginForm() {
     const [password, setPassword] = React.useState<string>('');
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user: any = useSelector<any>(store => store.user);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
         const payload = {
             username: email,
             password: password
         }
 
         dispatch({ type: 'LOGIN', payload});
-
+        
     };
 
     return (
