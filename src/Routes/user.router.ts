@@ -1,5 +1,4 @@
-import express, { Router, Request, Response } from "express";
-import { nextTick } from "process";
+import { Router, Request, Response, NextFunction } from "express";
 const pool = require('../modules/pool');
 const encryptLib = require('../modules/encryption');
 const userStrategy = require('../strategies/user.strategy')
@@ -22,7 +21,7 @@ userRouter.get('/', rejectUnauthenticated, (req: Request, res: Response) => {
 
 });
 
-// register a new user
+// register
 userRouter.post('/register', async (req: Request, res: Response) => {
     const { username, password } = req?.body;
     const hashedPassword: string = encryptLib.encryptPassword(req.body.password);
@@ -37,7 +36,7 @@ userRouter.post('/register', async (req: Request, res: Response) => {
     pool.query(`INSERT INTO "user" ("username", "password") VALUES ($1, $2)`, [username, hashedPassword])
         .then((results: any) => {
             res.sendStatus(200)
-        }).catch((error: any) => {
+        }).catch((error: Error) => {
             console.log('error in REGISTERING', error);
             res.sendStatus(500);
         });
@@ -50,8 +49,8 @@ userRouter.post('/login', userStrategy.authenticate('local'), (req: Request, res
 });
 
 // logout
-userRouter.post('/logout', function (req, res, next) {
-    req.logout(function (err) {
+userRouter.post('/logout', function (req: Request, res: Response, next: NextFunction) {
+    req.logout(function (err: Error) {
         if (err) { return next(err); }
         res.sendStatus(200);
     });

@@ -11,7 +11,6 @@ const Playground: React.FC = () => {
     }, []);
 
     async function handleClick() {
-        console.log('in handle click');
         try {
             let users = await axios.get('/api/user');
             console.log('users in handle click get: ', users.data);
