@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 
 // components and pages
 import NavBar from '../NavBar/NavBar';
+import Footer from '../Footer/Footer';
 import LandingPage from '../LandingPage/LandingPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -19,6 +20,7 @@ const App: React.FC = () => {
                 <Route path='/register' element={<RegisterPage />} />
                 <Route path='/login' element={<LoginPage />} />
             </Routes>
+            <Footer />
         </Router>
     );
 };
