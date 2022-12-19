@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const Playground: React.FC = () => {
+    const dispatch = useDispatch();
     const [numCounter, setNumCounter] = useState<number>(0);
-    
-    
+
+    useEffect(() => {
+        dispatch({type: 'FETCH_USER'})
+    }, []);
+
     async function handleClick() {
         console.log('in handle click');
         try {
