@@ -3,7 +3,6 @@ import axios from 'axios';
 
 // worker Saga: will be fired on "LOGIN" actions
 function* loginUser(action: any) {
-    console.log('in loginUser saga, action.payload:', action.payload)
     try {
         // clear any existing error on the login page
         yield put({ type: 'CLEAR_LOGIN_ERROR' });
@@ -40,7 +39,6 @@ function* logoutUser(action:any) {
         // allow the server session to recognize the user
         // when the server recognizes the user session
         // it will end the session
-        console.log('in logout SAGA')
         yield axios.post('/api/user/logout', config);
 
         // now that the session has ended on the server

@@ -11,9 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
-
+import { UserInterface } from '../../../src/interfaces/UserInterface';
 
 
 export default function RegisterForm() {
@@ -29,13 +27,12 @@ export default function RegisterForm() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const payload = {
+        const payload: UserInterface  = {
             username: email,
             password: password
         }
 
-        // todo: update this dispatch for register
-        // dispatch({ type: 'LOGIN', payload});
+        dispatch({ type: 'REGISTER', payload});
         
     };
 
@@ -69,7 +66,7 @@ export default function RegisterForm() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <TextField
+                        {/* <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -79,7 +76,7 @@ export default function RegisterForm() {
                             autoFocus
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
-                        />
+                        /> */}
                         <TextField
                             margin="normal"
                             required

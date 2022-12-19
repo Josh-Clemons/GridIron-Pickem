@@ -18,7 +18,7 @@ const App: React.FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch({type: 'FETCH_USER'});
+        dispatch({ type: 'FETCH_USER' });
     }, []);
 
     const store: any = useSelector(store => store);
@@ -29,8 +29,8 @@ const App: React.FC = () => {
             <Routes>
                 <Route path="/" element={<Navigate replace to="/home" />} />
                 <Route path='/home' element={<LandingPage />} />
-                <Route path='/register' element={<RegisterPage />} />
-                <Route path='/login' element={store.user.id ? <Navigate replace to="/playground" /> : <LoginPage />} />
+                <Route path='/register' element={store.user.id ? <Navigate replace to="/home" /> : <RegisterPage />} />
+                <Route path='/login' element={store.user.id ? <Navigate replace to="/home" /> : <LoginPage />} />
                 <Route path='/playground' element={<Playground />} />
                 <Route path='/dashboard' element={<UserDashboard />} />
             </Routes>
