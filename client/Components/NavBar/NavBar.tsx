@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Toolbar, IconButton, Typography } from '@mui/material';
 
 import Box from '@mui/material/Box';
+import DangerousIcon from '@mui/icons-material/Dangerous';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
+import HomeIcon from '@mui/icons-material/Home';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -53,7 +55,7 @@ export default function NavBar() {
                 <ListItem disablePadding>
                     <ListItemButton onClick={() => navigate('/home')} >
                         <ListItemIcon>
-                            {/* Find Icons I want */}
+                            <HomeIcon />
                         </ListItemIcon>
                         <ListItemText primary='Home' />
                     </ListItemButton>
@@ -65,16 +67,13 @@ export default function NavBar() {
                     <ListItem disablePadding>
                         <ListItemButton onClick={() => navigate('/playground')} >
                             <ListItemIcon>
-                                {/* Find Icons I want */}
+                                <DangerousIcon />
                             </ListItemIcon>
                             <ListItemText primary='Playground' />
                         </ListItemButton>
                     </ListItem>
                     :
                     <></>}
-                {/* Playground area for testing purposes */}
-
-
 
             </List>
             <Divider />
@@ -83,15 +82,16 @@ export default function NavBar() {
                     Logout
                 </Button>
                 :
-                <Button onClick={() => navigate('/login')}>
-                    Login
-                </Button>
+                <>
+                    <Button onClick={() => navigate('/login')}>
+                        Login
+                    </Button>
+                    <Button onClick={() => navigate('/register')}>
+                        Register
+                    </Button>
+                </>
             }
 
-
-            <Button onClick={() => navigate('/register')}>
-                Register
-            </Button>
             {/* todo: Add login and register buttons here? */}
         </Box>
     );
