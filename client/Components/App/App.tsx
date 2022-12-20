@@ -3,6 +3,8 @@ import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
+import './App.css';
+
 // components and pages
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
@@ -24,19 +26,21 @@ const App: React.FC = () => {
     const store: any = useSelector(store => store);
 
     return (
-        <Router>
-            <NavBar />
-            <Routes>
-                <Route path="/" element={<Navigate replace to="/home" />} />
-                <Route path='/home' element={<LandingPage />} />
-                <Route path='/register' element={store.user.id ? <Navigate replace to="/home" /> : <RegisterPage />} />
-                <Route path='/login' element={store.user.id ? <Navigate replace to="/home" /> : <LoginPage />} />
-                <Route path='/playground' element={<Playground />} />
-                <Route path='/dashboard' element={<UserDashboard />} />
-            </Routes>
-            <Footer />
-            {JSON.stringify(store)}
-        </Router>
+        <div className='appDiv'>
+            <Router>
+                <NavBar />
+                <Routes>
+                    <Route path="/" element={<Navigate replace to="/home" />} />
+                    <Route path='/home' element={<LandingPage />} />
+                    <Route path='/register' element={store.user.id ? <Navigate replace to="/home" /> : <RegisterPage />} />
+                    <Route path='/login' element={store.user.id ? <Navigate replace to="/home" /> : <LoginPage />} />
+                    <Route path='/playground' element={<Playground />} />
+                    <Route path='/dashboard' element={<UserDashboard />} />
+                </Routes>
+                <Footer />
+                {JSON.stringify(store)}
+            </Router>
+        </div>
     );
 };
 

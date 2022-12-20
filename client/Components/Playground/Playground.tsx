@@ -6,10 +6,6 @@ const Playground: React.FC = () => {
     const dispatch = useDispatch();
     const [numCounter, setNumCounter] = useState<number>(0);
 
-    useEffect(() => {
-        dispatch({type: 'FETCH_USER'})
-    }, []);
-
     async function handleClick() {
         try {
             let users = await axios.get('/api/user');
