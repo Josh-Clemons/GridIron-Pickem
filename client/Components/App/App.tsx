@@ -38,7 +38,7 @@ const App: React.FC = () => {
                     <Route path='/dashboard' element={<UserDashboard />} />
                 </Routes>
                 <Footer />
-                {JSON.stringify(store)}
+                {/* {JSON.stringify(store)} */}
             </Router>
         </div>
     );
