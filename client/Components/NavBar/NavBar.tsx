@@ -2,18 +2,20 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Toolbar, IconButton, Typography } from '@mui/material';
 
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Box from '@mui/material/Box';
-import DangerousIcon from '@mui/icons-material/Dangerous';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
+import GridViewIcon from '@mui/icons-material/GridView';
 import HomeIcon from '@mui/icons-material/Home';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -61,22 +63,51 @@ export default function NavBar() {
                     </ListItemButton>
                 </ListItem>
 
+                {store.user.id
+                    ?
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => navigate('/dashboard')} >
+                            <ListItemIcon>
+                                <GridViewIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='My Dashboard' />
+                        </ListItemButton>
+                    </ListItem>
+                    :
+                    null
+                }
 
                 {store.user.id
                     ?
                     <ListItem disablePadding>
-                        <ListItemButton onClick={() => navigate('/playground')} >
+                        <ListItemButton onClick={() => navigate('/find')} >
                             <ListItemIcon>
-                                <DangerousIcon />
+                                <SearchIcon />
                             </ListItemIcon>
-                            <ListItemText primary='Playground' />
+                            <ListItemText primary='Find a League' />
                         </ListItemButton>
                     </ListItem>
                     :
-                    <></>}
+                    null
+                }
+
+                {store.user.id
+                    ?
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => navigate('/create')} >
+                            <ListItemIcon>
+                                <AddCircleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='Create a League' />
+                        </ListItemButton>
+                    </ListItem>
+                    :
+                    null
+                }
 
             </List>
             <Divider />
+
             {store.user.id ?
                 <Button onClick={() => logout()}>
                     Logout
@@ -107,7 +138,7 @@ export default function NavBar() {
                         edge="start"
                         onClick={toggleDrawer(true)}
                     >
-                        <MenuIcon sx={{ fontSize: "35px" }}/>
+                        <MenuIcon sx={{ fontSize: "35px" }} />
                     </IconButton>
                     <Typography variant="h5" noWrap component="div">
                         Grid Iron Pickem

@@ -6,16 +6,20 @@
     [] style navbar for mobile
 [] create routes
 [] Login Form
-    [] component
+    [x] component
     [x] routes
-    [] user authentication (review solo-first-look and Passport)
+    [x] user authentication (review solo-first-look and Passport)
     [] data validation
         [] update alerts
         [] check that all errors are handled
 [] Register user form
-    [] component
+    [x] component
     [x] POST route
-    [] auto-login when registering
+    [x] auto-login when registering
     [] data validation
         [] update alerts
         [] check that all errors are handled
+
+
+Misc items:
+set footer to sticky on bottom of page

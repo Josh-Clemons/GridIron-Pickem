@@ -11,10 +11,9 @@ import Footer from '../Footer/Footer';
 import LandingPage from '../LandingPage/LandingPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
-import Playground from '../Playground/Playground';
 import UserDashboard from '../UserDashboard/UserDashboard';
-
-
+import FindLeaguePage from '../FindLeaguePage/FindLeaguePage';
+import CreateLeaguePage from '../CreateLeaguePage/CreateLeaguePage';
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
@@ -32,10 +31,11 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<Navigate replace to="/home" />} />
                     <Route path='/home' element={<LandingPage />} />
-                    <Route path='/register' element={store.user.id ? <Navigate replace to="/home" /> : <RegisterPage />} />
-                    <Route path='/login' element={store.user.id ? <Navigate replace to="/home" /> : <LoginPage />} />
-                    <Route path='/playground' element={<Playground />} />
-                    <Route path='/dashboard' element={<UserDashboard />} />
+                    <Route path='/register' element={store.user.id ? <Navigate replace to="/dashboard" /> : <RegisterPage />} />
+                    <Route path='/login' element={store.user.id ? <Navigate replace to="/dashboard" /> : <LoginPage />} />
+                    <Route path='/dashboard' element={store.user.id ? <UserDashboard /> : <Navigate replace to="/login" />} />
+                    <Route path='/find' element={store.user.id ? <FindLeaguePage /> : <Navigate replace to="/login" />} />
+                    <Route path='/create' element={store.user.id ? <CreateLeaguePage /> : <Navigate replace to="/login" />} />
                 </Routes>
                 <Footer />
                 {/* {JSON.stringify(store)} */}
