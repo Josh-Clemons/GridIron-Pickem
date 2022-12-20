@@ -8,6 +8,7 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
+import GridViewIcon from '@mui/icons-material/GridView';
 import HomeIcon from '@mui/icons-material/Home';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -73,7 +74,22 @@ export default function NavBar() {
                         </ListItemButton>
                     </ListItem>
                     :
-                    <></>}
+                    <></>
+                }
+
+                {store.user.id
+                    ?
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => navigate('/dashboard')} >
+                            <ListItemIcon>
+                                <GridViewIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='My Dashboard' />
+                        </ListItemButton>
+                    </ListItem>
+                    :
+                    <></>
+                }
 
             </List>
             <Divider />
@@ -107,7 +123,7 @@ export default function NavBar() {
                         edge="start"
                         onClick={toggleDrawer(true)}
                     >
-                        <MenuIcon sx={{ fontSize: "35px" }}/>
+                        <MenuIcon sx={{ fontSize: "35px" }} />
                     </IconButton>
                     <Typography variant="h5" noWrap component="div">
                         Grid Iron Pickem
