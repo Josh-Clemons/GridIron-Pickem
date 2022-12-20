@@ -1,24 +1,39 @@
 import React from 'react';
-import { teal } from '@mui/material/colors';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import bgImg from '/public/football_player_shadow.jpeg';
-
-const color = teal[50];
 
 
 
 
 const LandingPage = () => {
     return (
-        <div
+        <Box
             className='landingPageDiv'
-            style={{
+            sx={{
                 backgroundImage: `url(${bgImg})`,
                 backgroundSize: "cover",
-                height: "70vh"
+                height: "80vh",
+                borderRadius: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
+                padding: "10px",
+                textAlign: "center"
             }}
         >
-            LandingPage
-        </div>
+            <h2 style={{ backgroundColor: "black", borderRadius: 4 }}>Pick NFL Winners Against Your Friends!</h2>
+            <br />
+            <br />
+            <Stack spacing={1} direction="column">
+                <Button variant="contained" color="success" href="#/login" sx={{ width: "250px" }}>Login</Button>
+                <Button variant="contained" color="info" href="#/register" sx={{ width: "250px" }}>Register</Button>
+                <Button variant="contained" href="#/rules" sx={{ width: "250px", bgcolor: "darkgray", color: "white" }}>Rules</Button>
+            </Stack>
+        </Box>
     )
 }
 
