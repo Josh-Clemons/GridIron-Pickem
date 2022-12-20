@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 const pool = require('../modules/pool');
 const encryptLib = require('../modules/encryption');
-const userStrategy = require('../strategies/user.strategy')
+const userStrategy = require('../strategies/strategies')
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 

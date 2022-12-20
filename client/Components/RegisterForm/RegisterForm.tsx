@@ -17,7 +17,7 @@ import { UserInterface } from '../../../src/interfaces/UserInterface';
 export default function RegisterForm() {
 
 
-    const [email , setEmail] = React.useState<string>('');
+    const [email, setEmail] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
     const [displayName, setDisplayName] = React.useState<string>('');
 
@@ -27,46 +27,51 @@ export default function RegisterForm() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const payload: UserInterface  = {
+        const payload: UserInterface = {
             username: email,
             password: password
         }
 
-        dispatch({ type: 'REGISTER', payload});
-        
+        if (payload.username !== '' || payload.password !== '') {
+            dispatch({ type: 'REGISTER', payload });
+        } else {
+            // todo: create react/sweet alert
+            alert('Complete all fields');
+        }
+
     };
 
     return (
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'primary', width: 56, height: 56}}>
-                        <LockOpenIcon sx={{ fontSize: "30px" }} />
-                    </Avatar>
-                    <Typography component="h1" variant="h4">
-                        Register New User
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        {/* <TextField
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'primary', width: 56, height: 56 }}>
+                    <LockOpenIcon sx={{ fontSize: "30px" }} />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Register New User
+                </Typography>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    {/* <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -77,35 +82,35 @@ export default function RegisterForm() {
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
                         /> */}
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Register
-                        </Button>
-                        <Grid container>
-                            <Grid item>
-                                <Link href="#/login" variant="body1">
-                                    {"Already have an account? Sign in."}
-                                </Link>
-                            </Grid>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Register
+                    </Button>
+                    <Grid container>
+                        <Grid item>
+                            <Link href="#/login" variant="body1">
+                                {"Already have an account? Sign in."}
+                            </Link>
                         </Grid>
-                    </Box>
+                    </Grid>
                 </Box>
-            </Container>
+            </Box>
+        </Container>
     );
 }

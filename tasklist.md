@@ -1,6 +1,6 @@
 [x] setup and test DB
-[] setup navbar - simple
-    [] login/logout
+[x] setup navbar - simple
+    [x] login/logout
     [] My Leagues
     [] About
     [] style navbar for mobile
@@ -9,7 +9,13 @@
     [] component
     [x] routes
     [] user authentication (review solo-first-look and Passport)
+    [] data validation
+        [] update alerts
+        [] check that all errors are handled
 [] Register user form
     [] component
     [x] POST route
     [] auto-login when registering
+    [] data validation
+        [] update alerts
+        [] check that all errors are handled

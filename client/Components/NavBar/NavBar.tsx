@@ -107,9 +107,9 @@ export default function NavBar() {
                         edge="start"
                         onClick={toggleDrawer(true)}
                     >
-                        <MenuIcon />
+                        <MenuIcon sx={{ fontSize: "35px" }}/>
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography variant="h5" noWrap component="div">
                         Grid Iron Pickem
                     </Typography>
                 </Toolbar>
