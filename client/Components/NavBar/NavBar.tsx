@@ -15,6 +15,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -74,7 +75,7 @@ export default function NavBar() {
                         </ListItemButton>
                     </ListItem>
                     :
-                    <></>
+                    null
                 }
 
                 {store.user.id
@@ -88,11 +89,26 @@ export default function NavBar() {
                         </ListItemButton>
                     </ListItem>
                     :
-                    <></>
+                    null
+                }
+
+                {store.user.id
+                    ?
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => navigate('/find')} >
+                            <ListItemIcon>
+                                <SearchIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='Find New League' />
+                        </ListItemButton>
+                    </ListItem>
+                    :
+                    null
                 }
 
             </List>
             <Divider />
+
             {store.user.id ?
                 <Button onClick={() => logout()}>
                     Logout

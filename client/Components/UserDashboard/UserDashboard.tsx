@@ -1,4 +1,6 @@
 import React from 'react';
+// import CreateLeagueButton from '../CreateLeagueButton/CreateLeagueButton';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -18,7 +20,7 @@ const UserDashboard: React.FC = () => {
                 justifyContent: "center"
             }}
         >
-            <Typography variant="h4">My Leagues</Typography>
+            <Typography variant="h4">My Dashboard</Typography>
             <Box 
                 width={"100%"} 
                 height={"75vh"}
@@ -40,6 +42,7 @@ const UserDashboard: React.FC = () => {
                 </Box>
                 <Stack spacing={1} direction="column">
                     <Button variant="contained" color="primary" href="#/find" sx={{ width: "250px" }}>Find League</Button>
+                    {/* <CreateLeagueButton /> */}
                     <Button variant="contained" color="warning" href="#/create" sx={{ width: "250px" }}>Create League</Button>
                 </Stack>
             </Box>
