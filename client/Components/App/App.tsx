@@ -11,7 +11,6 @@ import Footer from '../Footer/Footer';
 import LandingPage from '../LandingPage/LandingPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
-import Playground from '../Playground/Playground';
 import UserDashboard from '../UserDashboard/UserDashboard';
 import FindLeaguePage from '../FindLeaguePage/FindLeaguePage';
 import CreateLeaguePage from '../CreateLeaguePage/CreateLeaguePage';
@@ -34,7 +33,6 @@ const App: React.FC = () => {
                     <Route path='/home' element={<LandingPage />} />
                     <Route path='/register' element={store.user.id ? <Navigate replace to="/dashboard" /> : <RegisterPage />} />
                     <Route path='/login' element={store.user.id ? <Navigate replace to="/dashboard" /> : <LoginPage />} />
-                    <Route path='/playground' element={store.user.id ? <Playground /> : <Navigate replace to="/login" />} />
                     <Route path='/dashboard' element={store.user.id ? <UserDashboard /> : <Navigate replace to="/login" />} />
                     <Route path='/find' element={store.user.id ? <FindLeaguePage /> : <Navigate replace to="/login" />} />
                     <Route path='/create' element={store.user.id ? <CreateLeaguePage /> : <Navigate replace to="/login" />} />

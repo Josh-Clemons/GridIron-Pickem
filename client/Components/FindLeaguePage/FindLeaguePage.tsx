@@ -25,7 +25,7 @@ const FindLeaguePage = () => {
                     <li>Placeholder: league 3</li>
                 </ul>
             </Box>
-            <Button variant="contained" color="info" href="#/dashboard" sx={{ width: "250px" }}>Back to My Leagues</Button>
+            <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>Back to My Leagues</Button>
         </Container>
     )
 }

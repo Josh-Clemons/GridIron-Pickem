@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Toolbar, IconButton, Typography } from '@mui/material';
 
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Box from '@mui/material/Box';
-import DangerousIcon from '@mui/icons-material/Dangerous';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
@@ -63,21 +63,6 @@ export default function NavBar() {
                     </ListItemButton>
                 </ListItem>
 
-
-                {store.user.id
-                    ?
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => navigate('/playground')} >
-                            <ListItemIcon>
-                                <DangerousIcon />
-                            </ListItemIcon>
-                            <ListItemText primary='Playground' />
-                        </ListItemButton>
-                    </ListItem>
-                    :
-                    null
-                }
-
                 {store.user.id
                     ?
                     <ListItem disablePadding>
@@ -99,7 +84,21 @@ export default function NavBar() {
                             <ListItemIcon>
                                 <SearchIcon />
                             </ListItemIcon>
-                            <ListItemText primary='Find New League' />
+                            <ListItemText primary='Find a League' />
+                        </ListItemButton>
+                    </ListItem>
+                    :
+                    null
+                }
+
+                {store.user.id
+                    ?
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => navigate('/create')} >
+                            <ListItemIcon>
+                                <AddCircleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='Create a League' />
                         </ListItemButton>
                     </ListItem>
                     :

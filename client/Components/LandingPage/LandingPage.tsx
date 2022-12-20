@@ -48,7 +48,7 @@ const LandingPage = () => {
                 :
                 <>
                     <Button variant="contained" color="success" href="#/dashboard" sx={{ width: "250px" }}>My Dashboard</Button>
-                    <Button variant="contained" color="warning" onClick={logout} sx={{ width: "250px" }}>Logout</Button>
+                    <Button variant="contained" color="error" onClick={logout} sx={{ width: "250px" }}>Logout</Button>
                 </>
                 }
                 
