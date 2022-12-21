@@ -9,9 +9,9 @@ export const userRouter = Router();
 
 
 // get route for all user info
-userRouter.get('/user', rejectUnauthenticated, (req: Request, res: Response) => {
+userRouter.get('/user', rejectUnauthenticated, (req: any, res: Response) => {
     console.log('in router.get');
-    pool.query('SELECT * FROM "user";').then((results: any) => {
+    pool.query('SELECT * FROM "user" WHERE "id"=$1;', [req.user.id]).then((results: any) => {
         console.log('results.data', results.rows);
         res.send(req.user);
     }).catch((error: any) => {

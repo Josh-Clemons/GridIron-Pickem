@@ -1,28 +1,39 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-// worker Saga: will be fired on "league" actions
 function* createLeague(action: any) {
-
-    // try {
-
-    // // passes the username and password from the payload to the server
-    // yield axios.post('/api/user/register', action.payload);
-
-    //     // automatically log a user in after registration
-    //     yield put({ type: 'LOGIN', payload: action.payload });
-
     try {
-        console.log('in createLeague Saga, action.payload: ', { name: action.payload });
-        yield axios.post('/api/league/create', action.payload);
+        // creates league
+        yield axios.post('/api/league/create', action.payload)
 
+        // gets the newest league created by the user and sets to redux
+        const newLeague: any = yield axios.get('/api/league/newest');
+        yield put({ type: 'SET_NEW_LEAGUE', payload: newLeague.data});
+
+        //todo: add post for new picks
+
+        // fetches leagues
+        yield put({ type: 'FETCH_LEAGUES' });
     } catch (error) {
         console.log('Error in createLeague Saga', error);
     };
 }
 
+function* fetchLeagues(action: any) {
+    try {
+        const leagues: any = yield axios.get('/api/league/');
+        yield put({ type: 'SET_LEAGUES', payload: leagues.data })
+    } catch (error) {
+        console.log('error in fetchLeagues', error);
+    };
+};
+
+
+
+
 function* leagueSaga() {
     yield takeLatest('CREATE_LEAGUE', createLeague);
+    yield takeLatest('FETCH_LEAGUES', fetchLeagues);
 }
 
 export default leagueSaga;

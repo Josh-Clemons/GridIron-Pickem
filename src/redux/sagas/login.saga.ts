@@ -20,16 +20,17 @@ function* loginUser(action: any) {
         // after the user has logged in
         // get the user information from the server
         yield put({ type: 'FETCH_USER' });
+        yield put({ type: 'FETCH_LEAGUES' });
     } catch (error) {
         // console.log('Error with user login:', error);
         yield put({ type: 'LOGIN_FAILED' });
-        
-        
+
+
     }
 }
 
 // worker Saga: will be fired on "LOGOUT" actions
-function* logoutUser(action:any) {
+function* logoutUser(action: any) {
     try {
         const config = {
             headers: { 'Content-Type': 'application/json' },
