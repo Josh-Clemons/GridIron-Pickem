@@ -21,7 +21,17 @@ const newLeague = (state = [], action: any) => {
     };
 };
 
+const leagueDetail = (state = [], action: any) => {
+    switch (action.type) {
+        case 'SET_LEAGUE_DETAIL':
+            return action.payload.data;
+        default:
+            return state;
+    };
+};
+
 export default combineReducers({
     userLeagues,
-    newLeague
+    newLeague,
+    leagueDetail
 });

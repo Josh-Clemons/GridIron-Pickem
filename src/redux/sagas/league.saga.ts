@@ -8,8 +8,8 @@ function* createLeague(action: any) {
 
         // gets the newest league created by the user and sets to redux
         const newLeague: any = yield axios.get('/api/league/newest');
-        yield put({ type: 'SET_NEW_LEAGUE', payload: newLeague.data});
-        
+        yield put({ type: 'SET_NEW_LEAGUE', payload: newLeague.data });
+
         // joins commissioner to league when they create it
         yield axios.post('/api/pick/create/' + newLeague.data[0].id, newLeague.data[0].id);
 
@@ -29,12 +29,22 @@ function* fetchLeagues(action: any) {
     };
 };
 
+function* fetchLeagueDetail(action: any) {
+    try {
+        // console.log('in fetch league detail, testing payload', action.payload);
+        const leagueDetail: any = yield axios.get('/api/league/' + action.payload)
+        yield put({ type: 'SET_LEAGUE_DETAIL', payload: leagueDetail })
 
+    } catch (error) {
+        console.log('error in fetch league details', error);
+    };
+};
 
 
 function* leagueSaga() {
     yield takeLatest('CREATE_LEAGUE', createLeague);
     yield takeLatest('FETCH_LEAGUES', fetchLeagues);
+    yield takeLatest('FETCH_LEAGUE_DETAIL', fetchLeagueDetail);
 }
 
 export default leagueSaga;

@@ -25,6 +25,25 @@ leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => 
     })
 });
 
+// get league details for current league user is visiting
+leagueRouter.get('/league/:id', rejectUnauthenticated, (req: any, res: Response) => {
+    const leagueId = req.params.id;
+    const queryText = `
+        SELECT "user"."username", "league"."league_name", "picks"."week", "picks"."amount", "picks"."team" FROM "user"
+        JOIN "picks" ON "picks"."user_id" = "user"."id"
+        JOIN "league" ON "league"."id" = "picks"."league_id"
+        WHERE "picks"."league_id" = $1;
+    `
+
+    pool.query(queryText, [leagueId]).then((results: any) => {
+        res.send(results.rows);
+    }).catch((error: any) => {
+        console.log('error in league detail query', error);
+        res.sendStatus(500);
+    });
+});
+
+
 // get newest league
 leagueRouter.get('/league/newest', rejectUnauthenticated, (req: any, res: Response) => {
     const userId: number = req.user.id;

@@ -13,8 +13,8 @@ const UserDashboard: React.FC = () => {
     const store:any = useSelector(store => store)
     const myLeagues:any = store.leagues.userLeagues;
 
+    // redirects to league detail page when a user clicks on a league item
     const leagueClick = (league) => {
-        console.log('in leagueClick, league details:', league);
         navigate(`/detail/${league.league_id}`)
     };
 
