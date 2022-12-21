@@ -4,13 +4,22 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const CreateLeaguePage = () => {
-    const [leagueName, setLeagueName ] = useState('')
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    // input state tracking
+    const [leagueName, setLeagueName] = useState('');
+
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         console.log('in create league handle submit, league name:', leagueName);
+        // through this dispatch chain, league is created, user is added as a member, redux is updated
+        dispatch({ type: 'CREATE_LEAGUE', payload: leagueName });
+        navigate('/dashboard');
     };
 
     return (

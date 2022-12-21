@@ -9,9 +9,9 @@ export const userRouter = Router();
 
 
 // get route for all user info
-userRouter.get('/', rejectUnauthenticated, (req: Request, res: Response) => {
+userRouter.get('/user', rejectUnauthenticated, (req: any, res: Response) => {
     console.log('in router.get');
-    pool.query('SELECT * FROM "user";').then((results: any) => {
+    pool.query('SELECT * FROM "user" WHERE "id"=$1;', [req.user.id]).then((results: any) => {
         console.log('results.data', results.rows);
         res.send(req.user);
     }).catch((error: any) => {
@@ -22,7 +22,7 @@ userRouter.get('/', rejectUnauthenticated, (req: Request, res: Response) => {
 });
 
 // register
-userRouter.post('/register', async (req: Request, res: Response) => {
+userRouter.post('/user/register', async (req: Request, res: Response) => {
     const { username, password } = req?.body;
     const hashedPassword: string = encryptLib.encryptPassword(req.body.password);
 
@@ -43,13 +43,13 @@ userRouter.post('/register', async (req: Request, res: Response) => {
 });
 
 // login
-userRouter.post('/login', userStrategy.authenticate('local'), (req: Request, res: Response) => {
+userRouter.post('/user/login', userStrategy.authenticate('local'), (req: Request, res: Response) => {
     console.log('in post /login, req.body:', req.body);
     res.sendStatus(200);
 });
 
 // logout
-userRouter.post('/logout', function (req: Request, res: Response, next: NextFunction) {
+userRouter.post('/user/logout', function (req: Request, res: Response, next: NextFunction) {
     req.logout(function (err: Error) {
         if (err) { return next(err); }
         res.sendStatus(200);
