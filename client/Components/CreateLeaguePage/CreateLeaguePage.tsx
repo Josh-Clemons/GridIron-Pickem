@@ -4,13 +4,16 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useDispatch } from 'react-redux';
 
 const CreateLeaguePage = () => {
-    const [leagueName, setLeagueName ] = useState('')
+    const dispatch = useDispatch();
+    const [leagueName, setLeagueName] = useState('')
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         console.log('in create league handle submit, league name:', leagueName);
+        dispatch({ type: 'CREATE_LEAGUE', payload: leagueName })
     };
 
     return (

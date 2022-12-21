@@ -5,9 +5,7 @@ import cors from 'cors';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-import bcrypt from 'bcryptjs';
-import dotenv from 'dotenv';
-const pool = require('./modules/pool');
+const bodyParser = require('body-parser');
 
 
 // Middleware
@@ -22,15 +20,17 @@ app.use(
     })
 );
 app.use(cookieParser());
+// Body parser middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// start passport up
 app.use(passport.initialize());
 app.use(passport.session());
 
-// importing routers
-const userRouter = require('./Routes/user.router');
 
 /* Routes */
-app.use('/api/user', routes);
-
+app.use('/api', routes);
 
 
 
