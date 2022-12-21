@@ -9,8 +9,9 @@ function* createLeague(action: any) {
         // gets the newest league created by the user and sets to redux
         const newLeague: any = yield axios.get('/api/league/newest');
         yield put({ type: 'SET_NEW_LEAGUE', payload: newLeague.data});
-
-        //todo: add post for new picks
+        
+        // joins commissioner to league when they create it
+        yield axios.post('/api/pick/create/' + newLeague.data[0].id, newLeague.data[0].id);
 
         // fetches leagues
         yield put({ type: 'FETCH_LEAGUES' });

@@ -8,8 +8,8 @@ export const pickRouter = Router();
 
 // creates all picks for a user when they join the league
 
-pickRouter.post('/pick/create/:leagueId', rejectUnauthenticated, (req: any, res: Response) => {
-    const leagueId: number = req.params.leagueId;
+pickRouter.post('/pick/create/:id', rejectUnauthenticated, (req: any, res: Response) => {
+    const leagueId: number = req.params.id;
     const userId: number = req.user.id;
 
     const queryText = `

@@ -1,13 +1,21 @@
-import React from 'react';
-// import CreateLeagueButton from '../CreateLeagueButton/CreateLeagueButton';
-
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useSelector } from 'react-redux';
+import LeagueItem from '../LeagueItem/LeagueItem';
 
 const UserDashboard: React.FC = () => {
+
+    const store:any = useSelector(store => store)
+    const myLeagues:any = store.leagues.userLeagues;
+
+    const leagueClick = (league) => {
+        console.log('in leagueClick, league details:', league);
+    };
+
     return (
 
         <Container
@@ -34,15 +42,18 @@ const UserDashboard: React.FC = () => {
             >
 
                 <Box height={"300px"} sx={{ backgroundColor: "white" }} mb={"20px"} >
-                    <ul style={{ width: "70vw" }} >My Leagues:
-                        <li>Placeholder: League 1</li>
-                        <li>Placeholder: League 2</li>
-                        <li>Placeholder: league 3</li>
-                    </ul>
+                    {myLeagues.map( league => {
+                        return (
+                            <div onClick={() => {leagueClick(league)}} key={league.league_id}>
+                                <LeagueItem league={league}/>
+                            </div>
+                        )
+
+                        
+                    })}
                 </Box>
                 <Stack spacing={1} direction="column">
                     <Button variant="contained" color="primary" href="#/find" sx={{ width: "250px" }}>Find League</Button>
-                    {/* <CreateLeagueButton /> */}
                     <Button variant="contained" color="warning" href="#/create" sx={{ width: "250px" }}>Create League</Button>
                 </Stack>
             </Box>
