@@ -65,7 +65,7 @@ leagueRouter.get('/league/detail/:id', rejectUnauthenticated, (req: any, res: Re
 leagueRouter.get('/league/users/:id', rejectUnauthenticated, (req: any, res: Response) => {
     const leagueId = req.params.id;
     const queryText: string = `
-        SELECT "user"."username" FROM "user"
+        SELECT "user"."id", "user"."username" FROM "user"
         JOIN "picks" ON "picks"."user_id"= "user"."id"
         WHERE "picks"."league_id" = $1
         GROUP BY 1;
