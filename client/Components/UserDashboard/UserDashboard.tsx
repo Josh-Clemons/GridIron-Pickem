@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -6,14 +6,16 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import LeagueItem from '../LeagueItem/LeagueItem';
+import { useNavigate } from 'react-router-dom';
 
 const UserDashboard: React.FC = () => {
-
+    const navigate = useNavigate();
     const store:any = useSelector(store => store)
     const myLeagues:any = store.leagues.userLeagues;
 
     const leagueClick = (league) => {
         console.log('in leagueClick, league details:', league);
+        navigate(`/detail/${league.league_id}`)
     };
 
     return (

@@ -14,12 +14,14 @@ import LoginPage from '../LoginPage/LoginPage';
 import UserDashboard from '../UserDashboard/UserDashboard';
 import FindLeaguePage from '../FindLeaguePage/FindLeaguePage';
 import CreateLeaguePage from '../CreateLeaguePage/CreateLeaguePage';
+import LeagueDetailsPage from '../LeagueDetailsPage/LeagueDetailsPage';
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch({ type: 'FETCH_USER' });
+        dispatch({ type: 'FETCH_LEAGUES'});
     }, []);
 
     const store: any = useSelector(store => store);
@@ -36,6 +38,7 @@ const App: React.FC = () => {
                     <Route path='/dashboard' element={store.user.id ? <UserDashboard /> : <Navigate replace to="/login" />} />
                     <Route path='/find' element={store.user.id ? <FindLeaguePage /> : <Navigate replace to="/login" />} />
                     <Route path='/create' element={store.user.id ? <CreateLeaguePage /> : <Navigate replace to="/login" />} />
+                    <Route path='/detail/:id' element={store.user.id ? <LeagueDetailsPage /> : <Navigate replace to="/login" />} />
                 </Routes>
                 <Footer />
                 {/* {JSON.stringify(store)} */}
