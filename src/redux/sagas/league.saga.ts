@@ -19,7 +19,7 @@ function* createLeague(action: any) {
     } catch (error) {
         console.log('Error in createLeague Saga', error);
     };
-}
+};
 
 function* fetchLeagues(action: any) {
     try {
@@ -29,6 +29,17 @@ function* fetchLeagues(action: any) {
         console.log('error in fetchLeagues', error);
     };
 };
+
+// gets leagues that are available for a user to join from DB/router
+function* fetchAvailableLeagues(action: any) {
+    try {
+        const availableLeagues: any = yield axios.get('/api/league/available');
+        yield put({ type: 'SET_AVAILABLE_LEAGUES', payload: availableLeagues.data})
+
+    } catch (error) {
+        console.log('error in fetch available leagues', error)
+    };
+}
 
 function* fetchLeagueDetail(action: any) {
     try {
@@ -49,7 +60,8 @@ function* fetchLeagueDetail(action: any) {
 function* leagueSaga() {
     yield takeLatest('CREATE_LEAGUE', createLeague);
     yield takeLatest('FETCH_LEAGUES', fetchLeagues);
+    yield takeLatest('FETCH_AVAILABLE_LEAGUES', fetchAvailableLeagues);
     yield takeLatest('FETCH_LEAGUE_DETAIL', fetchLeagueDetail);
-}
+};
 
 export default leagueSaga;

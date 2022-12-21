@@ -25,6 +25,24 @@ leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => 
     })
 });
 
+// find available leagues for user to join
+leagueRouter.get('/league/available', rejectUnauthenticated, (req: any, res: Response) => {
+    const userId: number = req.user.id;
+    const queryText: string = `
+        SELECT "league"."id", "league"."league_name", COUNT("picks"."id")/54 AS "users" FROM "league"
+        JOIN "picks" ON "picks"."league_id" = "league"."id"
+        WHERE "picks"."user_id" != $1
+        GROUP BY 1;
+    `
+
+    pool.query(queryText, [userId]).then((results: any) => {
+        res.send(results.rows);
+    }).catch((error: any) => {
+        console.log('error in getting available leagues, ', error)
+        res.sendStatus(500);
+    });
+});
+
 // get league details for current league user is visiting
 leagueRouter.get('/league/detail/:id', rejectUnauthenticated, (req: any, res: Response) => {
     const leagueId = req.params.id;

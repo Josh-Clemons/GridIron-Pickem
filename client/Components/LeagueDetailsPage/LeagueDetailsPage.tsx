@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 
 
@@ -19,7 +19,7 @@ const LeagueDetailsPage = () => {
     const { id } = useParams();
     const store: any = useSelector(store => store);
     const leagueDetail = store.leagues.leagueDetail;
-    const leagueUsers = store.leagues.currentLeagueUsers
+    const leagueUsers = store.leagues.currentLeagueUsers;
 
     useEffect(() => {
         dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: id });
