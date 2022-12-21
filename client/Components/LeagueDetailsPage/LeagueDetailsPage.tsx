@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 
 
@@ -18,9 +18,11 @@ const LeagueDetailsPage = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const store: any = useSelector(store => store);
+    const leagueDetail = store.leagues.leagueDetail;
+    const leagueUsers = store.leagues.currentLeagueUsers
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: id })
+        dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: id });
     }, []);
 
 
@@ -29,10 +31,10 @@ const LeagueDetailsPage = () => {
             <Box className='detailHeader' >
                 <Typography textAlign={'center'} variant='h5'>League {id} Details</Typography>
             </Box>
-
-
+            {leagueUsers.map((user) => {
+                return <Box key={user.username}>Username: {user.username}</Box>
+            })}
             <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>Back to My Leagues</Button>
-            {JSON.stringify(store.leagues.leagueDetail)}
         </Container>
 
     )

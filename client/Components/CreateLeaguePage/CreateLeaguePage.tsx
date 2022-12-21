@@ -12,7 +12,7 @@ const CreateLeaguePage = () => {
     const navigate = useNavigate();
 
     // input state tracking
-    const [leagueName, setLeagueName] = useState('')
+    const [leagueName, setLeagueName] = useState('');
 
     const handleSubmit = (event: any) => {
         event.preventDefault();

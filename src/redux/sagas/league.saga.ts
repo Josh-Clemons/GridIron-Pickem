@@ -5,9 +5,10 @@ function* createLeague(action: any) {
     try {
         // creates league
         yield axios.post('/api/league/create', action.payload)
-
+        console.log('in create league post')
         // gets the newest league created by the user and sets to redux
         const newLeague: any = yield axios.get('/api/league/newest');
+        console.log('in create league post, after new league get, newLeague.data:', newLeague.data);
         yield put({ type: 'SET_NEW_LEAGUE', payload: newLeague.data });
 
         // joins commissioner to league when they create it
@@ -32,9 +33,13 @@ function* fetchLeagues(action: any) {
 function* fetchLeagueDetail(action: any) {
     try {
         // console.log('in fetch league detail, testing payload', action.payload);
-        const leagueDetail: any = yield axios.get('/api/league/' + action.payload)
-        yield put({ type: 'SET_LEAGUE_DETAIL', payload: leagueDetail })
+        const leagueDetail: any = yield axios.get('/api/league/detail/' + action.payload);
 
+        // build user list for league
+        const leagueUsers: any = yield axios.get('/api/league/users/' + action.payload);
+
+        yield put({ type: 'SET_LEAGUE_DETAIL', payload: leagueDetail });
+        yield put({ type: 'SET_LEAGUE_USERS', payload: leagueUsers.data });
     } catch (error) {
         console.log('error in fetch league details', error);
     };

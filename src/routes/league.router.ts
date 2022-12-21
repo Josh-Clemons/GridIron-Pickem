@@ -26,7 +26,7 @@ leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => 
 });
 
 // get league details for current league user is visiting
-leagueRouter.get('/league/:id', rejectUnauthenticated, (req: any, res: Response) => {
+leagueRouter.get('/league/detail/:id', rejectUnauthenticated, (req: any, res: Response) => {
     const leagueId = req.params.id;
     const queryText = `
         SELECT "user"."username", "league"."league_name", "picks"."week", "picks"."amount", "picks"."team" FROM "user"
@@ -43,6 +43,23 @@ leagueRouter.get('/league/:id', rejectUnauthenticated, (req: any, res: Response)
     });
 });
 
+// get the user list for the current league
+leagueRouter.get('/league/users/:id', rejectUnauthenticated, (req: any, res: Response) => {
+    const leagueId = req.params.id;
+    const queryText: string = `
+        SELECT "user"."username" FROM "user"
+        JOIN "picks" ON "picks"."user_id"= "user"."id"
+        WHERE "picks"."league_id" = $1
+        GROUP BY 1;
+    `
+
+    pool.query(queryText, [leagueId]).then((results:any) => {
+        res.send(results.rows)
+    }).catch((error: any) =>{
+        console.log('error in get league users', error);
+        res.sendStatus(500);
+    });
+});
 
 // get newest league
 leagueRouter.get('/league/newest', rejectUnauthenticated, (req: any, res: Response) => {
@@ -53,7 +70,6 @@ leagueRouter.get('/league/newest', rejectUnauthenticated, (req: any, res: Respon
         ORDER BY "id" DESC 
         LIMIT 1;
     `
-
     pool.query(queryText, [userId]).then((results:any) => {
         res.send(results.rows);
     }).catch((error: any) => {
@@ -70,7 +86,7 @@ leagueRouter.post('/league/create', rejectUnauthenticated, (req: any, res: Respo
     const commissionerId: number = req.user.id;
 
     pool.query(queryText, [leagueName, commissionerId]).then((results: any) => {
-        res.send(results);
+        res.sendStatus(201);
     }).catch((error: any) => {
         console.log('error POSTing new league', error);
         res.sendStatus(500);

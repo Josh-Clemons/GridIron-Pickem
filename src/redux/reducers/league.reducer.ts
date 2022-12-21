@@ -30,8 +30,18 @@ const leagueDetail = (state = [], action: any) => {
     };
 };
 
+const currentLeagueUsers = (state = [], action: any ) => {
+    switch(action.type) {
+        case 'SET_LEAGUE_USERS':
+            return action.payload;
+        default:
+            return state;
+    };
+};
+
 export default combineReducers({
     userLeagues,
     newLeague,
-    leagueDetail
+    leagueDetail,
+    currentLeagueUsers
 });
