@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -47,7 +48,18 @@ const FindLeaguePage = () => {
                     )
                 })}
             </Box>
-            <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>Back to My Leagues</Button>
+
+
+            <Stack
+                spacing={1}
+                direction="column"
+                sx={{
+                    position: 'fixed',
+                    bottom: 100
+                }}
+            >
+                <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>My Leagues</Button>
+            </Stack>
         </Container>
     )
 }

@@ -60,7 +60,14 @@ const UserDashboard: React.FC = () => {
                         
                     })}
                 </Box>
-                <Stack spacing={1} direction="column">
+                <Stack 
+                    spacing={1} 
+                    direction="column"
+                    sx={{
+                        position: 'fixed',
+                        bottom: 100
+                    }}
+                >
                     <Button variant="contained" color="primary" href="#/find" sx={{ width: "250px" }}>Find League</Button>
                     <Button variant="contained" color="warning" href="#/create" sx={{ width: "250px" }}>Create League</Button>
                 </Stack>
