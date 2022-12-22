@@ -8,7 +8,7 @@ function* createPicks(action: any) {
     try {
         // payload is leagueId
         yield axios.post('/api/pick/create/' + action.payload, action.payload);
-
+        put({ type: 'FETCH_LEAGUES'});
     } catch (error) {
         console.log('Error in createPicks Saga', error);
     };

@@ -40,6 +40,11 @@ const LeagueDetailsPage = () => {
         navigate('/dashboard');
     }
 
+    const joinLeague = () => {
+        dispatch({ type: 'CREATE_PICKS', payload: id })
+        navigate('/dashboard')
+    }
+
     const setMember = () => {
         if (leagueDetail.filter(e => e.owner_id === store.user.id).length > 0) {
             setIsMember(false);
@@ -79,7 +84,7 @@ const LeagueDetailsPage = () => {
                             </>
                             :
                             <>
-                                <Button variant="contained" sx={{ width: "250px", color: "white", bgcolor: "primary.main" }}>Join League</Button>
+                                <Button variant="contained" onClick={joinLeague} sx={{ width: "250px", color: "white", bgcolor: "primary.main" }}>Join League</Button>
                             </>
                         }
                     </>

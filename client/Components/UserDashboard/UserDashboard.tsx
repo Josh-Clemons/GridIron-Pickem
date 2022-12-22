@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -7,11 +7,17 @@ import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import LeagueItem from '../LeagueItem/LeagueItem';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const UserDashboard: React.FC = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const store:any = useSelector(store => store)
     const myLeagues:any = store.leagues.userLeagues;
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_LEAGUES'});
+    }, []);
 
     // redirects to league detail page when a user clicks on a league item
     const leagueClick = (league) => {
