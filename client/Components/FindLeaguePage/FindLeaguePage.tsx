@@ -16,7 +16,7 @@ const FindLeaguePage = () => {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_AVAILABLE_LEAGUES' });
-    }, []);
+    }, [store.leagues.leagueDetail]);
 
     // redirects to league detail page when a user clicks on a league item
     const leagueClick = (league) => {
@@ -37,13 +37,14 @@ const FindLeaguePage = () => {
             <Typography variant="h4">Find a New League</Typography>
             <Box height={"300px"} sx={{ backgroundColor: "white" }} mb={"20px"} >
                 {availableLeagues.map(league => {
+                    if (league.user_array.includes(store.user.id)) {
+                        return null;
+                    };
                     return (
                         <div onClick={() => { leagueClick(league) }} key={league.id}>
                             <LeagueItem league={league} />
                         </div>
                     )
-
-
                 })}
             </Box>
             <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>Back to My Leagues</Button>

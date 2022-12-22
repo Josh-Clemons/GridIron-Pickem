@@ -10,10 +10,6 @@ import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
-// use params to get league details
-// send saga dispatch, need entire league details (all picks for all users)
-// update state
-// bring in from store to handle calculations
 
 const LeagueDetailsPage = () => {
     const dispatch = useDispatch();
@@ -42,7 +38,7 @@ const LeagueDetailsPage = () => {
 
     const joinLeague = () => {
         dispatch({ type: 'CREATE_PICKS', payload: id })
-        navigate('/dashboard')
+        navigate('/dashboard');
     }
 
     const setMember = () => {

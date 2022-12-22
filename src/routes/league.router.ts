@@ -29,13 +29,13 @@ leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => 
 leagueRouter.get('/league/available', rejectUnauthenticated, (req: any, res: Response) => {
     const userId: number = req.user.id;
     const queryText: string = `
-        SELECT "league"."id", "league"."league_name", COUNT("picks"."id")/54 AS "users" FROM "league"
+        SELECT "league"."id", "league"."league_name", json_agg(DISTINCT "picks"."user_id") AS "user_array" FROM "league"
         JOIN "picks" ON "picks"."league_id" = "league"."id"
-        WHERE "picks"."user_id" != $1
+        WHERE "league"."is_private" = false
         GROUP BY 1;
     `
 
-    pool.query(queryText, [userId]).then((results: any) => {
+    pool.query(queryText).then((results: any) => {
         res.send(results.rows);
     }).catch((error: Error) => {
         console.log('error in getting available leagues, ', error)
@@ -125,5 +125,5 @@ leagueRouter.delete('/league/delete/:id', rejectUnauthenticated, (req: any, res:
         });
     }).catch((error: Error) => {
         console.log('error deleting league from picks table,', error);
-    });  
+    });
 });
