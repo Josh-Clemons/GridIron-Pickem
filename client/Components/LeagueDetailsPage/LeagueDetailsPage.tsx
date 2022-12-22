@@ -28,7 +28,7 @@ const LeagueDetailsPage = () => {
 
     // when league detail is changed, check if user is member or admin
     useEffect(() => {
-        setMember()
+        setMember();
     }, [leagueDetail]);
 
     const deleteLeague = () => {
@@ -37,7 +37,12 @@ const LeagueDetailsPage = () => {
     }
 
     const joinLeague = () => {
-        dispatch({ type: 'CREATE_PICKS', payload: id })
+        dispatch({ type: 'CREATE_PICKS', payload: id });
+        navigate('/dashboard');
+    }
+
+    const leaveLeague = () => {
+        dispatch({ type: 'LEAVE_LEAGUE', payload: id });
         navigate('/dashboard');
     }
 
@@ -76,7 +81,7 @@ const LeagueDetailsPage = () => {
                     <>
                         {isMember ?
                             <>
-                                <Button variant="contained" color={'error'} sx={{ width: "250px" }}>Leave League</Button>
+                                <Button variant="contained" onClick={leaveLeague} color={'error'} sx={{ width: "250px" }}>Leave League</Button>
                             </>
                             :
                             <>

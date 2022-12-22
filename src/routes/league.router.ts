@@ -112,7 +112,7 @@ leagueRouter.post('/league/create', rejectUnauthenticated, (req: any, res: Respo
 });
 
 
-// delete league, only deleting from join table for now
+// delete league
 leagueRouter.delete('/league/delete/:id', rejectUnauthenticated, (req: any, res: Response) => {
     const queryText: string = `DELETE FROM "picks" WHERE "league_id" = $1;`;
     const leagueId: number = req.params.id;
@@ -127,3 +127,16 @@ leagueRouter.delete('/league/delete/:id', rejectUnauthenticated, (req: any, res:
         console.log('error deleting league from picks table,', error);
     });
 });
+
+leagueRouter.delete('/league/leave/:leagueId', rejectUnauthenticated, (req: any, res: Response) => {
+    const leagueId:number = req.params.leagueId;
+    const userId: number = req.user.id;
+    const queryText: string = `DELETE FROM "picks" WHERE "league_id" = $1 AND "user_id" = $2;`;
+
+    pool.query(queryText, [leagueId, userId]).then(() => {
+        res.sendStatus(200);
+    }).catch((error: Error) => {
+        console.log('error deleting user from league:', error);
+    });
+});
+
