@@ -51,7 +51,7 @@ const CreateLeaguePage = () => {
                 />
                 <Button variant="contained" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px" }}>Create</Button>
             </Box>
-            <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary", position: "fixed", bottom: 100 }}>My Leagues</Button>
+            <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary", position: "fixed", bottom: 40 }}>My Leagues</Button>
         </Container>
     )
 }

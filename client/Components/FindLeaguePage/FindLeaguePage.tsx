@@ -26,7 +26,7 @@ const FindLeaguePage = () => {
     return (
         <Container
             sx={{
-                borderRadius: 2,
+                
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -36,7 +36,8 @@ const FindLeaguePage = () => {
             }}
         >
             <Typography variant="h4">Find a New League</Typography>
-            <Box height={"300px"} sx={{ backgroundColor: "white" }} mb={"20px"} >
+            <Typography variant='h6'>Available Leagues:</Typography>
+            <Box height={"75vh"} width={"92%"} >
                 {availableLeagues.map(league => {
                     if (league.user_array.includes(store.user.id)) {
                         return null;
@@ -55,7 +56,7 @@ const FindLeaguePage = () => {
                 direction="column"
                 sx={{
                     position: 'fixed',
-                    bottom: 100
+                    bottom: 40
                 }}
             >
                 <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>My Leagues</Button>

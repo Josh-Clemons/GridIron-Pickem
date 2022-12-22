@@ -17,19 +17,14 @@ const Footer = () => {
                 borderColor: "text.secondary",
                 bgcolor: "#aae0f1"
             }}>
-                <Typography variant="body1" color="text.secondary" align="center" sx={{ marginTop: "10px"}}>
+                <Typography variant="body1" color="text.secondary" align="center" sx={{ mt: "5px", mb: "5px"}}>
                     {'Copyright © '}
                     <Link color="inherit" href="https://github.com/Josh-Clemons/GridIron-Pickem">
                         Josh Clemons
                     </Link>{' '}
                     2022
                     {'.'}
-                    <br />
-                    <Link color="inherit" href="#/about">
-                        About
-                    </Link>{' '}
                 </Typography>
-                <br />
 
             </Box>
         );

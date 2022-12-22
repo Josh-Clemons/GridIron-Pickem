@@ -37,16 +37,19 @@ const LeagueDetailsPage = () => {
         setMember();
     }, [leagueDetail]);
 
+    // delete league, for owner only
     const deleteLeague = () => {
         dispatch({ type: 'DELETE_LEAGUE', payload: id });
         navigate('/dashboard');
     }
 
+    // anyone can join
     const joinLeague = () => {
         dispatch({ type: 'CREATE_PICKS', payload: id });
         navigate('/dashboard');
     }
 
+    // leave league available for members (not owner)
     const leaveLeague = () => {
         dispatch({ type: 'LEAVE_LEAGUE', payload: id });
         navigate('/dashboard');
@@ -89,48 +92,58 @@ const LeagueDetailsPage = () => {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
-                    width: '100vw'
+                    width: '100vw',
+                    mt: '1.5em',
+                    mb: '1.5em'
                 }}
             >
                 <Button onClick={() => setViewState('standings')} sx={{ width: '30%' }}>Standings</Button>
                 {(isMember || isAdmin) && <Button onClick={() => setViewState('myPicks')} sx={{ width: '30%' }}>My Picks</Button>}
-                <Button onClick={() => setViewState('overview')} sx={{ width: '30%' }}>Overview</Button>
+                {(isMember || isAdmin) && <Button onClick={() => setViewState('overview')} sx={{ width: '30%' }}>Overview</Button>}
+                
             </ButtonGroup>
 
+            {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
             {viewState === 'standings' && <LeagueStandings />}
             {viewState === 'myPicks' && <MyPicks />}
             {viewState === 'overview' && <LeaguePicks />}
 
 
 
+
+            {/* Button group below, changes depending on whether user is owner/member */}
             <Stack
                 spacing={1}
-                direction="column"
+                direction="row"
                 sx={{
-                    position: 'fixed',
-                    bottom: 100
+                    width: '92%',
+                        position: 'fixed',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        bottom: 40
                 }}
             >
                 {isAdmin
                     ?
                     <>
-                        <Button variant="contained" onClick={deleteLeague} color={'error'} sx={{ width: "250px" }}>DELETE League</Button>
+                        <Button variant="contained" onClick={deleteLeague} color={'error'} sx={{ width: "45%" }}>DELETE League</Button>
                     </>
                     :
                     <>
                         {isMember ?
                             <>
-                                <Button variant="contained" onClick={leaveLeague} color={'error'} sx={{ width: "250px" }}>Leave League</Button>
+                                <Button variant="contained" onClick={leaveLeague} color={'error'} sx={{ width: "45%" }}>Leave League</Button>
                             </>
                             :
                             <>
-                                <Button variant="contained" onClick={joinLeague} sx={{ width: "250px", color: "white", bgcolor: "primary.main" }}>Join League</Button>
+                                <Button variant="contained" onClick={joinLeague} sx={{ width: "45%", color: "white", bgcolor: "primary.main" }}>Join League</Button>
                             </>
                         }
                     </>
                 }
 
-                <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>My Leagues</Button>
+                <Button variant="contained" href="#/dashboard" sx={{ width: "45%", color: "white", bgcolor: "text.primary" }}>My Leagues</Button>
             </Stack>
         </Container>
 
