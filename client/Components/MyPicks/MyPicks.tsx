@@ -21,17 +21,60 @@ const MyPicks = () => {
     const store: any = useSelector(store => store)
     const leagueId = store.leagues.leagueDetail[0]?.league_id;
     const userPicks = store.leagues.leagueDetail.filter(e => e.username === store.user.username)
+    let currentPicks: { week: number, team: string, amount: number }[] = []
 
     const customStyles = {
         // control represent the select component
         control: (provided) => ({
             ...provided,
-            width: '100%'
+            width: '100%',
+            menuPortal: base => ({ ...base, zIndex: 9999 })
         })
     };
 
-    let currentPicks: { week: number, team: string, amount: number }[] = []
+    const pickCheckWeek = () => {
+        console.log('in pickCheckWeek');
+        for (let i = 0; i <= 17; i++) {
+            const weeklyArray: any = currentPicks.filter((e) => e.week === i + 1)
 
+            if ((weeklyArray[0].team === weeklyArray[1].team) && (weeklyArray[0].team !== null) || (weeklyArray[0].team === weeklyArray[2].team) && (weeklyArray[0].team !== null) || (weeklyArray[2].team === weeklyArray[1].team) && (weeklyArray[2].team !== null)) {
+                console.log('duplicates found', weeklyArray);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const pickCheckDuplicate = () => {
+        const fivePicks: any = currentPicks.filter((e) => e.amount === 5 && e.team !== null)
+        const threePicks: any = currentPicks.filter((e) => e.amount === 3 && e.team !== null)
+        const onePicks: any = currentPicks.filter((e) => e.amount === 1 && e.team !== null)
+
+        let checkFiveArray: any = [];
+        let checkThreeArray: any = [];
+        let checkOneArray: any = [];
+
+        for (let i = 0; i < fivePicks.length; i++) {
+            checkFiveArray.push(fivePicks[i]?.team)
+        }
+        for (let i = 0; i < threePicks.length; i++) {
+            checkThreeArray.push(threePicks[i]?.team)
+        }
+        for (let i = 0; i < onePicks.length; i++) {
+            checkOneArray.push(onePicks[i]?.team)
+        }
+
+        if ((new Set(checkFiveArray).size !== checkFiveArray.length)) {
+            return true;
+        }
+        if ((new Set(checkThreeArray).size !== checkThreeArray.length)) {
+            return true;
+        }
+        if ((new Set(checkOneArray).size !== checkOneArray.length)) {
+            return true;
+        }
+        return false;
+    };
 
 
     const pickChange = (option, week, amount) => {
@@ -41,9 +84,18 @@ const MyPicks = () => {
     }
 
     const savePicks = () => {
-        dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId } });
-        alert('picks saved');
-        dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: leagueId });
+        const dupeWeek = pickCheckWeek();
+        const dupeAmount = pickCheckDuplicate();
+        if (!dupeWeek && !dupeAmount) {
+            dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId } });
+            alert('picks saved');
+            dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: leagueId });
+        } else if (dupeAmount) {
+            alert('duplicates with the same value');
+        }
+        else {
+            alert('duplicates found in same week');
+        };
     }
 
 
