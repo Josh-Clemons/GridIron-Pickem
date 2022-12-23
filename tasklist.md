@@ -22,4 +22,4 @@
 
 
 Misc items:
-set footer to sticky on bottom of page
+end of wednesday: need to fix sql query for available leagues

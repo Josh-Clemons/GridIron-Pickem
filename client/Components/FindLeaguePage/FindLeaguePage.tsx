@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -16,7 +17,7 @@ const FindLeaguePage = () => {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_AVAILABLE_LEAGUES' });
-    }, []);
+    }, [store.leagues.leagueDetail]);
 
     // redirects to league detail page when a user clicks on a league item
     const leagueClick = (league) => {
@@ -25,7 +26,7 @@ const FindLeaguePage = () => {
     return (
         <Container
             sx={{
-                borderRadius: 2,
+                
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -35,18 +36,31 @@ const FindLeaguePage = () => {
             }}
         >
             <Typography variant="h4">Find a New League</Typography>
-            <Box height={"300px"} sx={{ backgroundColor: "white" }} mb={"20px"} >
+            <Typography variant='h6'>Available Leagues:</Typography>
+            <Box height={"75vh"} width={"92%"} >
                 {availableLeagues.map(league => {
+                    if (league.user_array.includes(store.user.id)) {
+                        return null;
+                    };
                     return (
                         <div onClick={() => { leagueClick(league) }} key={league.id}>
                             <LeagueItem league={league} />
                         </div>
                     )
-
-
                 })}
             </Box>
-            <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>Back to My Leagues</Button>
+
+
+            <Stack
+                spacing={1}
+                direction="column"
+                sx={{
+                    position: 'fixed',
+                    bottom: 40
+                }}
+            >
+                <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary" }}>My Leagues</Button>
+            </Stack>
         </Container>
     )
 }

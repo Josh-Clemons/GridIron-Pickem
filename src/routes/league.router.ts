@@ -19,7 +19,7 @@ leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => 
 
     pool.query(queryText, [userId]).then((results: any) => {
         res.send(results.rows);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
         console.log('error in league GET, error:', error);
         res.sendStatus(500);
     })
@@ -29,15 +29,15 @@ leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => 
 leagueRouter.get('/league/available', rejectUnauthenticated, (req: any, res: Response) => {
     const userId: number = req.user.id;
     const queryText: string = `
-        SELECT "league"."id", "league"."league_name", COUNT("picks"."id")/54 AS "users" FROM "league"
+        SELECT "league"."id", "league"."league_name", json_agg(DISTINCT "picks"."user_id") AS "user_array" FROM "league"
         JOIN "picks" ON "picks"."league_id" = "league"."id"
-        WHERE "picks"."user_id" != $1
+        WHERE "league"."is_private" = false
         GROUP BY 1;
     `
 
-    pool.query(queryText, [userId]).then((results: any) => {
+    pool.query(queryText).then((results: any) => {
         res.send(results.rows);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
         console.log('error in getting available leagues, ', error)
         res.sendStatus(500);
     });
@@ -47,7 +47,7 @@ leagueRouter.get('/league/available', rejectUnauthenticated, (req: any, res: Res
 leagueRouter.get('/league/detail/:id', rejectUnauthenticated, (req: any, res: Response) => {
     const leagueId = req.params.id;
     const queryText = `
-        SELECT "user"."username", "league"."league_name", "picks"."week", "picks"."amount", "picks"."team" FROM "user"
+        SELECT "league"."id" AS "league_id", "user"."username", "league"."league_name", "picks"."week", "picks"."amount", "picks"."team", "league"."owner_id" FROM "user"
         JOIN "picks" ON "picks"."user_id" = "user"."id"
         JOIN "league" ON "league"."id" = "picks"."league_id"
         WHERE "picks"."league_id" = $1;
@@ -55,7 +55,7 @@ leagueRouter.get('/league/detail/:id', rejectUnauthenticated, (req: any, res: Re
 
     pool.query(queryText, [leagueId]).then((results: any) => {
         res.send(results.rows);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
         console.log('error in league detail query', error);
         res.sendStatus(500);
     });
@@ -71,9 +71,9 @@ leagueRouter.get('/league/users/:id', rejectUnauthenticated, (req: any, res: Res
         GROUP BY 1;
     `
 
-    pool.query(queryText, [leagueId]).then((results:any) => {
+    pool.query(queryText, [leagueId]).then((results: any) => {
         res.send(results.rows)
-    }).catch((error: any) =>{
+    }).catch((error: Error) => {
         console.log('error in get league users', error);
         res.sendStatus(500);
     });
@@ -88,9 +88,9 @@ leagueRouter.get('/league/newest', rejectUnauthenticated, (req: any, res: Respon
         ORDER BY "id" DESC 
         LIMIT 1;
     `
-    pool.query(queryText, [userId]).then((results:any) => {
+    pool.query(queryText, [userId]).then((results: any) => {
         res.send(results.rows);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
         console.log('error in get newest league,', error);
         res.sendStatus(500);
     });
@@ -105,8 +105,38 @@ leagueRouter.post('/league/create', rejectUnauthenticated, (req: any, res: Respo
 
     pool.query(queryText, [leagueName, commissionerId]).then((results: any) => {
         res.sendStatus(201);
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
         console.log('error POSTing new league', error);
         res.sendStatus(500);
     });
 });
+
+
+// delete league
+leagueRouter.delete('/league/delete/:id', rejectUnauthenticated, (req: any, res: Response) => {
+    const queryText: string = `DELETE FROM "picks" WHERE "league_id" = $1;`;
+    const leagueId: number = req.params.id;
+
+    pool.query(queryText, [leagueId]).then(() => {
+        pool.query('DELETE FROM "league" WHERE "id"=$1', [leagueId]).then(() => {
+            res.sendStatus(200);
+        }).catch((error: Error) => {
+            console.log('error deleting from league table', error);
+        });
+    }).catch((error: Error) => {
+        console.log('error deleting league from picks table,', error);
+    });
+});
+
+leagueRouter.delete('/league/leave/:leagueId', rejectUnauthenticated, (req: any, res: Response) => {
+    const leagueId:number = req.params.leagueId;
+    const userId: number = req.user.id;
+    const queryText: string = `DELETE FROM "picks" WHERE "league_id" = $1 AND "user_id" = $2;`;
+
+    pool.query(queryText, [leagueId, userId]).then(() => {
+        res.sendStatus(200);
+    }).catch((error: Error) => {
+        console.log('error deleting user from league:', error);
+    });
+});
+

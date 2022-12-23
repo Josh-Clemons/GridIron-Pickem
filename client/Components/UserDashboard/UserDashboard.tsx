@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -7,11 +7,17 @@ import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import LeagueItem from '../LeagueItem/LeagueItem';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const UserDashboard: React.FC = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const store:any = useSelector(store => store)
     const myLeagues:any = store.leagues.userLeagues;
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_LEAGUES'});
+    }, []);
 
     // redirects to league detail page when a user clicks on a league item
     const leagueClick = (league) => {
@@ -23,7 +29,6 @@ const UserDashboard: React.FC = () => {
         <Container
 
             sx={{
-                backgroundColor: "white",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -35,15 +40,18 @@ const UserDashboard: React.FC = () => {
                 width={"100%"} 
                 height={"75vh"}
                 sx={{
-                    backgroundColor: "gray",
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center"
+                    alignItems: "left",
                 }}
             >
+                <Typography variant='h6'>My Leagues:</Typography>
 
-                <Box height={"300px"} sx={{ backgroundColor: "white" }} mb={"20px"} >
+                <Box  
+                    sx={{ 
+                        pb: '80px',
+                    }}
+                >
                     {myLeagues.map( league => {
                         return (
                             <div onClick={() => {leagueClick(league)}} key={league.league_id}>
@@ -54,9 +62,20 @@ const UserDashboard: React.FC = () => {
                         
                     })}
                 </Box>
-                <Stack spacing={1} direction="column">
-                    <Button variant="contained" color="primary" href="#/find" sx={{ width: "250px" }}>Find League</Button>
-                    <Button variant="contained" color="warning" href="#/create" sx={{ width: "250px" }}>Create League</Button>
+                <Stack 
+                    spacing={1} 
+                    direction="row"
+                    sx={{
+                        width: '92%',
+                        position: 'fixed',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        bottom: 40
+                    }}
+                >
+                    <Button variant="contained" color="primary" href="#/find" sx={{ width: "45%" }}>Find League</Button>
+                    <Button variant="contained" color="warning" href="#/create" sx={{ width: "45%" }}>Create League</Button>
                 </Stack>
             </Box>
         </Container>

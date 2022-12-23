@@ -56,12 +56,30 @@ function* fetchLeagueDetail(action: any) {
     };
 };
 
+function* deleteLeague(action: any) {
+    try {
+        yield axios.delete('/api/league/delete/' + action.payload);
+        yield put({ type: 'FETCH_LEAGUES' });
+    }catch(error) {
+        console.log('error in deleteLeague Saga: ', error)
+    }
+}
+
+function* leaveLeague(action: any) {
+    try {
+        yield axios.delete('/api/league/leave/' + action.payload);
+    }catch(error) {
+        console.log('error in leaveLeague Saga:', error);
+    }
+}
 
 function* leagueSaga() {
     yield takeLatest('CREATE_LEAGUE', createLeague);
     yield takeLatest('FETCH_LEAGUES', fetchLeagues);
     yield takeLatest('FETCH_AVAILABLE_LEAGUES', fetchAvailableLeagues);
     yield takeLatest('FETCH_LEAGUE_DETAIL', fetchLeagueDetail);
+    yield takeLatest('DELETE_LEAGUE', deleteLeague);
+    yield takeLatest('LEAVE_LEAGUE', leaveLeague);
 };
 
 export default leagueSaga;
