@@ -14,10 +14,6 @@ const LeagueItem = (league) => {
                 mt: '.5em',
                 pt: '.5em',
                 textAlign: 'center',
-                // border: 2,
-                // borderColor: 'text.secondary',
-                // borderRadius: '16px',
-                backgroundColor: "white"
             }}
         >
             {league.league.league_name}
