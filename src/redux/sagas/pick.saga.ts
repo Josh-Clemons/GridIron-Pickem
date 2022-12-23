@@ -14,12 +14,20 @@ function* createPicks(action: any) {
     };
 }
 
+function* updatePicks(action: any) {
+    try {
+        yield axios.put('/api/pick/update/' + action.payload.leagueId, action.payload.picks)
+    } catch (error) {
+        console.log('error in updatePicks Saga', error)
+    }
+}
 
 
 
 
 function* pickSaga() {
     yield takeLatest('CREATE_PICKS', createPicks);
+    yield takeLatest('UPDATE_PICKS', updatePicks);
 }
 
 export default pickSaga;

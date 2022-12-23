@@ -105,7 +105,7 @@ const LeagueDetailsPage = () => {
 
             {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
             {viewState === 'standings' && <LeagueStandings />}
-            {viewState === 'myPicks' && <MyPicks />}
+            {viewState === 'myPicks' && <MyPicks/>}
             {viewState === 'overview' && <LeaguePicks />}
 
 
