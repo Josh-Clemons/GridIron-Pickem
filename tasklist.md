@@ -22,4 +22,4 @@
 
 
 Misc items:
-end of wednesday: need to fix sql query for available leagues
+end of wednesday: need to fix sql query for available league

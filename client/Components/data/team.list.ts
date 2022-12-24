@@ -1,4 +1,4 @@
-export const teams: {value: string, label: string}[] = [
+export const teams: {value: string | null, label: string}[] = [
     { value: 'ARI', label: 'ARI' },
     { value: 'ATL', label: 'ATL' },
     { value: 'BAL', label: 'BAL' },
