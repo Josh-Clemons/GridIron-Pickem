@@ -9,7 +9,7 @@ export const dataRouter = Router();
 dataRouter.get('/data/update/:week', rejectUnauthenticated, (req: any, res: Response) => {
     const week = req.params.week;
 
-    axios.get('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=' + week )
+    axios.get('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=' + week)
         .then((results: any) => {
             res.send(results.data)
         }).catch((error: Error) => {
@@ -20,20 +20,22 @@ dataRouter.get('/data/update/:week', rejectUnauthenticated, (req: any, res: Resp
 });
 
 dataRouter.post('/data/save', rejectUnauthenticated, (req: any, res: Response) => {
-    const gameData: {team: string, week: number, is_winner: boolean }[] = req.body;
+    const gameData: { team: string, week: number, is_winner: boolean }[] = req.body;
     let queryText = `INSERT INTO "game_data" ("team", "week", "is_winner") VAlUES `;
 
     gameData.map((e) => {
         queryText = queryText + `('${e.team}', '${e.week}', '${e.is_winner}'),`;
     })
-    
-    queryText = queryText.slice(0, -1); 
+
+    queryText = queryText.slice(0, -1);
     queryText += ';';
 
-    // console.log('queryText: ', queryText);
-    // res.sendStatus(200);
-    pool.query(queryText).then(() => res.sendStatus(201)).catch((error:Error) => {
-        console.log('error in POSTing game data to DB:', error)
-        res.sendStatus(500)
+    pool.query('DELETE FROM "game_data";').then(() => {
+        pool.query(queryText).then(() => res.sendStatus(201)).catch((error: Error) => {
+            console.log('error in POSTing game data to DB:', error)
+            res.sendStatus(500)
+        });
+    }).catch((error: Error) => {
+        console.log('error DELETEing from game_data', error);
     });
-})
+});
