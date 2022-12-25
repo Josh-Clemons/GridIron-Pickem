@@ -26,3 +26,10 @@ CREATE TABLE "picks" (
     "amount" INT
 );
 
+-- game data table for API stats
+CREATE TABLE "game_data" (
+    "id" SERIAL PRIMARY KEY,
+    "week" INT,
+    "team" VARCHAR (3),
+    "is_winner" BOOLEAN
+);

@@ -13,7 +13,7 @@ export const teams: {value: string | null, label: string}[] = [
     { value: 'GB', label: 'GB' },
     { value: 'HOU', label: 'HOU' },
     { value: 'IND', label: 'IND' },
-    { value: 'JAC', label: 'JAC' },
+    { value: 'JAX', label: 'JAX' },
     { value: 'KC', label: 'KC' },
     { value: 'LAC', label: 'LAC' },
     { value: 'LAR', label: 'LAR' },
