@@ -18,10 +18,10 @@ import TableRow from '@mui/material/TableRow';
 const MyPicks = () => {
 
     const dispatch = useDispatch();
-    const store: any = useSelector(store => store)
+    const store: any = useSelector(store => store);
     const leagueId = store.leagues.leagueDetail[0]?.league_id;
-    const userPicks = store.leagues.leagueDetail.filter(e => e.username === store.user.username)
-    let currentPicks: { week: number, team: string, amount: number }[] = []
+    const userPicks = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
+    let currentPicks: { week: number, team: string, amount: number }[] = [];
 
     const customStyles = {
         // control represent the select component
@@ -33,46 +33,44 @@ const MyPicks = () => {
     };
 
     const pickCheckWeek = () => {
-        console.log('in pickCheckWeek');
         for (let i = 0; i <= 17; i++) {
             const weeklyArray: any = currentPicks.filter((e) => e.week === i + 1)
 
             if ((weeklyArray[0].team === weeklyArray[1].team) && (weeklyArray[0].team !== null) || (weeklyArray[0].team === weeklyArray[2].team) && (weeklyArray[0].team !== null) || (weeklyArray[2].team === weeklyArray[1].team) && (weeklyArray[2].team !== null)) {
-                console.log('duplicates found', weeklyArray);
                 return true;
-            }
-        }
+            };
+        };
         return false;
-    }
+    };
 
     const pickCheckDuplicate = () => {
-        const fivePicks: any = currentPicks.filter((e) => e.amount === 5 && e.team !== null)
-        const threePicks: any = currentPicks.filter((e) => e.amount === 3 && e.team !== null)
-        const onePicks: any = currentPicks.filter((e) => e.amount === 1 && e.team !== null)
+        const fivePicks: any = currentPicks.filter((e) => e.amount === 5 && e.team !== null);
+        const threePicks: any = currentPicks.filter((e) => e.amount === 3 && e.team !== null);
+        const onePicks: any = currentPicks.filter((e) => e.amount === 1 && e.team !== null);
 
         let checkFiveArray: any = [];
         let checkThreeArray: any = [];
         let checkOneArray: any = [];
 
         for (let i = 0; i < fivePicks.length; i++) {
-            checkFiveArray.push(fivePicks[i]?.team)
-        }
+            checkFiveArray.push(fivePicks[i]?.team);
+        };
         for (let i = 0; i < threePicks.length; i++) {
-            checkThreeArray.push(threePicks[i]?.team)
-        }
+            checkThreeArray.push(threePicks[i]?.team);
+        };
         for (let i = 0; i < onePicks.length; i++) {
-            checkOneArray.push(onePicks[i]?.team)
-        }
+            checkOneArray.push(onePicks[i]?.team);
+        };
 
         if ((new Set(checkFiveArray).size !== checkFiveArray.length)) {
             return true;
-        }
+        };
         if ((new Set(checkThreeArray).size !== checkThreeArray.length)) {
             return true;
-        }
+        };
         if ((new Set(checkOneArray).size !== checkOneArray.length)) {
             return true;
-        }
+        };
         return false;
     };
 
@@ -81,7 +79,7 @@ const MyPicks = () => {
         let foundPick: any = currentPicks.filter((pick) => (pick.amount === amount && pick.week === week));
         currentPicks = currentPicks.filter(pick => pick !== foundPick[0]);
         currentPicks.push({ week: week, team: option.value, amount: amount });
-    }
+    };
 
     const savePicks = () => {
         const dupeWeek = pickCheckWeek();
@@ -92,11 +90,10 @@ const MyPicks = () => {
             dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: leagueId });
         } else if (dupeAmount) {
             alert('duplicates with the same value');
-        }
-        else {
+        } else {
             alert('duplicates found in same week');
         };
-    }
+    };
 
 
 
@@ -112,7 +109,7 @@ const MyPicks = () => {
 
         return (
             <TableRow key={"fiveChoiceWeek" + week}>
-                <TableCell sx={{ padding: '6px', width: '20%' }}>{week}</TableCell>
+                <TableCell sx={{ padding: '6px', width: '50px' }}>{week}</TableCell>
                 <TableCell sx={{ padding: '6px', width: '20%' }}>
                     <Select
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}

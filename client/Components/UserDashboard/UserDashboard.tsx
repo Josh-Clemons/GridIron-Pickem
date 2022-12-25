@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import LeagueItem from '../LeagueItem/LeagueItem';
+import RefreshApiData from '../RefreshApiData/RefreshApiData';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -35,6 +36,7 @@ const UserDashboard: React.FC = () => {
                 justifyContent: "center"
             }}
         >
+            <RefreshApiData />
             <Typography variant="h4">My Dashboard</Typography>
             <Box 
                 width={"100%"} 
