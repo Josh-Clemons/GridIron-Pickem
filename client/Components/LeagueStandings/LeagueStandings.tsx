@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
@@ -13,7 +13,39 @@ import TableRow from '@mui/material/TableRow';
 const LeagueStandings = () => {
     const store: any = useSelector(store => store);
     const leagueUsers = store.leagues.currentLeagueUsers;
+    const leagueDetail = store.leagues.leagueDetail;
+    const gameData = store.gameData.gameData;
+    const [leagueScore, setLeagueScore] = useState<any>([]);
 
+    useEffect(() => {
+        score();
+    }, [leagueUsers]);
+
+    const score = () => {
+        let tempScore: { name: string, score: number }[] = [];
+        leagueUsers.map((user) => {
+            let score: number = 0;
+            let bonusCheck: { id: number, week: number, team: string, is_winner: boolean }[] = [];
+            const userPicks = leagueDetail.filter((pick: any) => pick.username === user.username);
+            userPicks.map((pick: any) => {
+                const pickStatus = gameData.filter((obj: any) => obj.week === pick.week && obj.team === pick.team);
+                if (pickStatus[0]?.is_winner) {
+                    bonusCheck.push(pickStatus[0]);
+                    score += pick.amount;
+                };
+            });
+            for (let i = 1; i <= 18; i++) {
+                if (bonusCheck?.filter((pick: any) => pick.week === i && pick.is_winner === true).length === 3) {
+                    score += 2;
+                };
+            };
+            tempScore.push({ name: user.username, score: score });
+        });
+        tempScore.sort((a, b) => {
+            return b.score - a.score;
+        });
+        setLeagueScore([...tempScore]);
+    };
 
 
     return (
@@ -27,9 +59,9 @@ const LeagueStandings = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {leagueUsers.map((user) => {
-                            return <TableRow key={user.username}>
-                                <TableCell>{user.username}</TableCell><TableCell align='right'>0</TableCell>
+                        {leagueScore.map((user) => {
+                            return <TableRow key={user.name}>
+                                <TableCell>{user.name}</TableCell><TableCell align='right'>{user.score}</TableCell>
                             </TableRow>
                         })}
                     </TableBody>

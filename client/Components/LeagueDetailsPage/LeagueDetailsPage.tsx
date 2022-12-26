@@ -32,6 +32,7 @@ const LeagueDetailsPage = () => {
         dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: id });
     }, []);
 
+
     // when league detail is changed, check if user is member or admin
     useEffect(() => {
         setMember();
@@ -68,6 +69,7 @@ const LeagueDetailsPage = () => {
             setIsMember(false);
         };
     };
+
 
 
 
