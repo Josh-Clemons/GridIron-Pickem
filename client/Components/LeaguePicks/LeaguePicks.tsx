@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
@@ -11,6 +11,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+
 
 
 const LeaguePicks = () => {
@@ -20,6 +22,9 @@ const LeaguePicks = () => {
     const leagueDetail = store.leagues.leagueDetail;
     const [weeklyPicks, setWeeklyPicks] = useState<any>([]);
 
+    useEffect(() => {
+        weekChange(1);
+    }, []);
 
     const customStyles = {
         // control represent the select component
@@ -77,22 +82,29 @@ const LeaguePicks = () => {
 
     return (
         <div>
-            <Select
-                className='week'
-                defaultValue={1}
-                name={"week"}
-                options={week}
-                styles={customStyles}
-                onChange={(option) => weekChange(option)}
-            />
-            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: '10px' }}>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center'
+            }}
+            >
+                <Typography variant='h6' sx={{ mr: '10px' }}>Week: </Typography>
+                <Select
+                    className='week'
+                    name={"week"}
+                    options={week}
+                    styles={customStyles}
+                    onChange={(option) => weekChange(option)}
+                />
+            </Box>
+            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: '10px', marginTop: '20px', width: '80vw' }}>
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ padding: '6px', width: '50px' }}>User</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>5 Pts</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>3 Pts</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>1 Pt</TableCell>
+                            <TableCell sx={{ padding: '6px', width: '25%' }}>User</TableCell>
+                            <TableCell sx={{ padding: '6px', width: '25%' }}>5 Pts</TableCell>
+                            <TableCell sx={{ padding: '6px', width: '25%' }}>3 Pts</TableCell>
+                            <TableCell sx={{ padding: '6px', width: '25%' }}>1 Pt</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -104,7 +116,7 @@ const LeaguePicks = () => {
                                     <TableCell>{pick.three}</TableCell>
                                     <TableCell>{pick.one}</TableCell>
                                 </TableRow>
-                                )
+                            )
                         })}
                     </TableBody>
                 </Table>
