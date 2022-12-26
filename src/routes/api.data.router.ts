@@ -1,10 +1,20 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response } from "express";
 import axios from "axios";
 const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
 export const dataRouter = Router();
+
+dataRouter.get('/data/getresults', rejectUnauthenticated, (req: any, res: Response) => {
+
+    pool.query('SELECT * FROM "game_data";').then((results: any) => {
+        res.send(results.rows);
+    }).catch((error: Error) => {
+        console.log('error in GET results:', error);
+        res.sendStatus(500);
+    });
+});
 
 dataRouter.get('/data/update/:week', rejectUnauthenticated, (req: any, res: Response) => {
     const week = req.params.week;

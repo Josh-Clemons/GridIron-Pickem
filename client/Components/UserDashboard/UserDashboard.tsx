@@ -18,6 +18,7 @@ const UserDashboard: React.FC = () => {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_LEAGUES'});
+        dispatch({ type: 'GET_API_DATA'});
     }, []);
 
     // redirects to league detail page when a user clicks on a league item

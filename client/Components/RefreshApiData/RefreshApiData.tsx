@@ -8,7 +8,7 @@ const RefreshApiData = () => {
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        dispatch({ type: 'FETCH_API_DATA' });
+        dispatch({ type: 'SET_API_DATA' });
         console.log('in handle click, dispatched request to update api data');
     };
 

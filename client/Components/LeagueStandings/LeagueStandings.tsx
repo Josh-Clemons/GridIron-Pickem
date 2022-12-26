@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
@@ -9,12 +9,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { useDispatch } from 'react-redux';
 
 const LeagueStandings = () => {
     const store: any = useSelector(store => store);
     const leagueUsers = store.leagues.currentLeagueUsers;
-
-
+    const dispatch = useDispatch();
 
     return (
         <Box width={'80%'}>
