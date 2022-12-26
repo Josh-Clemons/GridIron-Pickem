@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
@@ -15,9 +15,14 @@ const LeagueStandings = () => {
     const leagueUsers = store.leagues.currentLeagueUsers;
     const leagueDetail = store.leagues.leagueDetail;
     const gameData = store.gameData.gameData;
+    const [leagueScore, setLeagueScore] = useState<any>([]);
 
+    useEffect(() => {
+        score();
+    }, [leagueUsers]);
 
     const score = () => {
+        let tempScore: { name: string, score: number }[] = [];
         leagueUsers.map((user) => {
             let score: number = 0;
             let bonusCheck: { id: number, week: number, team: string, is_winner: boolean }[] = [];
@@ -31,12 +36,15 @@ const LeagueStandings = () => {
             });
             for (let i = 1; i <= 18; i++) {
                 if (bonusCheck?.filter((pick: any) => pick.week === i && pick.is_winner === true).length === 3) {
-                    console.log('found bonus score, user week:', user, i);
                     score += 2;
                 };
             };
-            console.log('score for user(with bonus)', user.username, score);
+            tempScore.push({ name: user.username, score: score });
         });
+        tempScore.sort((a, b) => {
+            return b.score - a.score;
+        });
+        setLeagueScore([...tempScore]);
     };
 
 
@@ -51,9 +59,9 @@ const LeagueStandings = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {leagueUsers.map((user) => {
-                            return <TableRow key={user.username} onClick={score}>
-                                <TableCell>{user.username}</TableCell><TableCell align='right'>0</TableCell>
+                        {leagueScore.map((user) => {
+                            return <TableRow key={user.name}>
+                                <TableCell>{user.name}</TableCell><TableCell align='right'>{user.score}</TableCell>
                             </TableRow>
                         })}
                     </TableBody>

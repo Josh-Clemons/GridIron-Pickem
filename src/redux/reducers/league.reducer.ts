@@ -39,6 +39,7 @@ const leagueDetail = (state = [], action: any) => {
     };
 };
 
+
 const currentLeagueUsers = (state = [], action: any ) => {
     switch(action.type) {
         case 'SET_LEAGUE_USERS':
