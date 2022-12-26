@@ -1,5 +1,5 @@
 To complete base mode:
-    [] lock pick fields after the week has started
+    [x] lock pick fields after the week has started
     [] about page
     [] styling
         [] set theme

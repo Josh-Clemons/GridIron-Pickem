@@ -22,7 +22,7 @@ const MyPicks = () => {
     const leagueId = store.leagues.leagueDetail[0]?.league_id;
     const userPicks = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
     let currentPicks: { week: number, team: string, amount: number }[] = [];
-    let dateLockStart: any = new Date('2022-09-02T00:15:00.007Z');
+    let dateLockStart: any = new Date('2023-09-02T00:15:00.007Z');
 
 
     const customStyles = {
