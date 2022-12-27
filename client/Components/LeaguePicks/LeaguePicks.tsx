@@ -101,7 +101,7 @@ const LeaguePicks = () => {
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ padding: '6px', width: '25%' }}>User</TableCell>
+                            <TableCell sx={{ padding: '6px', maxWidth: '100px' }}>User</TableCell>
                             <TableCell sx={{ padding: '6px', width: '25%' }}>5 Pts</TableCell>
                             <TableCell sx={{ padding: '6px', width: '25%' }}>3 Pts</TableCell>
                             <TableCell sx={{ padding: '6px', width: '25%' }}>1 Pt</TableCell>
@@ -111,7 +111,7 @@ const LeaguePicks = () => {
                         {weeklyPicks.map((pick) => {
                             return (
                                 <TableRow key={pick.username}>
-                                    <TableCell>{pick.username}</TableCell>
+                                    <TableCell sx={{ width: '80px', maxWidth: '100px', overflow: "wrap"}}>{pick.username}</TableCell>
                                     <TableCell>{pick.five}</TableCell>
                                     <TableCell>{pick.three}</TableCell>
                                     <TableCell>{pick.one}</TableCell>

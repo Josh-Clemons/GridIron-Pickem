@@ -83,35 +83,8 @@ const LeagueDetailsPage = () => {
             }}
         >
             <Box className='detailHeader' >
-                <Typography textAlign={'center'} variant='h5'>Id: {id} Details</Typography>
-                <Typography textAlign={'center'} variant='h4'>League Name: {leagueDetail[0]?.league_name}</Typography>
+                <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
             </Box>
-
-            <ButtonGroup
-                variant="text"
-                aria-label="text button group"
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    width: '100vw',
-                    mt: '1.5em',
-                    mb: '1.5em'
-                }}
-            >
-                <Button onClick={() => setViewState('standings')} sx={{ width: '30%' }}>Standings</Button>
-                {(isMember || isAdmin) && <Button onClick={() => setViewState('myPicks')} sx={{ width: '30%' }}>My Picks</Button>}
-                {(isMember || isAdmin) && <Button onClick={() => setViewState('overview')} sx={{ width: '30%' }}>Overview</Button>}
-                
-            </ButtonGroup>
-
-            {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
-            {viewState === 'standings' && <LeagueStandings />}
-            {viewState === 'myPicks' && <MyPicks/>}
-            {viewState === 'overview' && <LeaguePicks />}
-
-
-
 
             {/* Button group below, changes depending on whether user is owner/member */}
             <Stack
@@ -119,11 +92,9 @@ const LeagueDetailsPage = () => {
                 direction="row"
                 sx={{
                     width: '92%',
-                        position: 'fixed',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        bottom: 40
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                 }}
             >
                 {isAdmin
@@ -147,6 +118,30 @@ const LeagueDetailsPage = () => {
 
                 <Button variant="contained" href="#/dashboard" sx={{ width: "45%", color: "white", bgcolor: "text.primary" }}>My Leagues</Button>
             </Stack>
+
+            <ButtonGroup
+                variant="text"
+                aria-label="text button group"
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    width: '100vw',
+                    mt: '1.5em',
+                    mb: '1.5em'
+                }}
+            >
+                <Button onClick={() => setViewState('standings')} sx={{ width: '30%' }}>Standings</Button>
+                {(isMember || isAdmin) && <Button onClick={() => setViewState('myPicks')} sx={{ width: '30%' }}>My Picks</Button>}
+                {(isMember || isAdmin) && <Button onClick={() => setViewState('overview')} sx={{ width: '30%' }}>Overview</Button>}
+
+            </ButtonGroup>
+
+            {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
+            {viewState === 'standings' && <LeagueStandings />}
+            {viewState === 'myPicks' && <MyPicks />}
+            {viewState === 'overview' && <LeaguePicks />}
+
         </Container>
 
     )

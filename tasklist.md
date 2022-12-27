@@ -16,10 +16,12 @@ Stretch goals:
 
 Notes to self:
     - set join league to refresh instead of go to dashboard
+    - for MUI theme, look at cssbaseline, also need to wrap App in ThemeProvider (only need once in application, put at very top)
 
 
     Problems with calculations:
-    - Mark Swan Week 11 pick 1 (WAS) recording as true but not adding score (not calculating in other leagues either) from: leagueStandings line 32: if (pickStatus[0]?.is_winner) {
+    - laurie olender
+
 
 
 

@@ -13,12 +13,12 @@ import { useDispatch } from 'react-redux';
 const UserDashboard: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const store:any = useSelector(store => store)
-    const myLeagues:any = store.leagues.userLeagues;
+    const store: any = useSelector(store => store)
+    const myLeagues: any = store.leagues.userLeagues;
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_LEAGUES'});
-        dispatch({ type: 'GET_API_DATA'});
+        dispatch({ type: 'FETCH_LEAGUES' });
+        dispatch({ type: 'GET_API_DATA' });
     }, []);
 
     // redirects to league detail page when a user clicks on a league item
@@ -37,10 +37,26 @@ const UserDashboard: React.FC = () => {
                 justifyContent: "center"
             }}
         >
-            <RefreshApiData />
             <Typography variant="h4">My Dashboard</Typography>
-            <Box 
-                width={"100%"} 
+
+            <Stack
+                spacing={1}
+                direction="row"
+                sx={{
+                    width: '92%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mt: '8px',
+                    mb: '8px'
+                }}
+            >
+                <Button variant="contained" color="primary" href="#/find" sx={{ width: "45%" }}>Find League</Button>
+                <Button variant="contained" color="warning" href="#/create" sx={{ width: "45%" }}>Create League</Button>
+            </Stack>
+
+            <Box
+                width={"100%"}
                 height={"75vh"}
                 sx={{
                     display: "flex",
@@ -48,39 +64,25 @@ const UserDashboard: React.FC = () => {
                     alignItems: "left",
                 }}
             >
-                <Typography variant='h6'>My Leagues:</Typography>
 
-                <Box  
-                    sx={{ 
+                <Typography variant='h6'>My Leagues:</Typography>
+                <Box
+                    sx={{
                         pb: '80px',
                     }}
                 >
-                    {myLeagues.map( league => {
+                    {myLeagues.map(league => {
                         return (
-                            <div onClick={() => {leagueClick(league)}} key={league.league_id}>
-                                <LeagueItem league={league}/>
+                            <div onClick={() => { leagueClick(league) }} key={league.league_id}>
+                                <LeagueItem league={league} />
                             </div>
                         )
 
-                        
+
                     })}
                 </Box>
-                <Stack 
-                    spacing={1} 
-                    direction="row"
-                    sx={{
-                        width: '92%',
-                        position: 'fixed',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        bottom: 40
-                    }}
-                >
-                    <Button variant="contained" color="primary" href="#/find" sx={{ width: "45%" }}>Find League</Button>
-                    <Button variant="contained" color="warning" href="#/create" sx={{ width: "45%" }}>Create League</Button>
-                </Stack>
             </Box>
+            <RefreshApiData />
         </Container>
     )
 }
