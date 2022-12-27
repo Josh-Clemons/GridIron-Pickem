@@ -12,3 +12,19 @@ Stretch goals:
     [] private leagues
     [] show scores on weekly pick page
     [] visually show what teams win/lose on weekly pick page
+
+
+Notes to self:
+    - set join league to refresh instead of go to dashboard
+
+
+    Problems with calculations:
+    - Mark Swan Week 11 pick 1 (WAS) recording as true but not adding score (not calculating in other leagues either) from: leagueStandings line 32: if (pickStatus[0]?.is_winner) {
+
+
+
+    Notes for mark:
+        Inconsistencies with spreadsheet:
+            - Mark's Week 1 point 1 has SF and IND on selection history
+            - Mark's LAC/LAR for week 2 points 3
+            - Julie Daly has LV for 3 points week 7, 10, and 14 on the main page, nothing for for 3 point week 10 or 14 on selection history

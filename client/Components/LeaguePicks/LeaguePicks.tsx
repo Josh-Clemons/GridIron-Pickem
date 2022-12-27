@@ -97,7 +97,7 @@ const LeaguePicks = () => {
                     onChange={(option) => weekChange(option)}
                 />
             </Box>
-            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: '10px', marginTop: '20px', width: '80vw' }}>
+            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: '10px', marginTop: '20px', marginBottom: '80px', width: '80vw' }}>
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
