@@ -22,6 +22,8 @@ const MyPicks = () => {
     const leagueId = store.leagues.leagueDetail[0]?.league_id;
     const userPicks = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
     let currentPicks: { week: number, team: string, amount: number }[] = [];
+    let dateLockStart: any = new Date('2022-09-02T00:15:00.007Z');
+
 
     const customStyles = {
         // control represent the select component
@@ -44,9 +46,9 @@ const MyPicks = () => {
     };
 
     const pickCheckDuplicate = () => {
-        const fivePicks: any = currentPicks.filter((e) => e.amount === 5 && e.team !== null);
-        const threePicks: any = currentPicks.filter((e) => e.amount === 3 && e.team !== null);
-        const onePicks: any = currentPicks.filter((e) => e.amount === 1 && e.team !== null);
+        const fivePicks: any = currentPicks.filter((e) => e.amount === 5 && e.team !== null && e.team !== '');
+        const threePicks: any = currentPicks.filter((e) => e.amount === 3 && e.team !== null && e.team !== '');
+        const onePicks: any = currentPicks.filter((e) => e.amount === 1 && e.team !== null && e.team !== '');
 
         let checkFiveArray: any = [];
         let checkThreeArray: any = [];
@@ -102,10 +104,11 @@ const MyPicks = () => {
         const pickFive = userPicks.filter(e => (e.week === week && e.amount === 5));
         const pickThree = userPicks.filter(e => (e.week === week && e.amount === 3));
         const pickOne = userPicks.filter(e => (e.week === week && e.amount === 1));
-
         currentPicks.push({ week: week, team: pickFive[0].team, amount: 5 });
         currentPicks.push({ week: week, team: pickThree[0].team, amount: 3 });
         currentPicks.push({ week: week, team: pickOne[0].team, amount: 1 });
+
+        dateLockStart.setTime(dateLockStart.getTime() + (24*60*60*1000) * 7)
 
         return (
             <TableRow key={"fiveChoiceWeek" + week}>
@@ -115,6 +118,7 @@ const MyPicks = () => {
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='fiveChoice'
                         defaultValue={pickFive[0].team ? { value: pickFive[0].team, label: pickFive[0].team } : ''}
+                        isDisabled={(dateLockStart< new Date() ? true : false )}
                         isSearchable={true}
                         name={"fiveChoiceWeek" + week}
                         options={teams}
@@ -128,6 +132,7 @@ const MyPicks = () => {
                         className='threeChoice'
                         defaultValue={pickThree[0].team ? { value: pickThree[0].team, label: pickThree[0].team } : ''}
                         isSearchable={true}
+                        isDisabled={(dateLockStart< new Date() ? true : false )}
                         name={"threeChoiceWeek" + week}
                         options={teams}
                         styles={customStyles}
@@ -140,6 +145,7 @@ const MyPicks = () => {
                         className='oneChoice'
                         defaultValue={pickOne[0].team ? { value: pickOne[0].team, label: pickOne[0].team } : ''}
                         isSearchable={true}
+                        isDisabled={(dateLockStart< new Date() ? true : false )}
                         name={"oneChoiceWeek" + week}
                         options={teams}
                         styles={customStyles}

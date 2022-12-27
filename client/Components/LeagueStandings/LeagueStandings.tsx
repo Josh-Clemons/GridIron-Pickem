@@ -49,7 +49,7 @@ const LeagueStandings = () => {
 
 
     return (
-        <Box width={'80%'}>
+        <Box width={'80%'} mb={'80px'}>
             <TableContainer component={Paper}>
                 <Table size='small'>
                     <TableHead>

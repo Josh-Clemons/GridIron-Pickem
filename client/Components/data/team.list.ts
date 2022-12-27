@@ -1,4 +1,5 @@
 export const teams: {value: string | null, label: string}[] = [
+    { value: '', label: 'Select...' },
     { value: 'ARI', label: 'ARI' },
     { value: 'ATL', label: 'ATL' },
     { value: 'BAL', label: 'BAL' },
@@ -30,6 +31,6 @@ export const teams: {value: string | null, label: string}[] = [
     { value: 'SF', label: 'SF' },
     { value: 'TB', label: 'TB' },
     { value: 'TEN', label: 'TEN' },
-    { value: 'WAS', label: 'WAS' }
+    { value: 'WSH', label: 'WSH' }
 ]
 
