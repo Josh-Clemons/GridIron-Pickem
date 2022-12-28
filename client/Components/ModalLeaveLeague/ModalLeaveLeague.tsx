@@ -20,7 +20,7 @@ const style = {
     p: 4,
 };
 
-const ModalDeleteLeague = () => {
+const ModalLeaveLeague = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -30,14 +30,13 @@ const ModalDeleteLeague = () => {
     const { id } = useParams();
 
     const handleSubmit = (event: any) => {
-        event.preventDefault();
-        dispatch({ type: 'DELETE_LEAGUE', payload: id });
+        dispatch({ type: 'LEAVE_LEAGUE', payload: id });
         navigate('/dashboard');
     };
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 130, m: 1 }}>DELETE</Button>
+            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 130, m: 1 }}>Leave</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -46,7 +45,7 @@ const ModalDeleteLeague = () => {
             >
                 <Box sx={style} component='form' onSubmit={handleSubmit}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Are you sure you want to delete?
+                        Are you sure you want to leave?
                     </Typography>
                     <Stack spacing={1} p={2} direction='row-reverse'>
                         <Button variant='outlined' color={'error'} onClick={handleSubmit} sx={{ width: 80 }}>Yes</Button>
@@ -58,4 +57,4 @@ const ModalDeleteLeague = () => {
     );
 }
 
-export default ModalDeleteLeague;
+export default ModalLeaveLeague;

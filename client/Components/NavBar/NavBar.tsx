@@ -109,15 +109,15 @@ export default function NavBar() {
             <Divider />
 
             {store.user.id ?
-                <Button onClick={() => logout()}>
+                <Button size='large' onClick={() => logout()} sx={{ m: 1 }}>
                     Logout
                 </Button>
                 :
                 <>
-                    <Button onClick={() => navigate('/login')}>
+                    <Button size='large' onClick={() => navigate('/login')} sx={{ m: 1 }}>
                         Login
                     </Button>
-                    <Button onClick={() => navigate('/register')}>
+                    <Button size='large' onClick={() => navigate('/register')} sx={{ m: 1 }}>
                         Register
                     </Button>
                 </>
@@ -129,7 +129,6 @@ export default function NavBar() {
 
     return (
         <div>
-
             <React.Fragment>
                 <Toolbar>
                     <IconButton
