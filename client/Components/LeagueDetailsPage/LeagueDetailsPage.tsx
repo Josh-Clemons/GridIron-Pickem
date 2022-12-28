@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
+import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,7 +14,6 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Paper } from '@mui/material';
 
 
 
@@ -99,36 +99,35 @@ const LeagueDetailsPage = () => {
                 }}
             >
                 <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
-
-
                 {/* Button group below, changes depending on whether user is owner/member */}
                 <Stack
-                    spacing={1}
+                    spacing={2}
                     direction="row"
                     sx={{
                         width: '92%',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        m: 1
                     }}
                 >
                     {isAdmin
                         ?
                         <>
-                            <Button variant="outlined" onClick={deleteLeague} color={'error'} sx={{ width: "45%" }}>Delete</Button>
-                            <Button variant="outlined" onClick={deleteLeague} color={'warning'} sx={{ width: "45%" }}>Rename</Button>
+                            <Button variant="outlined" onClick={deleteLeague} color={'error'} size='small' sx={{ width: 130 }}>Delete</Button>
+                            <ModalRenameLeague />
                         </>
                         :
                         <>
                             {isMember ?
                                 <>
-                                    <Button variant="outlined" onClick={leaveLeague} color={'error'} sx={{ width: "45%" }}>Leave</Button>
-                                    <Button variant="outlined" href="#/dashboard" sx={{ width: "45%" }}>My Leagues</Button>
+                                    <Button variant="outlined" onClick={leaveLeague} color={'error'} size='small' sx={{ width: 130 }}>Leave</Button>
+                                    <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130 }}>My Leagues</Button>
                                 </>
                                 :
                                 <>
-                                    <Button variant="outlined" onClick={joinLeague} sx={{ width: "45%", color: "white", bgcolor: "primary.main" }}>Join</Button>
-                                    <Button variant="outlined" href="#/find" sx={{ width: "45%" }}>Back</Button>
+                                    <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 130, color: "white", bgcolor: "primary.main" }}>Join</Button>
+                                    <Button variant="outlined" href="#/find" size='small' sx={{ width: 130 }}>Back</Button>
                                 </>
                             }
                         </>

@@ -39,7 +39,7 @@ function* fetchAvailableLeagues(action: any) {
     } catch (error) {
         console.log('error in fetch available leagues', error)
     };
-}
+};
 
 function* fetchLeagueDetail(action: any) {
     try {
@@ -62,16 +62,25 @@ function* deleteLeague(action: any) {
         yield put({ type: 'FETCH_LEAGUES' });
     }catch(error) {
         console.log('error in deleteLeague Saga: ', error)
-    }
-}
+    };
+};
 
 function* leaveLeague(action: any) {
     try {
         yield axios.delete('/api/league/leave/' + action.payload);
     }catch(error) {
         console.log('error in leaveLeague Saga:', error);
-    }
-}
+    };
+};
+
+function* renameLeague(action: any) {
+    try {
+        yield axios.put('api/league/rename', action.payload);
+        yield put({ type: 'FETCH_LEAGUE_DETAIL', payload: action.payload.id})
+    } catch(error) {
+        console.log('error in renameLeague:', error)
+    };
+};
 
 function* leagueSaga() {
     yield takeLatest('CREATE_LEAGUE', createLeague);
@@ -80,6 +89,7 @@ function* leagueSaga() {
     yield takeLatest('FETCH_LEAGUE_DETAIL', fetchLeagueDetail);
     yield takeLatest('DELETE_LEAGUE', deleteLeague);
     yield takeLatest('LEAVE_LEAGUE', leaveLeague);
+    yield takeLatest('RENAME_LEAGUE', renameLeague);
 };
 
 export default leagueSaga;
