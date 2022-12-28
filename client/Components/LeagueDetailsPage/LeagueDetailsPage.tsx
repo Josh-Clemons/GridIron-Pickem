@@ -7,6 +7,7 @@ import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
 import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
+import ModalDeleteLeague from '../ModalDeleteLeague/ModalDeleteLeague';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -38,12 +39,6 @@ const LeagueDetailsPage = () => {
     useEffect(() => {
         setMember();
     }, [leagueDetail]);
-
-    // delete league, for owner only
-    const deleteLeague = () => {
-        dispatch({ type: 'DELETE_LEAGUE', payload: id });
-        navigate('/dashboard');
-    }
 
     // anyone can join
     const joinLeague = () => {
@@ -108,14 +103,16 @@ const LeagueDetailsPage = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        flexWrap: 'wrap',
                         m: 1
                     }}
                 >
                     {isAdmin
                         ?
                         <>
-                            <Button variant="outlined" onClick={deleteLeague} color={'error'} size='small' sx={{ width: 130 }}>Delete</Button>
+                            <ModalDeleteLeague />
                             <ModalRenameLeague />
+                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, mb: 2 }}>My Leagues</Button>
                         </>
                         :
                         <>

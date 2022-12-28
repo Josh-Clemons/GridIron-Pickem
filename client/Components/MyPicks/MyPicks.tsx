@@ -114,8 +114,8 @@ const MyPicks = () => {
 
         return (
             <TableRow key={"fiveChoiceWeek" + week}>
-                <TableCell sx={{ padding: '6px', width: '50px' }}>{week}</TableCell>
-                <TableCell sx={{ padding: '6px', width: '20%' }}>
+                <TableCell sx={{ padding: '6px', width: 10 }}>{week}</TableCell>
+                <TableCell sx={{ padding: '6px', width: '30%' }}>
                     <Select
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='fiveChoice'
@@ -139,7 +139,7 @@ const MyPicks = () => {
                         onChange={(option) => pickChange(option, week, 5)}
                     />
                 </TableCell>
-                <TableCell sx={{ padding: '6px', width: '20%' }}>
+                <TableCell sx={{ padding: '6px', width: '30%' }}>
                     <Select
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='threeChoice'
@@ -165,7 +165,7 @@ const MyPicks = () => {
                         onChange={(option) => pickChange(option, week, 3)}
                     />
                 </TableCell>
-                <TableCell sx={{ padding: '6px', width: '20%' }}>
+                <TableCell sx={{ padding: '6px', width: '30%' }}>
                     <Select
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='oneChoice'
@@ -217,15 +217,15 @@ const MyPicks = () => {
 
     return (
         <Box component={Paper} elevation={12} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-            <Button variant='contained' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2 }}>Save Picks</Button>
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2 }}>Save Picks</Button>
             <TableContainer sx={{ mb: 2, pb: 20 }}>
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ pr: 1, pl: 1, width: '50px' }}>Week</TableCell>
-                            <TableCell sx={{ padding: 1.5, width: '20%' }}>5 Pts</TableCell>
-                            <TableCell sx={{ padding: 1.5, width: '20%' }}>3 Pts</TableCell>
-                            <TableCell sx={{ padding: 1.5, width: '20%' }}>1 Pt</TableCell>
+                            <TableCell sx={{ pr: 1, pl: 1, width: 10 }}>Week</TableCell>
+                            <TableCell sx={{ padding: 1.5, width: '30%' }}>5 Pts</TableCell>
+                            <TableCell sx={{ padding: 1.5, width: '30%' }}>3 Pts</TableCell>
+                            <TableCell sx={{ padding: 1.5, width: '30%' }}>1 Pt</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -233,7 +233,7 @@ const MyPicks = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant='contained' color='success' onClick={savePicks} sx={{ mb: 20, mt: -20 }}>Save Picks</Button>
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 20, mt: -20 }}>Save Picks</Button>
         </Box>
     )
 }
