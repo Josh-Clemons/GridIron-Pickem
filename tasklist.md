@@ -5,13 +5,14 @@ To complete base mode:
     [] mui modal or sweet alert confirmations
     [x] styling
         [x] set theme
-    [] edit league name
+    [x] edit league name
     [] comment code
     [] update readme
 
 Stretch goals:
     [] update types (remove :any)
     [] private leagues
+    [] error handle if get logged out of server
     [] limit options to teams not already picked
     [] lock fields only after the corresponding game starts (or after the last game of the week starts)
         [] limit options accordingly

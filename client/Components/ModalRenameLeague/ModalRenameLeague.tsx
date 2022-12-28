@@ -45,7 +45,7 @@ const ModalRenameLeague = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'warning'} size='small' sx={{ width: 130 }}>Rename</Button>
+            <Button variant="outlined" onClick={handleOpen} color={'warning'} size='small' sx={{ width: 130, m: 1 }}>Rename</Button>
             <Modal
                 open={open}
                 onClose={handleClose}

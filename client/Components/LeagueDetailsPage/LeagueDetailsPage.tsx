@@ -7,6 +7,8 @@ import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
 import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
+import ModalDeleteLeague from '../ModalDeleteLeague/ModalDeleteLeague';
+import ModalLeaveLeague from '../ModalLeaveLeague/ModalLeaveLeague';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -39,22 +41,10 @@ const LeagueDetailsPage = () => {
         setMember();
     }, [leagueDetail]);
 
-    // delete league, for owner only
-    const deleteLeague = () => {
-        dispatch({ type: 'DELETE_LEAGUE', payload: id });
-        navigate('/dashboard');
-    }
-
     // anyone can join
     const joinLeague = () => {
         dispatch({ type: 'CREATE_PICKS', payload: id });
         location.reload();
-    }
-
-    // leave league available for members (not owner)
-    const leaveLeague = () => {
-        dispatch({ type: 'LEAVE_LEAGUE', payload: id });
-        navigate('/dashboard');
     }
 
     // sets member type so appropriate options are displayed
@@ -101,28 +91,30 @@ const LeagueDetailsPage = () => {
                 <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
                 {/* Button group below, changes depending on whether user is owner/member */}
                 <Stack
-                    spacing={2}
+                    spacing={1}
                     direction="row"
                     sx={{
                         width: '92%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        flexWrap: 'wrap',
                         m: 1
                     }}
                 >
                     {isAdmin
                         ?
                         <>
-                            <Button variant="outlined" onClick={deleteLeague} color={'error'} size='small' sx={{ width: 130 }}>Delete</Button>
+                            <ModalDeleteLeague />
                             <ModalRenameLeague />
+                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, m: 1 }}>My Leagues</Button>
                         </>
                         :
                         <>
                             {isMember ?
                                 <>
-                                    <Button variant="outlined" onClick={leaveLeague} color={'error'} size='small' sx={{ width: 130 }}>Leave</Button>
-                                    <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130 }}>My Leagues</Button>
+                                    <ModalLeaveLeague />
+                                    <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, m: 1 }}>My Leagues</Button>
                                 </>
                                 :
                                 <>
