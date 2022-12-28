@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
+import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,7 +14,6 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Paper } from '@mui/material';
 
 
 
@@ -99,7 +99,7 @@ const LeagueDetailsPage = () => {
                 }}
             >
                 <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
-
+                <ModalRenameLeague />
 
                 {/* Button group below, changes depending on whether user is owner/member */}
                 <Stack
