@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
@@ -44,14 +45,14 @@ const CreateLeaguePage = () => {
                     value={leagueName}
                     onChange={(e) => setLeagueName(e.target.value)}
                     sx={{
-                        backgroundColor: "white",
-                        margin: "10px",
-                        marginTop: "2em"
+                        backgroundColor: 'black',
+                        margin: 2.5,
+                        marginTop: 4
                     }}
                 />
-                <Button variant="contained" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px" }}>Create</Button>
+                <Button variant="outlined" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px" }}>Create</Button>
             </Box>
-            <Button variant="contained" href="#/dashboard" sx={{ width: "250px", color: "white", bgcolor: "text.primary", position: "fixed", bottom: 40 }}>My Leagues</Button>
+            <Button variant="outlined" href="#/dashboard" sx={{ width: "250px", position: "fixed", bottom: 40 }}>My Leagues</Button>
         </Container>
     )
 }
