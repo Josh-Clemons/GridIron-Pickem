@@ -140,3 +140,17 @@ leagueRouter.delete('/league/leave/:leagueId', rejectUnauthenticated, (req: any,
     });
 });
 
+
+// update league name
+leagueRouter.put('/league/rename', rejectUnauthenticated, (req: any, res: Response) => {
+    const userId: number = req.user.id;
+    const leagueId: number = req.body.id;
+    const leagueName: string = req.body.name;
+    const queryText: string = `UPDATE "league" SET "league_name" = $1 WHERE "id" = $2 AND "owner_id" = $3;`
+
+    pool.query(queryText, [leagueName, leagueId, userId]).then(() => {
+        res.sendStatus(200);
+    }).catch((error: Error) => {
+        console.log('error in query to rename league:', error);
+    });
+});

@@ -26,26 +26,33 @@ const ModalRenameLeague = () => {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        setLeagueName('');
+    };
     const [leagueName, setLeagueName] = React.useState('')
     const { id } = useParams();
 
-    const handleSubmit = () => {
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
         if (leagueName !== '') {
-            dispatch({ type: 'RENAME_LEAGUE', payload: { name: leagueName, id: id } })
-        }
-    }
+            dispatch({ type: 'RENAME_LEAGUE', payload: { name: leagueName, id: id } });
+            handleClose();
+        } else {
+            handleClose();
+        };
+    };
 
     return (
         <Box>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button variant="outlined" onClick={handleOpen} color={'warning'} size='small' sx={{ width: 130 }}>Rename</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style} component='form'>
+                <Box sx={style} component='form' onSubmit={handleSubmit}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Enter New Name
                     </Typography>
