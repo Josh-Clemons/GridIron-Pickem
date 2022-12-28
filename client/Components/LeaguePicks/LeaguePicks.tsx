@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Select from 'react-select';
 import Table from '@mui/material/Table';
@@ -31,6 +30,7 @@ const LeaguePicks = () => {
         control: (provided) => ({
             ...provided,
             width: '100px',
+            backgroundColor: '#F8F8F8',
         })
     };
 
@@ -88,16 +88,26 @@ const LeaguePicks = () => {
                 alignItems: 'center'
             }}
             >
-                <Typography variant='h6' sx={{ mr: '10px' }}>Week: </Typography>
+                <Typography variant='h6' sx={{ mr: 3 }}>Week: </Typography>
                 <Select
                     className='week'
                     name={"week"}
                     options={week}
                     styles={customStyles}
                     onChange={(option) => weekChange(option)}
+                    theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                            ...theme.colors,
+                            primary25: '#1C2541',
+                            neutral0: '#1C2541',
+                            neutral40: 'black',
+                            neutral50: 'black',
+                        },
+                    })}
                 />
             </Box>
-            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: '10px', marginTop: '20px', marginBottom: '80px', width: '80vw' }}>
+            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: 1, marginTop: '20px', marginBottom: '80px', width: '80vw' }}>
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
@@ -111,7 +121,7 @@ const LeaguePicks = () => {
                         {weeklyPicks.map((pick) => {
                             return (
                                 <TableRow key={pick.username}>
-                                    <TableCell sx={{ width: '80px', maxWidth: '100px', overflow: "wrap"}}>{pick.username}</TableCell>
+                                    <TableCell sx={{ pl: 1, pr: 1}}><Typography variant='body1' noWrap={true} sx={{width: 80}}>{pick.username}</Typography></TableCell>
                                     <TableCell>{pick.five}</TableCell>
                                     <TableCell>{pick.three}</TableCell>
                                     <TableCell>{pick.one}</TableCell>

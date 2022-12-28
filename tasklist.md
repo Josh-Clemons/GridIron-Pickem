@@ -24,6 +24,7 @@ Stretch goals:
 
 Notes to self:
     - set join league to refresh instead of go to dashboard
+        - figure out why on refresh it redirects to login/dashboard. Is this an async problem and Passport doesn't see we are logged in until after navigate takes us to login page?
 
     Problems with calculations:
     - laurie olender

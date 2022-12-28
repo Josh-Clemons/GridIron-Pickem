@@ -9,6 +9,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+
 
 const LeagueStandings = () => {
     const store: any = useSelector(store => store);
@@ -61,7 +63,7 @@ const LeagueStandings = () => {
                     <TableBody>
                         {leagueScore.map((user) => {
                             return <TableRow key={user.name}>
-                                <TableCell>{user.name}</TableCell><TableCell align='right'>{user.score}</TableCell>
+                                <TableCell><Typography variant='body1' noWrap={true} >{user.name}</Typography></TableCell><TableCell align='right'>{user.score}</TableCell>
                             </TableRow>
                         })}
                     </TableBody>

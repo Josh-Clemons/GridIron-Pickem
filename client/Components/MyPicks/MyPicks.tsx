@@ -13,7 +13,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { red } from '@mui/material/colors';
+import { green, red } from '@mui/material/colors';
 
 
 const MyPicks = () => {
@@ -31,7 +31,7 @@ const MyPicks = () => {
         control: (provided, { isDisabled, isSelected, isFocused }) => ({
             ...provided,
             width: '100%',
-            backgroundColor: isDisabled ? '#C0CBD6' : '#F8F8F8',
+            backgroundColor: isDisabled ? '#9AA4AE' : '#F8F8F8',
             menuPortal: base => ({ ...base, zIndex: 9999 })
         })
     };
@@ -129,7 +129,11 @@ const MyPicks = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary25: '#1C2541',
                                 neutral0: '#1C2541',
+                                neutral40: 'black', // -- default value color for disabled fields
+                                neutral50: 'black', // -- default value color for non-disabled fields
+                                neutral80: green[900], // color of value after making selection
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 5)}
@@ -149,7 +153,13 @@ const MyPicks = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary25: '#1C2541', // -- the first value gets highlighted, this is that color
                                 neutral0: '#1C2541',
+                                // neutral10: 'red', -- this is the border color for disabled
+                                // neutral20: 'red', -- this is the border color for not disabled
+                                neutral40: 'black', // -- default value color for disabled fields
+                                neutral50: 'black', // -- default value color for non-disabled fields
+                                neutral80: green[900], // color of value after making selection
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 3)}
@@ -169,7 +179,11 @@ const MyPicks = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary25: '#1C2541',
                                 neutral0: '#1C2541',
+                                neutral40: 'black', // -- default value color for disabled fields
+                                neutral50: 'black', // -- default value color for non-disabled fields
+                                neutral80: green[900], // color of value after making selection
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 1)}
@@ -202,16 +216,16 @@ const MyPicks = () => {
 
 
     return (
-        <Box width={'90%'} mb={'80px'} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-            <Button variant='contained' color='success' onClick={savePicks} sx={{ mb: '10px' }}>Save Picks</Button>
-            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: '10px' }}>
+        <Box component={Paper} elevation={12} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
+            <Button variant='contained' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2 }}>Save Picks</Button>
+            <TableContainer sx={{ mb: 2, pb: 20 }}>
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ padding: '6px', width: '50px' }}>Week</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>5 Pts</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>3 Pts</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>1 Pt</TableCell>
+                            <TableCell sx={{ pr: 1, pl: 1, width: '50px' }}>Week</TableCell>
+                            <TableCell sx={{ padding: 1.5, width: '20%' }}>5 Pts</TableCell>
+                            <TableCell sx={{ padding: 1.5, width: '20%' }}>3 Pts</TableCell>
+                            <TableCell sx={{ padding: 1.5, width: '20%' }}>1 Pt</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -219,6 +233,7 @@ const MyPicks = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Button variant='contained' color='success' onClick={savePicks} sx={{ mb: 20, mt: -20 }}>Save Picks</Button>
         </Box>
     )
 }

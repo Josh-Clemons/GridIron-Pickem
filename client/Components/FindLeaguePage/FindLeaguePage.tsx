@@ -49,17 +49,7 @@ const FindLeaguePage = () => {
                     )
                 })}
             </Box>
-
-
-            <Stack
-                spacing={1}
-                direction="column"
-                sx={{
-                    position: 'fixed',
-                    bottom: 40
-                }}
-            >
-            </Stack>
+            <Button variant="outlined" color="warning" href="#/create" sx={{ width: "45%", position: "fixed", bottom: 40 }}>Create League</Button>
         </Container>
     )
 }

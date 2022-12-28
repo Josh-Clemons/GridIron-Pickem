@@ -13,6 +13,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { Paper } from '@mui/material';
 
 
 
@@ -47,7 +48,7 @@ const LeagueDetailsPage = () => {
     // anyone can join
     const joinLeague = () => {
         dispatch({ type: 'CREATE_PICKS', payload: id });
-        navigate('/dashboard');
+        location.reload();
     }
 
     // leave league available for members (not owner)
@@ -80,44 +81,60 @@ const LeagueDetailsPage = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                pr: 1,
+                pl: 1
             }}
         >
-            <Box className='detailHeader' >
-                <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
-            </Box>
-
-            {/* Button group below, changes depending on whether user is owner/member */}
-            <Stack
-                spacing={1}
-                direction="row"
+            <Box
+                m={3}
+                p={2}
+                width={'95%'}
                 sx={{
-                    width: '92%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 2,
+                    bgcolor: "#1C2541"
                 }}
             >
-                {isAdmin
-                    ?
-                    <>
-                        <Button variant="contained" onClick={deleteLeague} color={'error'} sx={{ width: "45%" }}>DELETE League</Button>
-                    </>
-                    :
-                    <>
-                        {isMember ?
-                            <>
-                                <Button variant="contained" onClick={leaveLeague} color={'error'} sx={{ width: "45%" }}>Leave League</Button>
-                            </>
-                            :
-                            <>
-                                <Button variant="contained" onClick={joinLeague} sx={{ width: "45%", color: "white", bgcolor: "primary.main" }}>Join League</Button>
-                            </>
-                        }
-                    </>
-                }
+                <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
 
-                <Button variant="contained" href="#/dashboard" sx={{ width: "45%", color: "white", bgcolor: "text.primary" }}>My Leagues</Button>
-            </Stack>
+
+                {/* Button group below, changes depending on whether user is owner/member */}
+                <Stack
+                    spacing={1}
+                    direction="row"
+                    sx={{
+                        width: '92%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    {isAdmin
+                        ?
+                        <>
+                            <Button variant="outlined" onClick={deleteLeague} color={'error'} sx={{ width: "45%" }}>Delete</Button>
+                            <Button variant="outlined" onClick={deleteLeague} color={'warning'} sx={{ width: "45%" }}>Rename</Button>
+                        </>
+                        :
+                        <>
+                            {isMember ?
+                                <>
+                                    <Button variant="outlined" onClick={leaveLeague} color={'error'} sx={{ width: "45%" }}>Leave</Button>
+                                    <Button variant="outlined" href="#/dashboard" sx={{ width: "45%" }}>My Leagues</Button>
+                                </>
+                                :
+                                <>
+                                    <Button variant="outlined" onClick={joinLeague} sx={{ width: "45%", color: "white", bgcolor: "primary.main" }}>Join</Button>
+                                    <Button variant="outlined" href="#/find" sx={{ width: "45%" }}>Back</Button>
+                                </>
+                            }
+                        </>
+                    }
+                </Stack>
+            </Box>
 
             <ButtonGroup
                 variant="text"
@@ -127,8 +144,8 @@ const LeagueDetailsPage = () => {
                     flexDirection: 'row',
                     justifyContent: 'center',
                     width: '100vw',
-                    mt: '1.5em',
-                    mb: '1.5em'
+                    mt: 2,
+                    mb: 2
                 }}
             >
                 <Button onClick={() => setViewState('standings')} sx={{ width: '30%' }}>Standings</Button>
@@ -136,6 +153,8 @@ const LeagueDetailsPage = () => {
                 {(isMember || isAdmin) && <Button onClick={() => setViewState('overview')} sx={{ width: '30%' }}>Overview</Button>}
 
             </ButtonGroup>
+
+
 
             {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
             {viewState === 'standings' && <LeagueStandings />}

@@ -13,7 +13,7 @@ const RefreshApiData = () => {
     };
 
     return (
-        <Button variant='contained' onClick={handleClick}>Refresh Stats</Button>
+        <Button variant='outlined' onClick={handleClick}>Refresh Stats</Button>
     )
 };
 
