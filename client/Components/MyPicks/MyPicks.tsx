@@ -13,6 +13,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { red } from '@mui/material/colors';
 
 
 const MyPicks = () => {
@@ -25,11 +26,12 @@ const MyPicks = () => {
     let dateLockStart: any = new Date('2022-09-02T00:15:00.007Z');
 
 
-    const customStyles = {
+    const customStyles: any = {
         // control represent the select component
-        control: (provided) => ({
+        control: (provided, { isDisabled, isSelected, isFocused }) => ({
             ...provided,
             width: '100%',
+            backgroundColor: isDisabled ? '#C0CBD6' : '#F8F8F8',
             menuPortal: base => ({ ...base, zIndex: 9999 })
         })
     };
@@ -108,7 +110,7 @@ const MyPicks = () => {
         currentPicks.push({ week: week, team: pickThree[0].team, amount: 3 });
         currentPicks.push({ week: week, team: pickOne[0].team, amount: 1 });
 
-        dateLockStart.setTime(dateLockStart.getTime() + (24*60*60*1000) * 7)
+        dateLockStart.setTime(dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7)
 
         return (
             <TableRow key={"fiveChoiceWeek" + week}>
@@ -118,11 +120,18 @@ const MyPicks = () => {
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='fiveChoice'
                         defaultValue={pickFive[0].team ? { value: pickFive[0].team, label: pickFive[0].team } : ''}
-                        isDisabled={(dateLockStart< new Date() ? true : false )}
+                        isDisabled={(dateLockStart < new Date() ? true : false)}
                         isSearchable={true}
                         name={"fiveChoiceWeek" + week}
                         options={teams}
                         styles={customStyles}
+                        theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                                ...theme.colors,
+                                neutral0: '#1C2541',
+                            },
+                        })}
                         onChange={(option) => pickChange(option, week, 5)}
                     />
                 </TableCell>
@@ -132,10 +141,17 @@ const MyPicks = () => {
                         className='threeChoice'
                         defaultValue={pickThree[0].team ? { value: pickThree[0].team, label: pickThree[0].team } : ''}
                         isSearchable={true}
-                        isDisabled={(dateLockStart< new Date() ? true : false )}
+                        isDisabled={(dateLockStart < new Date() ? true : false)}
                         name={"threeChoiceWeek" + week}
                         options={teams}
                         styles={customStyles}
+                        theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                                ...theme.colors,
+                                neutral0: '#1C2541',
+                            },
+                        })}
                         onChange={(option) => pickChange(option, week, 3)}
                     />
                 </TableCell>
@@ -145,10 +161,17 @@ const MyPicks = () => {
                         className='oneChoice'
                         defaultValue={pickOne[0].team ? { value: pickOne[0].team, label: pickOne[0].team } : ''}
                         isSearchable={true}
-                        isDisabled={(dateLockStart< new Date() ? true : false )}
+                        isDisabled={(dateLockStart < new Date() ? true : false)}
                         name={"oneChoiceWeek" + week}
                         options={teams}
                         styles={customStyles}
+                        theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                                ...theme.colors,
+                                neutral0: '#1C2541',
+                            },
+                        })}
                         onChange={(option) => pickChange(option, week, 1)}
                     />
                 </TableCell>

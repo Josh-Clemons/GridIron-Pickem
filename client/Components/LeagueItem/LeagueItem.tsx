@@ -8,12 +8,14 @@ const LeagueItem = (league) => {
     return (
         <Box
             component={Paper}
-            elevation={12}
+            elevation={20}
             sx={{
                 height: '2em',
-                mt: '.5em',
-                pt: '.5em',
-                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mt: 2,
+                mb: 2
             }}
         >
             {league.league.league_name}

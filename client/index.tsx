@@ -5,15 +5,21 @@ import { Provider } from 'react-redux';
 import store from '../src/redux/store';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { red } from "@mui/material/colors";
 
 const root = ReactDOM.createRoot(document.getElementById("app") as HTMLElement);
 
 const theme = createTheme({
     palette: {
         mode: 'dark',
+        background: {
+            default: '#0B132B',
+            paper: '#1C2541'
+        },
         primary: {
-            main: red[500]
+            main: '#5BC0BE',
+        },
+        text: {
+            primary: '#F8F8F8'
         }
     },
 });

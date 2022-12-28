@@ -15,7 +15,7 @@ const Footer = () => {
                 bottom: 0,
                 borderTop: 1,
                 borderColor: "text.secondary",
-                bgcolor: "#aae0f1"
+                bgcolor: "#1C2541"
             }}>
                 <Typography variant="body1" color="text.secondary" align="center" sx={{ mt: "5px", mb: "5px"}}>
                     {'Copyright © '}

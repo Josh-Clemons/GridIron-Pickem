@@ -9,6 +9,7 @@ import LeagueItem from '../LeagueItem/LeagueItem';
 import RefreshApiData from '../RefreshApiData/RefreshApiData';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Paper } from '@mui/material';
 
 const UserDashboard: React.FC = () => {
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const UserDashboard: React.FC = () => {
                 justifyContent: "center"
             }}
         >
-            <Typography variant="h4">My Dashboard</Typography>
+            <Typography sx={{ m: 2 }} variant="h4">My Dashboard</Typography>
 
             <Stack
                 spacing={1}
@@ -47,8 +48,8 @@ const UserDashboard: React.FC = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    mt: '8px',
-                    mb: '8px'
+                    mt: '3',
+                    mb: '3'
                 }}
             >
                 <Button variant="contained" color="primary" href="#/find" sx={{ width: "45%" }}>Find League</Button>
@@ -58,6 +59,10 @@ const UserDashboard: React.FC = () => {
             <Box
                 width={"100%"}
                 height={"75vh"}
+                component={Paper}
+                borderRadius={4}
+                p={3}
+                mt={4}
                 sx={{
                     display: "flex",
                     flexDirection: "column",
