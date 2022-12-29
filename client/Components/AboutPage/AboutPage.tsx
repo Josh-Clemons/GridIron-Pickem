@@ -1,6 +1,9 @@
 import React from 'react';
 import { Box, Typography, List, ListItem } from '@mui/material';
 
+
+// TODO: update next steps and special thanks
+
 const AboutPage = () => {
     return (
         <Box m={2}>

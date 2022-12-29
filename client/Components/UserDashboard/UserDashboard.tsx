@@ -1,26 +1,22 @@
-import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import LeagueItem from '../LeagueItem/LeagueItem';
-import RefreshApiData from '../RefreshApiData/RefreshApiData';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Paper } from '@mui/material';
 
+import LeagueItem from '../LeagueItem/LeagueItem';
+
+import Box from '@mui/material/Box';
+import { Paper } from '@mui/material';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
+
+
+
+// Displays a list of the users current leagues
 const UserDashboard: React.FC = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const store: any = useSelector(store => store)
     const myLeagues: any = store.leagues.userLeagues;
-
-    useEffect(() => {
-        dispatch({ type: 'FETCH_LEAGUES' });
-        dispatch({ type: 'GET_API_DATA' });
-    }, []);
 
     // redirects to league detail page when a user clicks on a league item
     const leagueClick = (league) => {
@@ -61,9 +57,9 @@ const UserDashboard: React.FC = () => {
                 >
                     {myLeagues.map(league => {
                         return (
-                            <div onClick={() => { leagueClick(league) }} key={league.league_id}>
+                            <Box onClick={() => { leagueClick(league) }} key={league.league_id}>
                                 <LeagueItem league={league} />
-                            </div>
+                            </Box>
                         )
                     })}
                 </Box>

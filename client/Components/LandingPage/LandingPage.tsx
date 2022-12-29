@@ -1,12 +1,16 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import ModalRules from '../ModalRules/ModalRules';
+import bgImg from '/public/football_player_shadow.jpeg';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import bgImg from '/public/football_player_shadow.jpeg';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import ModalRules from '../ModalRules/ModalRules';
+
+
 
 
 const LandingPage = () => {
@@ -36,10 +40,11 @@ const LandingPage = () => {
                 textAlign: "center"
             }}
         >
-            <h2 style={{ backgroundColor: "primary.light", borderRadius: 4 }}>Pick NFL Winners Against Your Friends!</h2>
+            <Typography variant='h2' sx={{ backgroundColor: "primary.light", borderRadius: 4 }}>Pick NFL Winners Against Your Friends!</Typography>
             <br />
             <br />
             <Stack spacing={1} direction="column">
+                {/* button options change if user is logged in */}
                 {!store.user.id 
                 ?
                 <>
@@ -53,7 +58,6 @@ const LandingPage = () => {
                 </>
                 }
                 <ModalRules size={'medium'} variant={'contained'} width={'250px'}/>
-                {/* <Button variant="contained" href="#/rules" color='secondary' sx={{ width: "250px"}}>Rules</Button> */}
             </Stack>
         </Box>
     )

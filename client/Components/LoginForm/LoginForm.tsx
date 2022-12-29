@@ -1,7 +1,10 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -9,9 +12,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-
 
 export default function LoginForm() {
 
@@ -22,28 +22,37 @@ export default function LoginForm() {
     const dispatch = useDispatch();
     const user: any = useSelector<any>(store => store.user);
 
+    // alert user if login fields are empty
+    const errorEmptyFields = () => {
+        toast.error('Complete all fields', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+    };
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // add type here for payload
-        const payload = {
-            username: email,
-            password: password
-        }
 
-        if (payload.username !== '' || payload.password !== '') {
-            dispatch({ type: 'LOGIN', payload });
+        if (email !== '' && password !== '') {
+            dispatch({ type: 'LOGIN', payload: { username: email, password } });
         } else {
             // todo: create react/sweet alert
-            alert('Complete all fields');
+            errorEmptyFields();
         }
-
     };
+
 
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
+            
             <Box
                 sx={{
                     marginTop: 8,

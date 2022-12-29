@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
-import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 // components and pages
 import NavBar from '../NavBar/NavBar';
@@ -17,33 +17,42 @@ import CreateLeaguePage from '../CreateLeaguePage/CreateLeaguePage';
 import LeagueDetailsPage from '../LeagueDetailsPage/LeagueDetailsPage';
 import AboutPage from '../AboutPage/AboutPage';
 
+import CssBaseline from '@mui/material/CssBaseline';
+
+
 const App: React.FC = () => {
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_USER' });
-        dispatch({ type: 'FETCH_LEAGUES'});
-    }, []);
-
-    const store: any = useSelector(store => store);
+    const user: { id: number, username: string } = useSelector((store: any) => store.user);
 
     return (
         <div className='appDiv'>
             <Router>
+                <CssBaseline />
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<Navigate replace to="/home" />} />
                     <Route path='/home' element={<LandingPage />} />
                     <Route path='/about' element={<AboutPage />} />
-                    <Route path='/register' element={store.user.id ? <Navigate replace to="/dashboard" /> : <RegisterPage />} />
-                    <Route path='/login' element={store.user.id ? <Navigate replace to="/dashboard" /> : <LoginPage />} />
-                    <Route path='/dashboard' element={store.user.id ? <UserDashboard /> : <Navigate replace to="/login" />} />
-                    <Route path='/find' element={store.user.id ? <FindLeaguePage /> : <Navigate replace to="/login" />} />
-                    <Route path='/create' element={store.user.id ? <CreateLeaguePage /> : <Navigate replace to="/login" />} />
-                    <Route path='/detail/:id' element={store.user.id ? <LeagueDetailsPage /> : <Navigate replace to="/login" />} />
+                    <Route path='/register' element={user.id ? <Navigate replace to="/dashboard" /> : <RegisterPage />} />
+                    <Route path='/login' element={user.id ? <Navigate replace to="/dashboard" /> : <LoginPage />} />
+                    <Route path='/dashboard' element={user.id ? <UserDashboard /> : <Navigate replace to="/login" />} />
+                    <Route path='/find' element={user.id ? <FindLeaguePage /> : <Navigate replace to="/login" />} />
+                    <Route path='/create' element={user.id ? <CreateLeaguePage /> : <Navigate replace to="/login" />} />
+                    <Route path='/detail/:id' element={user.id ? <LeagueDetailsPage /> : <Navigate replace to="/login" />} />
                 </Routes>
                 <Footer />
-                {/* {JSON.stringify(store)} */}
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
             </Router>
         </div>
     );

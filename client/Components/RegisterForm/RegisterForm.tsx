@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { UserInterface } from '../../../src/interfaces/UserInterface';
+import { toast } from 'react-toastify';
 
 
 export default function RegisterForm() {
@@ -32,11 +33,23 @@ export default function RegisterForm() {
             password: password
         }
 
-        if (payload.username !== '' || payload.password !== '') {
+        // alert user if login fields are empty
+        const errorEmptyFields = () => {
+            toast.error('Complete all fields', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        };
+        if (payload.username !== '' && payload.password !== '') {
             dispatch({ type: 'REGISTER', payload });
         } else {
-            // todo: create react/sweet alert
-            alert('Complete all fields');
+            errorEmptyFields();
         }
 
     };
@@ -71,17 +84,6 @@ export default function RegisterForm() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    {/* <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="display_name"
-                            label="Display Name"
-                            name="display_name"
-                            autoFocus
-                            value={displayName}
-                            onChange={(e) => setDisplayName(e.target.value)}
-                        /> */}
                     <TextField
                         margin="normal"
                         required
