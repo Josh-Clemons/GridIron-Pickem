@@ -24,11 +24,14 @@ const ModalLeaveLeague = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [open, setOpen] = React.useState(false);
+    // open, handleOpen/Close are all used to control the modal
+    const [open, setOpen] = React.useState<boolean>(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     const { id } = useParams();
 
+    // removes users picks from the table, based on league ID and user ID
     const handleSubmit = (event: any) => {
         dispatch({ type: 'LEAVE_LEAGUE', payload: id });
         navigate('/dashboard');

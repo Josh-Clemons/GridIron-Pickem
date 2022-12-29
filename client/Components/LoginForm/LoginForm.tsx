@@ -16,13 +16,12 @@ import Container from '@mui/material/Container';
 export default function LoginForm() {
 
 
-    const [email, setEmail] = React.useState<string>('');
+    const [username, setUsername] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
 
     const dispatch = useDispatch();
-    const user: any = useSelector<any>(store => store.user);
 
-    // alert user if login fields are empty
+    // alert for when login fields are empty
     const errorEmptyFields = () => {
         toast.error('Complete all fields', {
             position: "top-right",
@@ -39,13 +38,12 @@ export default function LoginForm() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-
-        if (email !== '' && password !== '') {
-            dispatch({ type: 'LOGIN', payload: { username: email, password } });
+        // continue only if user/email are not blank
+        if (username !== '' && password !== '') {
+            dispatch({ type: 'LOGIN', payload: { username, password } });
         } else {
-            // todo: create react/sweet alert
             errorEmptyFields();
-        }
+        };
     };
 
 
@@ -72,13 +70,13 @@ export default function LoginForm() {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
+                        id="username"
+                        label="Username"
+                        name="username"
                         autoComplete="email"
                         autoFocus
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                     <TextField
                         margin="normal"

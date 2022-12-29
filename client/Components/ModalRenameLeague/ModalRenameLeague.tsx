@@ -21,20 +21,20 @@ const style = {
     p: 4,
 };
 
+// takes the old league name as a prop to pre-populate input text
 const ModalRenameLeague: any = ({ oldName }) => {
     const dispatch = useDispatch();
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-        setOpen(false);
-        setLeagueName('');
-    };
+    const handleClose = () => setOpen(false);
     const [leagueName, setLeagueName] = React.useState(oldName)
     const { id } = useParams();
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
+
+        // confirms new league name is not blank before submitting to the server, if it is, the modal closes
         if (leagueName !== '') {
             dispatch({ type: 'RENAME_LEAGUE', payload: { name: leagueName, id: id } });
             handleClose();

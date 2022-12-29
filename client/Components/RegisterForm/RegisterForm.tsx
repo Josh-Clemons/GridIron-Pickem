@@ -18,9 +18,8 @@ import { toast } from 'react-toastify';
 export default function RegisterForm() {
 
 
-    const [email, setEmail] = React.useState<string>('');
+    const [username, setUsername] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
-    const [displayName, setDisplayName] = React.useState<string>('');
 
     const dispatch = useDispatch();
     const user: any = useSelector<any>(store => store.user);
@@ -29,9 +28,9 @@ export default function RegisterForm() {
         event.preventDefault();
 
         const payload: UserInterface = {
-            username: email,
-            password: password
-        }
+            username,
+            password
+        };
 
         // alert user if login fields are empty
         const errorEmptyFields = () => {
@@ -76,13 +75,13 @@ export default function RegisterForm() {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
                         autoFocus
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                     <TextField
                         margin="normal"

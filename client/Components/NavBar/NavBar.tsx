@@ -130,8 +130,6 @@ export default function NavBar() {
                     </Button>
                 </Stack>
             }
-
-            {/* todo: Add login and register buttons here? */}
         </Box>
     );
 
