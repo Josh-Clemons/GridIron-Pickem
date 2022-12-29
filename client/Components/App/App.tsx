@@ -15,6 +15,7 @@ import UserDashboard from '../UserDashboard/UserDashboard';
 import FindLeaguePage from '../FindLeaguePage/FindLeaguePage';
 import CreateLeaguePage from '../CreateLeaguePage/CreateLeaguePage';
 import LeagueDetailsPage from '../LeagueDetailsPage/LeagueDetailsPage';
+import AboutPage from '../AboutPage/AboutPage';
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<Navigate replace to="/home" />} />
                     <Route path='/home' element={<LandingPage />} />
+                    <Route path='/about' element={<AboutPage />} />
                     <Route path='/register' element={store.user.id ? <Navigate replace to="/dashboard" /> : <RegisterPage />} />
                     <Route path='/login' element={store.user.id ? <Navigate replace to="/dashboard" /> : <LoginPage />} />
                     <Route path='/dashboard' element={store.user.id ? <UserDashboard /> : <Navigate replace to="/login" />} />
