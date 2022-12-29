@@ -106,7 +106,7 @@ const LeagueDetailsPage = () => {
                         ?
                         <>
                             <ModalDeleteLeague />
-                            <ModalRenameLeague />
+                            <ModalRenameLeague oldName={leagueDetail[0].league_name}/>
                             <ModalRules variant={'outlined'} size={'small'} width={130} margin={8} />
                             <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, m: 1 }}>My Leagues</Button>
                         </>
