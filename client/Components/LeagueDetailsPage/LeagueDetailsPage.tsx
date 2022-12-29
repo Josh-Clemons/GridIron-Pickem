@@ -22,6 +22,7 @@ import Typography from '@mui/material/Typography';
 
 const LeagueDetailsPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { id } = useParams();
     const store: any = useSelector(store => store);
     const leagueDetail = store.leagues.leagueDetail;
@@ -49,7 +50,7 @@ const LeagueDetailsPage = () => {
     // anyone can join
     const joinLeague = () => {
         dispatch({ type: 'CREATE_PICKS', payload: id });
-        location.reload();
+        navigate('/dashboard');
     }
 
     // sets member type so appropriate options are displayed
@@ -124,8 +125,8 @@ const LeagueDetailsPage = () => {
                                 </>
                                 :
                                 <>
-                                    <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 130, color: "white", bgcolor: "primary.main" }}>Join</Button>
-                                    <Button variant="outlined" href="#/find" size='small' sx={{ width: 130 }}>Back</Button>
+                                    <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 130, color: "white", bgcolor: "primary.main", m: 1 }}>Join</Button>
+                                    <Button variant="outlined" href="#/find" size='small' sx={{ width: 130, m: 1 }}>Back</Button>
                                 </>
                             }
                         </>
