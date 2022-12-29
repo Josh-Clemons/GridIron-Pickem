@@ -6,6 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 export const dataRouter = Router();
 
+// gets game results from DB for use in calculating scores
 dataRouter.get('/data/getresults', rejectUnauthenticated, (req: any, res: Response) => {
 
     pool.query('SELECT * FROM "game_data";').then((results: any) => {
@@ -16,6 +17,7 @@ dataRouter.get('/data/getresults', rejectUnauthenticated, (req: any, res: Respon
     });
 });
 
+// API to ESPN to get game data (by week)
 dataRouter.get('/data/update/:week', rejectUnauthenticated, (req: any, res: Response) => {
     const week = req.params.week;
 
@@ -29,6 +31,7 @@ dataRouter.get('/data/update/:week', rejectUnauthenticated, (req: any, res: Resp
 
 });
 
+// updates game data, first builds a giant query by mapping the game data, then deletes old stuff, and finally writes new info.
 dataRouter.post('/data/save', rejectUnauthenticated, (req: any, res: Response) => {
     const gameData: { team: string, week: number, is_winner: boolean }[] = req.body;
     let queryText = `INSERT INTO "game_data" ("team", "week", "is_winner") VAlUES `;
@@ -37,6 +40,7 @@ dataRouter.post('/data/save', rejectUnauthenticated, (req: any, res: Response) =
         queryText = queryText + `('${e.team}', '${e.week}', '${e.is_winner}'),`;
     })
 
+    // removes the last comma and adds a semi-colon after building queryText
     queryText = queryText.slice(0, -1);
     queryText += ';';
 

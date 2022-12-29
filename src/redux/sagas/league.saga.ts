@@ -8,8 +8,6 @@ function* createLeague(action: any) {
         console.log('in create league post')
         // gets the newest league created by the user and sets to redux
         const newLeague: any = yield axios.get('/api/league/newest');
-        console.log('in create league post, after new league get, newLeague.data:', newLeague.data);
-        yield put({ type: 'SET_NEW_LEAGUE', payload: newLeague.data });
 
         // joins commissioner to league when they create it
         yield axios.post('/api/pick/create/' + newLeague.data[0].id, newLeague.data[0].id);
@@ -21,6 +19,7 @@ function* createLeague(action: any) {
     };
 };
 
+// grabs the current leagues the user has joined
 function* fetchLeagues(action: any) {
     try {
         const leagues: any = yield axios.get('/api/league/');
@@ -41,9 +40,9 @@ function* fetchAvailableLeagues(action: any) {
     };
 };
 
+// fetches the pick details for the current league the user is viewing
 function* fetchLeagueDetail(action: any) {
     try {
-        // console.log('in fetch league detail, testing payload', action.payload);
         const leagueDetail: any = yield axios.get('/api/league/detail/' + action.payload);
 
         // build user list for league
@@ -56,6 +55,7 @@ function* fetchLeagueDetail(action: any) {
     };
 };
 
+// deletes league, then resets the list of leagues
 function* deleteLeague(action: any) {
     try {
         yield axios.delete('/api/league/delete/' + action.payload);

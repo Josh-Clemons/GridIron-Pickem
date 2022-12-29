@@ -1,5 +1,4 @@
 import express from "express";
-import { put } from 'redux-saga/effects';
 
 const rejectUnauthenticated = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     // check if logged in

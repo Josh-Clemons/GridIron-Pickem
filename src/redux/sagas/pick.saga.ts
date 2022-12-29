@@ -1,10 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+
+// this creates a users picks in a league when they first join
 function* createPicks(action: any) {
-
-    console.log('in createPicks saga, action.payload:', action.payload)
-
     try {
         // payload is leagueId
         yield axios.post('/api/pick/create/' + action.payload, action.payload);
@@ -14,6 +13,7 @@ function* createPicks(action: any) {
     };
 }
 
+// this is used to "update" picks, the old picks are first deleted, then new ones created
 function* updatePicks(action: any) {
     try {
         yield axios.put('/api/pick/update/' + action.payload.leagueId, action.payload.picks)

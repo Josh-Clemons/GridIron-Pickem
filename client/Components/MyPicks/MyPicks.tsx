@@ -14,6 +14,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { green } from '@mui/material/colors';
+import { toast } from 'react-toastify';
 
 
 const MyPicks = () => {
@@ -91,6 +92,19 @@ const MyPicks = () => {
         currentPicks.push({ week: week, team: option.value, amount: amount });
     };
 
+
+    const pickError =(errorText: string) => {
+        toast.error(errorText, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    };
     // savePicks first checks that the pick checks do not fail, if passed then a dispatch is triggered
     const savePicks = () => {
         const dupeWeek = pickCheckWeek();
@@ -100,9 +114,9 @@ const MyPicks = () => {
             alert('picks saved');
             dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: leagueId });
         } else if (dupeAmount) {
-            alert('duplicates with the same value');
+            pickError('Duplicates in Amount Column');
         } else {
-            alert('duplicates found in same week');
+            pickError('Duplicates in Same Week');
         };
     };
 
@@ -189,9 +203,9 @@ const MyPicks = () => {
                                 ...theme.colors,
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
-                                neutral40: 'black', // -- default value color for disabled fields
-                                neutral50: 'black', // -- default value color for non-disabled fields
-                                neutral80: green[900], // color of value after making selection
+                                neutral40: 'black',
+                                neutral50: 'black',
+                                neutral80: green[900],
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 1)}

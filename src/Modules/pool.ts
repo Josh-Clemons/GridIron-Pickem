@@ -1,7 +1,5 @@
 const pg = require('pg');
 
-// TODO: should I setup interface declaration for config object?
-
 let config: object = {
     host: 'localhost', // Server hosting the postgres database
     port: 5432, // env var: PGPORT

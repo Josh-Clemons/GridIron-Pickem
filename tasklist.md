@@ -6,7 +6,7 @@ To complete base mode:
     [x] styling
         [x] set theme
     [x] edit league name
-    [] comment code
+    [x] comment code
     [] update readme
 
 Stretch goals:

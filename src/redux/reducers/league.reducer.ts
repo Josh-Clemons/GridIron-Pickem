@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-
+// the leagues the logged in user is currently in
 const userLeagues = (state = [], action: any) => {
     switch (action.type) {
         case 'SET_LEAGUES':
@@ -12,6 +12,7 @@ const userLeagues = (state = [], action: any) => {
     }
 };
 
+// leagues available for the user to join
 const availableLeagues = (state = [], action: any) => {
     switch (action.type) {
         case 'SET_AVAILABLE_LEAGUES':
@@ -21,15 +22,7 @@ const availableLeagues = (state = [], action: any) => {
     };
 };
 
-const newLeague = (state = [], action: any) => {
-    switch (action.type) {
-        case 'SET_NEW_LEAGUE':
-            return action.payload;
-        default:
-            return state;
-    };
-};
-
+// sets the details for the current league a user is viewing
 const leagueDetail = (state = [], action: any) => {
     switch (action.type) {
         case 'SET_LEAGUE_DETAIL':
@@ -39,7 +32,7 @@ const leagueDetail = (state = [], action: any) => {
     };
 };
 
-
+// sets user list for current league the user is viewing
 const currentLeagueUsers = (state = [], action: any ) => {
     switch(action.type) {
         case 'SET_LEAGUE_USERS':
@@ -52,7 +45,6 @@ const currentLeagueUsers = (state = [], action: any ) => {
 export default combineReducers({
     userLeagues,
     availableLeagues,
-    newLeague,
     leagueDetail,
     currentLeagueUsers
 });

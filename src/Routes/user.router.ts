@@ -42,7 +42,6 @@ userRouter.post('/user/register', async (req: Request, res: Response) => {
 
 // login
 userRouter.post('/user/login', userStrategy.authenticate('local'), (req: Request, res: Response) => {
-    console.log('in post /login, req.body:', req.body);
     res.sendStatus(200);
 });
 
