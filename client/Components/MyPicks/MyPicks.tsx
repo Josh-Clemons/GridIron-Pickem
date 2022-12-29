@@ -13,11 +13,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { green } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 
 
-const MyPicks = () => {
+const MyPicks = ({ isAdmin }) => {
 
     const dispatch = useDispatch();
     const store: any = useSelector(store => store);
@@ -92,8 +91,22 @@ const MyPicks = () => {
         currentPicks.push({ week: week, team: option.value, amount: amount });
     };
 
+    // alert that displays when picks are saved
+    const alertSavePicks = () => {
+        toast.success('Picks saved!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    };
 
-    const pickError =(errorText: string) => {
+    // alert for when there is an error with pick entry
+    const alertPickError = (errorText: string) => {
         toast.error(errorText, {
             position: "top-right",
             autoClose: 3000,
@@ -105,18 +118,18 @@ const MyPicks = () => {
             theme: "colored",
         });
     };
+
     // savePicks first checks that the pick checks do not fail, if passed then a dispatch is triggered
     const savePicks = () => {
         const dupeWeek = pickCheckWeek();
         const dupeAmount = pickCheckDuplicate();
         if (!dupeWeek && !dupeAmount) {
             dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId } });
-            alert('picks saved');
-            dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: leagueId });
+            alertSavePicks();
         } else if (dupeAmount) {
-            pickError('Duplicates in Amount Column');
+            alertPickError('Duplicates in Amount Column');
         } else {
-            pickError('Duplicates in Same Week');
+            alertPickError('Duplicates in Same Week');
         };
     };
 
@@ -141,8 +154,8 @@ const MyPicks = () => {
                     <Select
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='fiveChoice'
-                        defaultValue={pickFive[0].team ? { value: pickFive[0].team, label: pickFive[0].team } : ''}
-                        isDisabled={(dateLockStart < new Date() ? true : false)}
+                        defaultValue={pickFive[0]?.team ? { value: pickFive[0].team, label: pickFive[0].team } : ''}
+                        isDisabled={isAdmin ? false : (dateLockStart < new Date() ? true : false)}
                         isSearchable={true}
                         name={"fiveChoiceWeek" + week}
                         options={teams}
@@ -155,7 +168,7 @@ const MyPicks = () => {
                                 neutral0: '#1C2541',
                                 neutral40: 'black',
                                 neutral50: 'black',
-                                neutral80: green[900],
+                                neutral80: 'black',
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 5)}
@@ -165,7 +178,7 @@ const MyPicks = () => {
                     <Select
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='threeChoice'
-                        defaultValue={pickThree[0].team ? { value: pickThree[0].team, label: pickThree[0].team } : ''}
+                        defaultValue={pickThree[0]?.team ? { value: pickThree[0].team, label: pickThree[0].team } : ''}
                         isSearchable={true}
                         isDisabled={(dateLockStart < new Date() ? true : false)}
                         name={"threeChoiceWeek" + week}
@@ -181,7 +194,7 @@ const MyPicks = () => {
                                 // neutral20: 'red', -- this is the border color for not disabled
                                 neutral40: 'black', // -- default value color for disabled fields
                                 neutral50: 'black', // -- default value color for non-disabled fields
-                                neutral80: green[900], // color of value after making selection
+                                neutral80: 'black', // color of value after making selection
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 3)}
@@ -191,7 +204,7 @@ const MyPicks = () => {
                     <Select
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='oneChoice'
-                        defaultValue={pickOne[0].team ? { value: pickOne[0].team, label: pickOne[0].team } : ''}
+                        defaultValue={pickOne[0]?.team ? { value: pickOne[0].team, label: pickOne[0].team } : ''}
                         isSearchable={true}
                         isDisabled={(dateLockStart < new Date() ? true : false)}
                         name={"oneChoiceWeek" + week}
@@ -205,7 +218,7 @@ const MyPicks = () => {
                                 neutral0: '#1C2541',
                                 neutral40: 'black',
                                 neutral50: 'black',
-                                neutral80: green[900],
+                                neutral80: 'black',
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 1)}

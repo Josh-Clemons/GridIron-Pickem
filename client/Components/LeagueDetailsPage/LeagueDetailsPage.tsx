@@ -37,6 +37,7 @@ const LeagueDetailsPage = () => {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: id });
+        dispatch({ type: 'GET_API_DATA' });
     }, []);
 
 
@@ -109,7 +110,7 @@ const LeagueDetailsPage = () => {
                         ?
                         <>
                             <ModalDeleteLeague />
-                            <ModalRenameLeague oldName={leagueDetail[0].league_name}/>
+                            <ModalRenameLeague />
                             <ModalRules variant={'outlined'} size={'small'} width={130} margin={8} />
                             <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, m: 1 }}>My Leagues</Button>
                         </>
@@ -154,7 +155,7 @@ const LeagueDetailsPage = () => {
 
             {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
             {viewState === 'standings' && <LeagueStandings />}
-            {viewState === 'myPicks' && <MyPicks />}
+            {viewState === 'myPicks' && <MyPicks isAdmin={isAdmin}/>}
             {viewState === 'overview' && <LeaguePicks />}
 
         </Container>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import { Paper } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -15,8 +16,15 @@ import Typography from '@mui/material/Typography';
 // Displays a list of the users current leagues
 const UserDashboard: React.FC = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const store: any = useSelector(store => store)
     const myLeagues: any = store.leagues.userLeagues;
+
+    // grabs updated league info if league detail changes (ex. league name change)
+    useEffect(()=> {
+        dispatch({type: 'FETCH_LEAGUES'})
+    }, [store.leagues.leagueDetail])
+
 
     // redirects to league detail page when a user clicks on a league item
     const leagueClick = (league) => {
@@ -34,7 +42,7 @@ const UserDashboard: React.FC = () => {
                 justifyContent: "center"
             }}
         >
-            <Typography sx={{ m: 2 }} variant="h4">My Dashboard</Typography>
+            <Typography sx={{ m: 2 }} variant="h4">Dashboard</Typography>
             <Box
                 width={"100%"}
                 height={"75vh"}
