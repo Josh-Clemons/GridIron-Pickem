@@ -2,6 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 
+// grabs the game results from the DB and saves it to Redux
 function* getData() {
     try {
         const gameData:any = yield axios.get('/api/data/getresults');
@@ -12,7 +13,8 @@ function* getData() {
     };
 };
 
-
+// grabs the weekly results from the router for each game (have to grab it by week due to ESPN API)
+// builds the results into an array then sends it to the DB
 function* setData() {
     let gameData: any = [];
 

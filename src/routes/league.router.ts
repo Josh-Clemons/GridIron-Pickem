@@ -128,6 +128,7 @@ leagueRouter.delete('/league/delete/:id', rejectUnauthenticated, (req: any, res:
     });
 });
 
+// leaves a league
 leagueRouter.delete('/league/leave/:leagueId', rejectUnauthenticated, (req: any, res: Response) => {
     const leagueId:number = req.params.leagueId;
     const userId: number = req.user.id;

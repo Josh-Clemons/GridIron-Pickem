@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 
 
 
+// returns a component that allows users to see picks by week for everyone in the league
 const LeaguePicks = () => {
 
     const store: any = useSelector(store => store)
@@ -25,8 +26,8 @@ const LeaguePicks = () => {
         weekChange(1);
     }, []);
 
+    // style for the react-select week chooser
     const customStyles = {
-        // control represent the select component
         control: (provided) => ({
             ...provided,
             width: '100px',
@@ -34,6 +35,7 @@ const LeaguePicks = () => {
         })
     };
 
+    // options for the select dropdown
     const week: any[] = [
         { value: 1, label: 1 },
         { value: 2, label: 2 },
@@ -71,6 +73,7 @@ const LeaguePicks = () => {
             return 0;
         });
 
+        // maps through each user and adds their picks for the current week to the array
         sortedUsers.map((user) => {
             const fivePick = leagueDetail.filter((pick) => pick.username === user.username && pick.amount === 5 && pick.week === option.value);
             const threePick = leagueDetail.filter((pick) => pick.username === user.username && pick.amount === 3 && pick.week === option.value);
@@ -107,21 +110,21 @@ const LeaguePicks = () => {
                     })}
                 />
             </Box>
-            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: 1, marginTop: '20px', marginBottom: '80px', width: '80vw' }}>
+            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: 1, marginTop: '20px', marginBottom: '80px', width: '90vw' }}>
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ padding: '6px', maxWidth: '100px' }}>User</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '25%' }}>5 Pts</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '25%' }}>3 Pts</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '25%' }}>1 Pt</TableCell>
+                            <TableCell sx={{ padding: '6px', maxWidth: '25%' }}>User</TableCell>
+                            <TableCell sx={{ padding: '6px', width: '20%' }}>5 Pts</TableCell>
+                            <TableCell sx={{ padding: '6px', width: '20%' }}>3 Pts</TableCell>
+                            <TableCell sx={{ padding: '6px', width: '20%' }}>1 Pt</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {weeklyPicks.map((pick) => {
                             return (
                                 <TableRow key={pick.username}>
-                                    <TableCell sx={{ pl: 1, pr: 1}}><Typography variant='body1' noWrap={true} sx={{width: 80}}>{pick.username}</Typography></TableCell>
+                                    <TableCell sx={{ pl: 1, pr: 1}}><Typography variant='body1' noWrap={true} sx={{maxWidth: 140}} >{pick.username}</Typography></TableCell>
                                     <TableCell>{pick.five}</TableCell>
                                     <TableCell>{pick.three}</TableCell>
                                     <TableCell>{pick.one}</TableCell>

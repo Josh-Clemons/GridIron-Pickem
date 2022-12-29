@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
 
+// returns a Box (list item) for each league being mapped
 const LeagueItem = (league) => {
     return (
         <Box
@@ -15,7 +16,10 @@ const LeagueItem = (league) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 mt: 2,
-                mb: 2
+                mb: 2,
+                "&:hover": {
+                    cursor: 'pointer',
+                },
             }}
         >
             {league.league.league_name}

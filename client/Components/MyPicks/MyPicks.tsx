@@ -13,7 +13,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { green, red } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
+import { toast } from 'react-toastify';
 
 
 const MyPicks = () => {
@@ -27,15 +28,15 @@ const MyPicks = () => {
 
 
     const customStyles: any = {
-        // control represent the select component
-        control: (provided, { isDisabled, isSelected, isFocused }) => ({
+        control: (provided, { isDisabled }) => ({ // passes isDisabled so a different BG color can be applied
             ...provided,
             width: '100%',
             backgroundColor: isDisabled ? '#9AA4AE' : '#F8F8F8',
-            menuPortal: base => ({ ...base, zIndex: 9999 })
+            menuPortal: base => ({ ...base, zIndex: 9999 }) // this is used to keep the menu portal above all other page elements (so the list doesn't get cut off)
         })
     };
 
+    // function to make sure a team is not picked twice in the same week
     const pickCheckWeek = () => {
         for (let i = 0; i <= 17; i++) {
             const weeklyArray: any = currentPicks.filter((e) => e.week === i + 1)
@@ -47,6 +48,7 @@ const MyPicks = () => {
         return false;
     };
 
+    // checks to make sure a team is not used twice for the same amount of points (5, 3, or 1)
     const pickCheckDuplicate = () => {
         const fivePicks: any = currentPicks.filter((e) => e.amount === 5 && e.team !== null && e.team !== '');
         const threePicks: any = currentPicks.filter((e) => e.amount === 3 && e.team !== null && e.team !== '');
@@ -66,6 +68,9 @@ const MyPicks = () => {
             checkOneArray.push(onePicks[i]?.team);
         };
 
+
+        // new Set builds a new object, with Set you can't have duplicate values. So if the object size is different than the 
+        // array length, you know there are duplicate values in the array
         if ((new Set(checkFiveArray).size !== checkFiveArray.length)) {
             return true;
         };
@@ -79,12 +84,28 @@ const MyPicks = () => {
     };
 
 
+    // when a pick is changed the function is called and passed props that are used to first filter out the old pick,
+    // then push the new pick value in
     const pickChange = (option, week, amount) => {
         let foundPick: any = currentPicks.filter((pick) => (pick.amount === amount && pick.week === week));
         currentPicks = currentPicks.filter(pick => pick !== foundPick[0]);
         currentPicks.push({ week: week, team: option.value, amount: amount });
     };
 
+
+    const pickError =(errorText: string) => {
+        toast.error(errorText, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    };
+    // savePicks first checks that the pick checks do not fail, if passed then a dispatch is triggered
     const savePicks = () => {
         const dupeWeek = pickCheckWeek();
         const dupeAmount = pickCheckDuplicate();
@@ -93,9 +114,9 @@ const MyPicks = () => {
             alert('picks saved');
             dispatch({ type: 'FETCH_LEAGUE_DETAIL', payload: leagueId });
         } else if (dupeAmount) {
-            alert('duplicates with the same value');
+            pickError('Duplicates in Amount Column');
         } else {
-            alert('duplicates found in same week');
+            pickError('Duplicates in Same Week');
         };
     };
 
@@ -110,6 +131,7 @@ const MyPicks = () => {
         currentPicks.push({ week: week, team: pickThree[0].team, amount: 3 });
         currentPicks.push({ week: week, team: pickOne[0].team, amount: 1 });
 
+        // disable date increases by 7 days for each new set of inputs: (24 * 60 * 60 * 1000)ms = 1 day
         dateLockStart.setTime(dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7)
 
         return (
@@ -131,9 +153,9 @@ const MyPicks = () => {
                                 ...theme.colors,
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
-                                neutral40: 'black', // -- default value color for disabled fields
-                                neutral50: 'black', // -- default value color for non-disabled fields
-                                neutral80: green[900], // color of value after making selection
+                                neutral40: 'black',
+                                neutral50: 'black',
+                                neutral80: green[900],
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 5)}
@@ -181,9 +203,9 @@ const MyPicks = () => {
                                 ...theme.colors,
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
-                                neutral40: 'black', // -- default value color for disabled fields
-                                neutral50: 'black', // -- default value color for non-disabled fields
-                                neutral80: green[900], // color of value after making selection
+                                neutral40: 'black',
+                                neutral50: 'black',
+                                neutral80: green[900],
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 1)}

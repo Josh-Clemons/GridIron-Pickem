@@ -12,14 +12,14 @@ import Container from '@mui/material/Container';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { UserInterface } from '../../../src/interfaces/UserInterface';
+import { toast } from 'react-toastify';
 
 
 export default function RegisterForm() {
 
 
-    const [email, setEmail] = React.useState<string>('');
+    const [username, setUsername] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
-    const [displayName, setDisplayName] = React.useState<string>('');
 
     const dispatch = useDispatch();
     const user: any = useSelector<any>(store => store.user);
@@ -28,15 +28,27 @@ export default function RegisterForm() {
         event.preventDefault();
 
         const payload: UserInterface = {
-            username: email,
-            password: password
-        }
+            username,
+            password
+        };
 
-        if (payload.username !== '' || payload.password !== '') {
+        // alert user if login fields are empty
+        const errorEmptyFields = () => {
+            toast.error('Complete all fields', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        };
+        if (payload.username !== '' && payload.password !== '') {
             dispatch({ type: 'REGISTER', payload });
         } else {
-            // todo: create react/sweet alert
-            alert('Complete all fields');
+            errorEmptyFields();
         }
 
     };
@@ -63,25 +75,14 @@ export default function RegisterForm() {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
                         autoFocus
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
-                    {/* <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="display_name"
-                            label="Display Name"
-                            name="display_name"
-                            autoFocus
-                            value={displayName}
-                            onChange={(e) => setDisplayName(e.target.value)}
-                        /> */}
                     <TextField
                         margin="normal"
                         required

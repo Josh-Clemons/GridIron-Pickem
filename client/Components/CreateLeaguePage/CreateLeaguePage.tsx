@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+
 
 const CreateLeaguePage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // input state tracking
+    // variable to hold input text value
     const [leagueName, setLeagueName] = useState('');
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
         console.log('in create league handle submit, league name:', leagueName);
         // through this dispatch chain, league is created, user is added as a member, redux is updated
-        dispatch({ type: 'CREATE_LEAGUE', payload: leagueName });
+        dispatch({ type: 'CREATE_LEAGUE', payload: leagueName })
         navigate('/dashboard');
     };
 
@@ -52,7 +53,7 @@ const CreateLeaguePage = () => {
                 />
                 <Button variant="outlined" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px" }}>Create</Button>
             </Box>
-            <Button variant="outlined" href="#/dashboard" sx={{ width: "250px", position: "fixed", bottom: 40 }}>My Leagues</Button>
+            <Button variant="outlined" href="#/dashboard" sx={{ width: "250px", position: "fixed", bottom: 60 }}>My Leagues</Button>
         </Container>
     )
 }

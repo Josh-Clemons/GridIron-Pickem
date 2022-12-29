@@ -1,12 +1,12 @@
 To complete base mode:
     [x] lock pick fields after the week has started
-    [] about page
+    [x] about page
     [x] rules
-    [x] mui modal or sweet alert confirmations
+    [] mui modal or sweet alert confirmations
     [x] styling
         [x] set theme
     [x] edit league name
-    [] comment code
+    [x] comment code
     [] update readme
 
 Stretch goals:

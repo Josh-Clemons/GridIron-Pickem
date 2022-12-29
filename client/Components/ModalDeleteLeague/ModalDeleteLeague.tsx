@@ -24,11 +24,14 @@ const ModalDeleteLeague = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [open, setOpen] = React.useState(false);
+    // open, handleOpen/Close are all used to control the modal
+    const [open, setOpen] = React.useState<boolean>(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     const { id } = useParams();
 
+    // sends league ID as payload to know what to delete, server confirms user making request is league owner
     const handleSubmit = (event: any) => {
         event.preventDefault();
         dispatch({ type: 'DELETE_LEAGUE', payload: id });

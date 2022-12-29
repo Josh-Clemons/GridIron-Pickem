@@ -20,10 +20,15 @@ const LeagueStandings = () => {
     const gameData = store.gameData.gameData;
     const [leagueScore, setLeagueScore] = useState<any>([]);
 
+    // updates league scores anytime users change
     useEffect(() => {
         score();
     }, [leagueUsers]);
 
+    //calculates each users score. First maps through users, for each user filter league picks for that user.
+    // Then, maps through each one of those picks. For each pick it checks it against the game data table to see
+    // if the pick is a winner or loser. If winner, the score gets added. If there are 3 winners in a single week,
+    // 2 bonus points are added
     const score = () => {
         let tempScore: { name: string, score: number }[] = [];
         leagueUsers.map((user) => {
@@ -50,7 +55,7 @@ const LeagueStandings = () => {
         setLeagueScore([...tempScore]);
     };
 
-
+    // styles for the table rows
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
             backgroundColor: "#1C2541",

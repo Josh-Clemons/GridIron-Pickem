@@ -1,7 +1,10 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -9,41 +12,45 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-
 
 export default function LoginForm() {
 
 
-    const [email, setEmail] = React.useState<string>('');
+    const [username, setUsername] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
 
     const dispatch = useDispatch();
-    const user: any = useSelector<any>(store => store.user);
+
+    // alert for when login fields are empty
+    const errorEmptyFields = () => {
+        toast.error('Complete all fields', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // add type here for payload
-        const payload = {
-            username: email,
-            password: password
-        }
-
-        if (payload.username !== '' || payload.password !== '') {
-            dispatch({ type: 'LOGIN', payload });
+        // continue only if user/email are not blank
+        if (username !== '' && password !== '') {
+            dispatch({ type: 'LOGIN', payload: { username, password } });
         } else {
-            // todo: create react/sweet alert
-            alert('Complete all fields');
-        }
-
+            errorEmptyFields();
+        };
     };
+
 
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
+            
             <Box
                 sx={{
                     marginTop: 8,
@@ -63,13 +70,13 @@ export default function LoginForm() {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
+                        id="username"
+                        label="Username"
+                        name="username"
                         autoComplete="email"
                         autoFocus
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                     <TextField
                         margin="normal"

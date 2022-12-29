@@ -22,13 +22,16 @@ import Typography from '@mui/material/Typography';
 
 const LeagueDetailsPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { id } = useParams();
     const store: any = useSelector(store => store);
     const leagueDetail = store.leagues.leagueDetail;
     const leagueUsers = store.leagues.currentLeagueUsers;
+
+    // tracks member details so correct button and component options appear
     const [isMember, setIsMember] = useState<boolean>(false);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
+    // used for determining which league detail component is displayed
     const [viewState, setViewState] = useState<string>('standings');
 
 
