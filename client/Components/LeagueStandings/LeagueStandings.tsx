@@ -10,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material';
 
 
 const LeagueStandings = () => {
@@ -50,6 +51,15 @@ const LeagueStandings = () => {
     };
 
 
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: "#1C2541",
+        },
+        '&:nth-of-type(even)': {
+            backgroundColor: "#242f53",
+        },
+    }));
+
     return (
         <Box width={'80%'} mb={'80px'}>
             <TableContainer component={Paper}>
@@ -62,9 +72,10 @@ const LeagueStandings = () => {
                     </TableHead>
                     <TableBody>
                         {leagueScore.map((user) => {
-                            return <TableRow key={user.name}>
-                                <TableCell><Typography variant='body1' noWrap={true} >{user.name}</Typography></TableCell><TableCell align='right'>{user.score}</TableCell>
-                            </TableRow>
+                            return (
+                                <StyledTableRow key={user.name}>
+                                    <TableCell><Typography variant='body1' noWrap={true} >{user.name}</Typography></TableCell><TableCell align='right'>{user.score}</TableCell>
+                                </StyledTableRow>)
                         })}
                     </TableBody>
                 </Table>
@@ -73,7 +84,7 @@ const LeagueStandings = () => {
 
 
         </Box>
-    )
-}
+    );
+};
 
 export default LeagueStandings;

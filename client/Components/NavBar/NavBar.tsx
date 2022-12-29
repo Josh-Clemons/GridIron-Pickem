@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Toolbar, IconButton, Typography } from '@mui/material';
+import { Toolbar, IconButton, Typography, Stack } from '@mui/material';
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Box from '@mui/material/Box';
@@ -109,18 +109,26 @@ export default function NavBar() {
             <Divider />
 
             {store.user.id ?
-                <Button size='large' onClick={() => logout()} sx={{ m: 1 }}>
-                    Logout
-                </Button>
+                <Stack spacing={1} direction="column">
+                    <Button size='large' sx={{ justifyContent: 'flex-start' }} onClick={() => logout()}>
+                        Logout
+                    </Button>
+                    <Button size='large' sx={{ justifyContent: 'flex-start' }} onClick={() => navigate('/about')}>
+                        About
+                    </Button>
+                </Stack>
                 :
-                <>
-                    <Button size='large' onClick={() => navigate('/login')} sx={{ m: 1 }}>
+                <Stack spacing={1} direction="column">
+                    <Button size='large' sx={{ justifyContent: 'flex-start' }} onClick={() => navigate('/login')}>
                         Login
                     </Button>
-                    <Button size='large' onClick={() => navigate('/register')} sx={{ m: 1 }}>
+                    <Button size='large' sx={{ justifyContent: 'flex-start' }} onClick={() => navigate('/register')}>
                         Register
                     </Button>
-                </>
+                    <Button size='large' sx={{ justifyContent: 'flex-start' }} onClick={() => navigate('/about')}>
+                        About
+                    </Button>
+                </Stack>
             }
 
             {/* todo: Add login and register buttons here? */}

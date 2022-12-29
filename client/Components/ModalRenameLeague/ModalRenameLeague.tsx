@@ -21,7 +21,7 @@ const style = {
     p: 4,
 };
 
-const ModalRenameLeague = () => {
+const ModalRenameLeague: any = ({ oldName }) => {
     const dispatch = useDispatch();
 
     const [open, setOpen] = React.useState(false);
@@ -30,7 +30,7 @@ const ModalRenameLeague = () => {
         setOpen(false);
         setLeagueName('');
     };
-    const [leagueName, setLeagueName] = React.useState('')
+    const [leagueName, setLeagueName] = React.useState(oldName)
     const { id } = useParams();
 
     const handleSubmit = (event: any) => {
