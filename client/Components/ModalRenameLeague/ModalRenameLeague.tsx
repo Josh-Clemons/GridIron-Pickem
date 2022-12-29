@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const style = {
@@ -24,12 +25,18 @@ const style = {
 // takes the old league name as a prop to pre-populate input text
 const ModalRenameLeague: any = ({ oldName }) => {
     const dispatch = useDispatch();
+    const store: any = useSelector(store => store)
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [leagueName, setLeagueName] = React.useState(oldName)
+    const [leagueName, setLeagueName] = React.useState('');
     const { id } = useParams();
+
+    // updates leagueName when leagueDetails change
+    useEffect(() => {
+        setLeagueName(store.leagues.leagueDetail[0].league_name);
+    }, [store.leagues.leagueDetail]);
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -38,6 +45,7 @@ const ModalRenameLeague: any = ({ oldName }) => {
         if (leagueName !== '') {
             dispatch({ type: 'RENAME_LEAGUE', payload: { name: leagueName, id: id } });
             handleClose();
+            
         } else {
             handleClose();
         };

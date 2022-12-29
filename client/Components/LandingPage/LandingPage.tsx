@@ -39,25 +39,27 @@ const LandingPage = () => {
                 padding: "10px",
                 textAlign: "center"
             }}
-        >
-            <Typography variant='h5' sx={{ backgroundColor: "primary.main", borderRadius: 4 }}>Pick NFL Winners Against Your Friends!</Typography>
+        >   <Box sx={{ backgroundColor: "#0B132B", color: '#5BC0BE', p: 2, opacity: '90%', borderRadius: 4 }}>
+                <Typography variant='h3'>Welcome to the <Box component='span'>Grid Iron</Box></Typography>
+                <Typography variant='h5' sx={{ color: 'white' }}>Pick NFL Winners Against Your Friends!</Typography>
+            </Box>
             <br />
             <br />
             <Stack spacing={1} direction="column">
                 {/* button options change if user is logged in */}
-                {!store.user.id 
-                ?
-                <>
-                    <Button variant="contained" color="success" href="#/login" sx={{ width: "250px" }}>Login</Button>
-                    <Button variant="contained" color="info" href="#/register" sx={{ width: "250px" }}>Register</Button>
-                </> 
-                :
-                <>
-                    <Button variant="contained" color="success" href="#/dashboard" sx={{ width: "250px" }}>My Dashboard</Button>
-                    <Button variant="contained" color="error" onClick={logout} sx={{ width: "250px" }}>Logout</Button>
-                </>
+                {!store.user.id
+                    ?
+                    <>
+                        <Button variant="contained" color="success" href="#/login" sx={{ width: "250px" }}>Login</Button>
+                        <Button variant="contained" color="info" href="#/register" sx={{ width: "250px" }}>Register</Button>
+                    </>
+                    :
+                    <>
+                        <Button variant="contained" color="success" href="#/dashboard" sx={{ width: "250px" }}>My Dashboard</Button>
+                        <Button variant="contained" color="error" onClick={logout} sx={{ width: "250px" }}>Logout</Button>
+                    </>
                 }
-                <ModalRules size={'medium'} variant={'contained'} width={'250px'}/>
+                <ModalRules size={'medium'} variant={'contained'} width={'250px'} />
             </Stack>
         </Box>
     )

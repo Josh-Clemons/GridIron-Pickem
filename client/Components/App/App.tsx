@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -43,6 +44,7 @@ const App: React.FC = () => {
                 <Footer />
                 <ToastContainer
                     position="top-right"
+                    transition={Zoom}
                     autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}

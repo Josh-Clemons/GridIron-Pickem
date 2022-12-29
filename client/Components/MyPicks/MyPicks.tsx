@@ -13,11 +13,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { green } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 
 
-const MyPicks = () => {
+const MyPicks = ({ isAdmin }) => {
 
     const dispatch = useDispatch();
     const store: any = useSelector(store => store);
@@ -96,18 +95,18 @@ const MyPicks = () => {
     const alertSavePicks = () => {
         toast.success('Picks saved!', {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "dark",
-            });
+        });
     };
 
     // alert for when there is an error with pick entry
-    const alertPickError =(errorText: string) => {
+    const alertPickError = (errorText: string) => {
         toast.error(errorText, {
             position: "top-right",
             autoClose: 3000,
@@ -156,7 +155,7 @@ const MyPicks = () => {
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='fiveChoice'
                         defaultValue={pickFive[0]?.team ? { value: pickFive[0].team, label: pickFive[0].team } : ''}
-                        isDisabled={(dateLockStart < new Date() ? true : false)}
+                        isDisabled={isAdmin ? false : (dateLockStart < new Date() ? true : false)}
                         isSearchable={true}
                         name={"fiveChoiceWeek" + week}
                         options={teams}
@@ -169,7 +168,7 @@ const MyPicks = () => {
                                 neutral0: '#1C2541',
                                 neutral40: 'black',
                                 neutral50: 'black',
-                                neutral80: green[900],
+                                neutral80: 'black',
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 5)}
@@ -195,7 +194,7 @@ const MyPicks = () => {
                                 // neutral20: 'red', -- this is the border color for not disabled
                                 neutral40: 'black', // -- default value color for disabled fields
                                 neutral50: 'black', // -- default value color for non-disabled fields
-                                neutral80: green[900], // color of value after making selection
+                                neutral80: 'black', // color of value after making selection
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 3)}
@@ -219,7 +218,7 @@ const MyPicks = () => {
                                 neutral0: '#1C2541',
                                 neutral40: 'black',
                                 neutral50: 'black',
-                                neutral80: green[900],
+                                neutral80: 'black',
                             },
                         })}
                         onChange={(option) => pickChange(option, week, 1)}
