@@ -40,7 +40,7 @@ const LandingPage = () => {
                 textAlign: "center"
             }}
         >
-            <Typography variant='h2' sx={{ backgroundColor: "primary.light", borderRadius: 4 }}>Pick NFL Winners Against Your Friends!</Typography>
+            <Typography variant='h5' sx={{ backgroundColor: "primary.main", borderRadius: 4 }}>Pick NFL Winners Against Your Friends!</Typography>
             <br />
             <br />
             <Stack spacing={1} direction="column">
