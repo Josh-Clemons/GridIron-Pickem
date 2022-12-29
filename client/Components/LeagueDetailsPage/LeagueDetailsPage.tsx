@@ -9,6 +9,7 @@ import LeaguePicks from '../LeaguePicks/LeaguePicks';
 import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
 import ModalDeleteLeague from '../ModalDeleteLeague/ModalDeleteLeague';
 import ModalLeaveLeague from '../ModalLeaveLeague/ModalLeaveLeague';
+import ModalRules from '../ModalRules/ModalRules';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -91,7 +92,6 @@ const LeagueDetailsPage = () => {
                 <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
                 {/* Button group below, changes depending on whether user is owner/member */}
                 <Stack
-                    spacing={1}
                     direction="row"
                     sx={{
                         width: '92%',
@@ -107,6 +107,7 @@ const LeagueDetailsPage = () => {
                         <>
                             <ModalDeleteLeague />
                             <ModalRenameLeague />
+                            <ModalRules variant={'outlined'} size={'small'} width={130} margin={8} />
                             <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, m: 1 }}>My Leagues</Button>
                         </>
                         :
@@ -114,6 +115,7 @@ const LeagueDetailsPage = () => {
                             {isMember ?
                                 <>
                                     <ModalLeaveLeague />
+                                    <ModalRules variant={'outlined'} size={'small'} width={130} margin={8} />
                                     <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, m: 1 }}>My Leagues</Button>
                                 </>
                                 :
