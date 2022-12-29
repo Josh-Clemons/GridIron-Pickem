@@ -6,6 +6,7 @@ import bgImg from '/public/football_player_shadow.jpeg';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import ModalRules from '../ModalRules/ModalRules';
 
 
 const LandingPage = () => {
@@ -35,7 +36,7 @@ const LandingPage = () => {
                 textAlign: "center"
             }}
         >
-            <h2 style={{ backgroundColor: "black", borderRadius: 4 }}>Pick NFL Winners Against Your Friends!</h2>
+            <h2 style={{ backgroundColor: "primary.light", borderRadius: 4 }}>Pick NFL Winners Against Your Friends!</h2>
             <br />
             <br />
             <Stack spacing={1} direction="column">
@@ -51,8 +52,8 @@ const LandingPage = () => {
                     <Button variant="contained" color="error" onClick={logout} sx={{ width: "250px" }}>Logout</Button>
                 </>
                 }
-                
-                <Button variant="contained" href="#/rules" sx={{ width: "250px", bgcolor: "darkgray", color: "white" }}>Rules</Button>
+                <ModalRules size={'medium'} variant={'contained'} width={'250px'}/>
+                {/* <Button variant="contained" href="#/rules" color='secondary' sx={{ width: "250px"}}>Rules</Button> */}
             </Stack>
         </Box>
     )

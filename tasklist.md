@@ -2,7 +2,7 @@ To complete base mode:
     [x] lock pick fields after the week has started
     [] about page
     [] rules
-    [] mui modal or sweet alert confirmations
+    [x] mui modal or sweet alert confirmations
     [x] styling
         [x] set theme
     [x] edit league name
