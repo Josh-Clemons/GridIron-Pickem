@@ -21,8 +21,8 @@ const UserDashboard: React.FC = () => {
     const myLeagues: any = store.leagues.userLeagues;
 
     // grabs updated league info if league detail changes (ex. league name change)
-    useEffect(()=> {
-        dispatch({type: 'FETCH_LEAGUES'})
+    useEffect(() => {
+        dispatch({ type: 'FETCH_LEAGUES' })
     }, [store.leagues.leagueDetail])
 
 

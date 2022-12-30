@@ -6,7 +6,6 @@ import axios from 'axios';
 function* getData() {
     try {
         const gameData:any = yield axios.get('/api/data/getresults');
-        console.log('gameData', gameData);
         yield put ({ type: 'SET_GAME_DATA', payload: gameData.data})
     } catch (error: any) {
         console.log('error GETting game results from DB: ', error)
