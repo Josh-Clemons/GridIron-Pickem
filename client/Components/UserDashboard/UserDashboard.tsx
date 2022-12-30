@@ -23,7 +23,7 @@ const UserDashboard: React.FC = () => {
     // grabs updated league info if league detail changes (ex. league name change)
     useEffect(() => {
         dispatch({ type: 'FETCH_LEAGUES' })
-    }, [store.leagues.leagueDetail])
+    }, [store.leagues.leagueDetail, store.user])
 
 
     // redirects to league detail page when a user clicks on a league item

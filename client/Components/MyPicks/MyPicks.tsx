@@ -23,7 +23,7 @@ const MyPicks = ({ isAdmin }) => {
     const leagueId = store.leagues.leagueDetail[0]?.league_id;
     const userPicks = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
     let currentPicks: { week: number, team: string, amount: number }[] = [];
-    let dateLockStart: any = new Date('2022-09-02T00:15:00.007Z');
+    let dateLockStart: any = new Date('2022-09-02T01:15:00.007Z');
 
 
     const customStyles: any = {
@@ -191,7 +191,7 @@ const MyPicks = ({ isAdmin }) => {
                                 primary25: '#1C2541', // -- the first value gets highlighted, this is that color
                                 neutral0: '#1C2541',
                                 // neutral10: 'red', -- this is the border color for disabled
-                                // neutral20: 'red', -- this is the border color for not disabled
+                                // neutral20: 'red', //-- this is the border color for not disabled
                                 neutral40: 'black', // -- default value color for disabled fields
                                 neutral50: 'black', // -- default value color for non-disabled fields
                                 neutral80: 'black', // color of value after making selection

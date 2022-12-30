@@ -21,6 +21,7 @@ const LeaguePicks = () => {
     const leagueUsers = store.leagues.currentLeagueUsers;
     const leagueDetail = store.leagues.leagueDetail;
     const [weeklyPicks, setWeeklyPicks] = useState<any>([]);
+    const dateLockStart: any = new Date('2022-09-09T01:15:00.007Z');
 
     useEffect(() => {
         weekChange(1);
@@ -37,24 +38,24 @@ const LeaguePicks = () => {
 
     // options for the select dropdown
     const week: any[] = [
-        { value: 1, label: 1 },
-        { value: 2, label: 2 },
-        { value: 3, label: 3 },
-        { value: 4, label: 4 },
-        { value: 5, label: 5 },
-        { value: 6, label: 6 },
-        { value: 7, label: 7 },
-        { value: 8, label: 8 },
-        { value: 9, label: 9 },
-        { value: 10, label: 10 },
-        { value: 11, label: 11 },
-        { value: 12, label: 12 },
-        { value: 13, label: 13 },
-        { value: 14, label: 14 },
-        { value: 15, label: 15 },
-        { value: 16, label: 16 },
-        { value: 17, label: 17 },
-        { value: 18, label: 18 }
+        { value: 1, label: 1, isDisabled: (dateLockStart.getTime() > new Date() ? true : false) },
+        { value: 2, label: 2, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7) > new Date() ? true : false) },
+        { value: 3, label: 3, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 2) > new Date() ? true : false) },
+        { value: 4, label: 4, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 3) > new Date() ? true : false) },
+        { value: 5, label: 5, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 4) > new Date() ? true : false) },
+        { value: 6, label: 6, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 5) > new Date() ? true : false) },
+        { value: 7, label: 7, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 6) > new Date() ? true : false) },
+        { value: 8, label: 8, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 7) > new Date() ? true : false) },
+        { value: 9, label: 9, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 8) > new Date() ? true : false) },
+        { value: 10, label: 10, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 9) > new Date() ? true : false) },
+        { value: 11, label: 11, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 10) > new Date() ? true : false) },
+        { value: 12, label: 12, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 11) > new Date() ? true : false) },
+        { value: 13, label: 13, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 12) > new Date() ? true : false) },
+        { value: 14, label: 14, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 13) > new Date() ? true : false) },
+        { value: 15, label: 15, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 14) > new Date() ? true : false) },
+        { value: 16, label: 16, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 15) > new Date() ? true : false) },
+        { value: 17, label: 17, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 16) > new Date() ? true : false) },
+        { value: 18, label: 18, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 17) > new Date() ? true : false) }
     ];
 
     const weekChange = (option) => {
@@ -104,6 +105,7 @@ const LeaguePicks = () => {
                             ...theme.colors,
                             primary25: '#1C2541',
                             neutral0: '#1C2541',
+                            neutral20: '#0B132B',
                             neutral40: 'black',
                             neutral50: 'black',
                         },
@@ -124,7 +126,7 @@ const LeaguePicks = () => {
                         {weeklyPicks.map((pick) => {
                             return (
                                 <TableRow key={pick.username}>
-                                    <TableCell sx={{ pl: 1, pr: 1}}><Typography variant='body1' noWrap={true} sx={{maxWidth: 140}} >{pick.username}</Typography></TableCell>
+                                    <TableCell sx={{ pl: 1, pr: 1 }}><Typography variant='body1' noWrap={true} sx={{ maxWidth: 140 }} >{pick.username}</Typography></TableCell>
                                     <TableCell>{pick.five}</TableCell>
                                     <TableCell>{pick.three}</TableCell>
                                     <TableCell>{pick.one}</TableCell>
