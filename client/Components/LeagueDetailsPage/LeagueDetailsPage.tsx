@@ -112,21 +112,21 @@ const LeagueDetailsPage = () => {
                         <>
                             <ModalDeleteLeague />
                             <ModalRenameLeague />
-                            <ModalRules variant={'outlined'} size={'small'} width={130} margin={8} />
-                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, m: 1 }}>My Leagues</Button>
+                            <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
+                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>My Leagues</Button>
                         </>
                         :
                         <>
                             {isMember ?
                                 <>
                                     <ModalLeaveLeague />
-                                    <ModalRules variant={'outlined'} size={'small'} width={130} margin={8} />
-                                    <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 130, m: 1 }}>My Leagues</Button>
+                                    <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
+                                    <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>My Leagues</Button>
                                 </>
                                 :
                                 <>
-                                    <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 130, color: "white", bgcolor: "primary.main", m: 1 }}>Join</Button>
-                                    <Button variant="outlined" href="#/find" size='small' sx={{ width: 130, m: 1 }}>Back</Button>
+                                    <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 125, color: "white", bgcolor: "primary.main", m: 1 }}>Join</Button>
+                                    <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
                                 </>
                             }
                         </>
