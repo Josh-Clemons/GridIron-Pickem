@@ -15,6 +15,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { toast } from 'react-toastify';
 
+import RefreshApiData from '../RefreshApiData/RefreshApiData';
+
 
 const MyPicks = ({ isAdmin }) => {
 
@@ -155,7 +157,7 @@ const MyPicks = ({ isAdmin }) => {
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='fiveChoice'
                         defaultValue={pickFive[0]?.team ? { value: pickFive[0].team, label: pickFive[0].team } : ''}
-                        isDisabled={isAdmin ? false : (dateLockStart < new Date() ? true : false)}
+                        isDisabled={dateLockStart < new Date() ? true : false}
                         isSearchable={true}
                         name={"fiveChoiceWeek" + week}
                         options={teams}
@@ -252,6 +254,7 @@ const MyPicks = ({ isAdmin }) => {
 
     return (
         <Box component={Paper} elevation={12} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
+            <RefreshApiData />
             <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2 }}>Save Picks</Button>
             <TableContainer sx={{ mb: 2, pb: 20 }}>
                 <Table size='small'>
