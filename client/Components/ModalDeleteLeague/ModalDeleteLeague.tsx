@@ -40,7 +40,7 @@ const ModalDeleteLeague = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 130, m: 1 }}>DELETE</Button>
+            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1 }}>DELETE</Button>
             <Modal
                 open={open}
                 onClose={handleClose}

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import LeagueItem from '../LeagueItem/LeagueItem';
 
+import { AvailableLeagues } from '../../../src/interfaces/interfaces';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -13,7 +15,7 @@ const FindLeaguePage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const store: any = useSelector(store => store);
-    const availableLeagues: any = store.leagues.availableLeagues;
+    const availableLeagues: AvailableLeagues[] = store.leagues.availableLeagues;
 
     // gets available leagues on page load
     useEffect(() => {

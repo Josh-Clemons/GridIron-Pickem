@@ -71,15 +71,18 @@ const LeagueStandings = () => {
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
+                            <TableCell width={20}>Rank</TableCell>
                             <TableCell>Username</TableCell>
                             <TableCell align='right'>Score</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {leagueScore.map((user) => {
+                        {leagueScore.map((user, i) => {
                             return (
                                 <StyledTableRow key={user.name}>
-                                    <TableCell><Typography variant='body1' noWrap={true} >{user.name}</Typography></TableCell><TableCell align='right'>{user.score}</TableCell>
+                                    <TableCell width={20}>{i + 1}</TableCell>
+                                    <TableCell><Typography variant='body1' noWrap={true} >{user.name}</Typography></TableCell>
+                                    <TableCell align='right'>{user.score}</TableCell>
                                 </StyledTableRow>)
                         })}
                     </TableBody>

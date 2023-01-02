@@ -7,7 +7,7 @@ To complete base mode:
         [x] set theme
     [x] edit league name
     [x] comment code
-    [] update readme
+    [x] update readme
 
 Stretch goals:
     [] update types (remove :any)
@@ -25,10 +25,6 @@ Stretch goals:
     [] make a big table that shows everyone's complete picks all at once
     [] setup max users
 
-
-Notes to self:
-    - set join league to refresh instead of go to dashboard
-        - figure out why on refresh it redirects to login/dashboard. Is this an async problem and Passport doesn't see we are logged in until after navigate takes us to login page?
 
 
 
