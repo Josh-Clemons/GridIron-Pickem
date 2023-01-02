@@ -5,6 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import { Zoom } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { Store, User } from '../../../src/interfaces/interfaces';
+
 
 // components and pages
 import NavBar from '../NavBar/NavBar';
@@ -23,7 +25,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 const App: React.FC = () => {
 
-    const user: { id: number, username: string } = useSelector((store: any) => store.user);
+    const user: User = useSelector((store: Store) => store.user);
 
     return (
         <div className='appDiv'>

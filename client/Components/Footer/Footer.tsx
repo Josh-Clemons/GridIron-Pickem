@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 
 
-const Footer = () => {
+const Footer: React.FC = () => {
 
     function Copyright() {
         return (

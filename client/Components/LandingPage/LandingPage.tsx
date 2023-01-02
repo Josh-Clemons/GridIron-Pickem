@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { Store } from '../../../src/interfaces/interfaces';
+
 import ModalRules from '../ModalRules/ModalRules';
 import bgImg from '/public/football_player_shadow.jpeg';
 
@@ -16,7 +18,7 @@ import Stack from '@mui/material/Stack';
 const LandingPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const store: any = useSelector(store => store)
+    const store: Store = useSelector(store => store) as Store;
 
     const logout = () => {
         dispatch({ type: 'LOGOUT' });

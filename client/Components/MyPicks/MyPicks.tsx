@@ -42,7 +42,7 @@ const MyPicks = ({ isAdmin }) => {
         for (let i = 0; i <= 17; i++) {
             const weeklyArray: any = currentPicks.filter((e) => e.week === i + 1)
 
-            if ((weeklyArray[0].team === weeklyArray[1].team) && (weeklyArray[0].team !== null) || (weeklyArray[0].team === weeklyArray[2].team) && (weeklyArray[0].team !== null) || (weeklyArray[2].team === weeklyArray[1].team) && (weeklyArray[2].team !== null)) {
+            if ((weeklyArray[0].team === weeklyArray[1].team) && (weeklyArray[0].team !== null) && (weeklyArray[0].team !== '') || (weeklyArray[0].team === weeklyArray[2].team) && (weeklyArray[0].team !== null) && (weeklyArray[0].team !== '') || (weeklyArray[2].team === weeklyArray[1].team) && (weeklyArray[2].team !== null) && (weeklyArray[2].team !== '')) {
                 return true;
             };
         };

@@ -25,7 +25,9 @@ Stretch goals:
     [] make a big table that shows everyone's complete picks all at once
     [] setup max users
 
-
+notes to self:
+[] fix issue with Select... in same week
+[] make sure leagues reload after joining
 
 
 
