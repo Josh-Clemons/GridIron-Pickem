@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { UserInterface } from '../../../src/interfaces/UserInterface';
+import { UserInterface } from '../../../src/interfaces/interfaces';
 import { toast } from 'react-toastify';
 
 

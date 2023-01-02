@@ -21,7 +21,7 @@ const LeaguePicks = () => {
     const leagueUsers = store.leagues.currentLeagueUsers;
     const leagueDetail = store.leagues.leagueDetail;
     const [weeklyPicks, setWeeklyPicks] = useState<any>([]);
-    const dateLockStart: any = new Date('2022-09-09T01:15:00.007Z');
+    const dateLockStart: any = new Date('2022-11-09T01:15:00.007Z');
 
     useEffect(() => {
         weekChange(1);
