@@ -54,3 +54,9 @@ export interface User {
     id: number
     username: string,
 }
+
+export interface Pick {
+    team: string,
+    week: number,
+    amount: number
+}

@@ -15,16 +15,11 @@ import TableRow from '@mui/material/TableRow';
 import { toast } from 'react-toastify';
 
 import RefreshApiData from '../RefreshApiData/RefreshApiData';
-import { gameResults, Store } from '../../../src/interfaces/interfaces';
+import { gameResults, Store, Pick } from '../../../src/interfaces/interfaces';
+import { pickCheckDuplicate, pickCheckWeek, pickCheckGame } from '../PickCheck/PickCheck';
 
 
 const MyPicks: React.FC = () => {
-
-    interface Pick {
-        team: string,
-        week: number,
-        amount: number
-    }
 
     const dispatch = useDispatch();
     const store: Store = useSelector(store => store) as Store;
@@ -44,54 +39,6 @@ const MyPicks: React.FC = () => {
             menuPortal: base => ({ ...base, zIndex: 9999 }) // this is used to keep the menu portal above all other page elements (so the list doesn't get cut off)
         })
     };
-
-    // function to make sure a team is not picked twice in the same week
-    const pickCheckWeek = () => {
-        for (let i = 0; i <= 17; i++) {
-            const weeklyArray: Pick[] = currentPicks.filter((e) => e.week === i + 1)
-
-            if ((weeklyArray[0].team === weeklyArray[1].team) && (weeklyArray[0].team !== null) && (weeklyArray[0].team !== '') || (weeklyArray[0].team === weeklyArray[2].team) && (weeklyArray[0].team !== null) && (weeklyArray[0].team !== '') || (weeklyArray[2].team === weeklyArray[1].team) && (weeklyArray[2].team !== null) && (weeklyArray[2].team !== '')) {
-                return true;
-            };
-        };
-        return false;
-    };
-
-    // checks to make sure a team is not used twice for the same amount of points (5, 3, or 1)
-    const pickCheckDuplicate = () => {
-        const fivePicks: Pick[] = currentPicks.filter((e) => e.amount === 5 && e.team !== null && e.team !== '');
-        const threePicks: Pick[] = currentPicks.filter((e) => e.amount === 3 && e.team !== null && e.team !== '');
-        const onePicks: Pick[] = currentPicks.filter((e) => e.amount === 1 && e.team !== null && e.team !== '');
-
-        let checkFiveArray: string[] = [];
-        let checkThreeArray: string[] = [];
-        let checkOneArray: string[] = [];
-
-        for (let i = 0; i < fivePicks.length; i++) {
-            checkFiveArray.push(fivePicks[i]?.team);
-        };
-        for (let i = 0; i < threePicks.length; i++) {
-            checkThreeArray.push(threePicks[i]?.team);
-        };
-        for (let i = 0; i < onePicks.length; i++) {
-            checkOneArray.push(onePicks[i]?.team);
-        };
-
-
-        // new Set builds a new object, with Set you can't have duplicate values. So if the object size is different than the 
-        // array length, you know there are duplicate values in the array
-        if ((new Set(checkFiveArray).size !== checkFiveArray.length)) {
-            return true;
-        };
-        if ((new Set(checkThreeArray).size !== checkThreeArray.length)) {
-            return true;
-        };
-        if ((new Set(checkOneArray).size !== checkOneArray.length)) {
-            return true;
-        };
-        return false;
-    };
-
 
     // when a pick is changed the function is called and passed props that are used to first filter out the old pick,
     // then push the new pick value in
@@ -131,15 +78,18 @@ const MyPicks: React.FC = () => {
 
     // savePicks first checks that the pick checks do not fail, if passed then a dispatch is triggered
     const savePicks = () => {
-        const dupeWeek: boolean = pickCheckWeek();
-        const dupeAmount: boolean = pickCheckDuplicate();
-        if (!dupeWeek && !dupeAmount) {
+        const dupeWeek: boolean = pickCheckWeek(currentPicks);
+        const dupeAmount: boolean = pickCheckDuplicate(currentPicks);
+        const dupeGame: any = pickCheckGame(currentPicks, gameData)
+        if (!dupeWeek && !dupeAmount && !dupeGame) {
             dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId } });
             alertSavePicks();
         } else if (dupeAmount) {
             alertPickError('Duplicates in Amount Column');
-        } else {
+        } else if (dupeWeek){
             alertPickError('Duplicates in Same Week');
+        } else if (dupeGame){
+            alertPickError('Duplicates picked from same game')
         };
     };
 
