@@ -26,8 +26,7 @@ Stretch goals:
     [] setup max users
 
 notes to self:
-[] fix issue with Select... in same week
-[] make sure leagues reload after joining
-
+[x] why does it log me out now on refresh?
+    - I am using store to see user, store refreshes and I didn't fetch user again
 
 

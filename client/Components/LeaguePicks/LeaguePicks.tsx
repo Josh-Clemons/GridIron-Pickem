@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { LeagueDetail, LeagueUsers, Store } from '../../../src/interfaces/interfaces';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Select, { SingleValue } from 'react-select';
+import Select, { SingleValue, Theme } from 'react-select';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -22,7 +22,7 @@ const LeaguePicks = () => {
     const store: Store = useSelector(store => store) as Store;
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
     const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
-    const [weeklyPicks, setWeeklyPicks] = useState<{username: string, five: undefined | string, three: undefined | string, one: undefined | string}[]>([]);
+    const [weeklyPicks, setWeeklyPicks] = React.useState<{ username: string, five: undefined | string, three: undefined | string, one: undefined | string }[]>([]);
     const dateLockStart: Date = new Date('2022-11-09T01:15:00.007Z');
 
     // style for the react-select week chooser
@@ -35,7 +35,7 @@ const LeaguePicks = () => {
     };
 
     // options for the select dropdown
-    const week: {value: number, label: number, isDisabled: boolean}[] = [
+    const week: { value: number, label: number, isDisabled: boolean }[] = [
         { value: 1, label: 1, isDisabled: (dateLockStart.getTime() > new Date().getTime() ? true : false) },
         { value: 2, label: 2, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7) > new Date().getTime() ? true : false) },
         { value: 3, label: 3, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 2) > new Date().getTime() ? true : false) },
@@ -56,8 +56,8 @@ const LeaguePicks = () => {
         { value: 18, label: 18, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 17) > new Date().getTime() ? true : false) }
     ];
 
-    const weekChange = (choice: SingleValue<{value: number, label: number, isDisabled: boolean}> ) => {
-        const tempPicks: {username: string, five: undefined | string, three: undefined | string, one: undefined | string}[] = [];
+    const weekChange = (choice: SingleValue<{ value: number, label: number, isDisabled: boolean }>) => {
+        const tempPicks: { username: string, five: undefined | string, three: undefined | string, one: undefined | string }[] = [];
         // sorts users in alphabetical order for easier use
         const sortedUsers: LeagueUsers[] = leagueUsers.sort((a, b) => {
             let fa = a.username.toLowerCase();
@@ -121,7 +121,7 @@ const LeaguePicks = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {weeklyPicks.map((pick: {username: string, five: undefined | string, three: undefined | string, one: undefined | string}) => {
+                        {weeklyPicks.map((pick: { username: string, five: undefined | string, three: undefined | string, one: undefined | string }) => {
                             return (
                                 <TableRow key={pick.username}>
                                     <TableCell sx={{ pl: 1, pr: 1 }}><Typography variant='body1' noWrap={true} sx={{ maxWidth: 140 }} >{pick.username}</Typography></TableCell>

@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
                 borderColor: "text.secondary",
                 bgcolor: "#1C2541"
             }}>
-                <Typography variant="body1" color="text.secondary" align="center" sx={{ mt: "5px", mb: "5px"}}>
+                <Typography variant="body1" color="text.secondary" align="center" sx={{ mt: "5px", mb: "5px" }}>
                     {'Copyright © '}
                     <Link color="inherit" href="https://github.com/Josh-Clemons/GridIron-Pickem">
                         Josh Clemons

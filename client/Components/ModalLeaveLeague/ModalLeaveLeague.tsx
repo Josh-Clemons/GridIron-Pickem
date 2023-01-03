@@ -20,7 +20,7 @@ const style = {
     p: 4,
 };
 
-const ModalLeaveLeague = () => {
+const ModalLeaveLeague: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -32,7 +32,8 @@ const ModalLeaveLeague = () => {
     const { id } = useParams();
 
     // removes users picks from the table, based on league ID and user ID
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
         dispatch({ type: 'LEAVE_LEAGUE', payload: id });
         navigate('/dashboard');
     };

@@ -32,7 +32,7 @@ export default function LoginForm() {
             draggable: true,
             progress: undefined,
             theme: "colored",
-            });
+        });
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,7 +50,7 @@ export default function LoginForm() {
 
     return (
         <Container component="main" maxWidth="xs">
-            
+
             <Box
                 sx={{
                     marginTop: 8,

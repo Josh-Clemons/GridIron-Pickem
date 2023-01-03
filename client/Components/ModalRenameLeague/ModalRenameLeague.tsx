@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { Store } from '../../../src/interfaces/interfaces';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -23,14 +24,14 @@ const style = {
 };
 
 // takes the old league name as a prop to pre-populate input text
-const ModalRenameLeague: any = ({ oldName }) => {
+const ModalRenameLeague: React.FC = () => {
     const dispatch = useDispatch();
-    const store: any = useSelector(store => store)
+    const store: Store = useSelector(store => store) as Store;
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState<boolean>(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [leagueName, setLeagueName] = React.useState('');
+    const [leagueName, setLeagueName] = React.useState<string>('');
     const { id } = useParams();
 
     // updates leagueName when leagueDetails change
@@ -38,14 +39,14 @@ const ModalRenameLeague: any = ({ oldName }) => {
         setLeagueName(store.leagues.leagueDetail[0].league_name);
     }, [store.leagues.leagueDetail]);
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
         // confirms new league name is not blank before submitting to the server, if it is, the modal closes
         if (leagueName !== '') {
             dispatch({ type: 'RENAME_LEAGUE', payload: { name: leagueName, id: id } });
             handleClose();
-            
+
         } else {
             handleClose();
         };

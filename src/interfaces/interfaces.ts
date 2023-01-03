@@ -8,7 +8,7 @@ export interface UserInterface {
 
 export interface Store {
     LoginError: LoginError,
-    gameData: gameResults[],
+    gameData: {gameData: gameResults[]},
     leagues: {
         availableLeagues: AvailableLeagues[],
         currentLeagueUsers: LeagueUsers[],
@@ -26,7 +26,7 @@ export interface LoginError {
 export interface gameResults {
     id: Number,
     week: Number,
-    selection_team: String,
+    team: String,
     is_winner: Boolean,
 }
 

@@ -14,9 +14,9 @@ const CreateLeaguePage: React.FC = () => {
     const navigate = useNavigate();
 
     // variable to hold input text value
-    const [leagueName, setLeagueName] = useState<string>('');
+    const [leagueName, setLeagueName] = React.useState<string>('');
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // through this dispatch chain, league is created, user is added as a member, redux is updated
         dispatch({ type: 'CREATE_LEAGUE', payload: leagueName })

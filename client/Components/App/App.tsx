@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -21,9 +21,16 @@ import LeagueDetailsPage from '../LeagueDetailsPage/LeagueDetailsPage';
 import AboutPage from '../AboutPage/AboutPage';
 
 import CssBaseline from '@mui/material/CssBaseline';
+import { useDispatch } from 'react-redux';
 
 
 const App: React.FC = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_USER' })
+    }, []);
 
     const user: User = useSelector((store: Store) => store.user);
 

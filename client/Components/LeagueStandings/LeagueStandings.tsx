@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import { gameResults, LeagueDetail, LeagueUsers, Store } from '../../../src/interfaces/interfaces';
+
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -14,11 +16,11 @@ import { styled } from '@mui/material';
 
 
 const LeagueStandings = () => {
-    const store: any = useSelector(store => store);
-    const leagueUsers = store.leagues.currentLeagueUsers;
-    const leagueDetail = store.leagues.leagueDetail;
-    const gameData = store.gameData.gameData;
-    const [leagueScore, setLeagueScore] = useState<any>([]);
+    const store: Store = useSelector(store => store) as Store;
+    const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
+    const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
+    const gameData: gameResults[] = store.gameData.gameData;
+    const [leagueScore, setLeagueScore] = useState<{ name: string, score: number }[]>([]);
 
     // updates league scores anytime users change
     useEffect(() => {
@@ -33,17 +35,17 @@ const LeagueStandings = () => {
         let tempScore: { name: string, score: number }[] = [];
         leagueUsers.map((user) => {
             let score: number = 0;
-            let bonusCheck: { id: number, week: number, team: string, is_winner: boolean }[] = [];
-            const userPicks = leagueDetail.filter((pick: any) => pick.username === user.username);
-            userPicks.map((pick: any) => {
-                const pickStatus = gameData.filter((obj: any) => obj.week === pick.week && obj.team === pick.team);
+            let bonusCheck: gameResults[] = [];
+            const userPicks = leagueDetail.filter((pick: LeagueDetail) => pick.username === user.username);
+            userPicks.map((pick: LeagueDetail) => {
+                const pickStatus = gameData.filter((obj: gameResults) => obj.week === pick.week && obj.team === pick.team);
                 if (pickStatus[0]?.is_winner) {
                     bonusCheck.push(pickStatus[0]);
                     score += pick.amount;
                 };
             });
             for (let i = 1; i <= 18; i++) {
-                if (bonusCheck?.filter((pick: any) => pick.week === i && pick.is_winner === true).length === 3) {
+                if (bonusCheck?.filter((pick: gameResults) => pick.week === i && pick.is_winner === true).length === 3) {
                     score += 2;
                 };
             };
@@ -56,7 +58,7 @@ const LeagueStandings = () => {
     };
 
     // styles for the table rows
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    const StyledTableRow = styled(TableRow)(() => ({
         '&:nth-of-type(odd)': {
             backgroundColor: "#1C2541",
         },
