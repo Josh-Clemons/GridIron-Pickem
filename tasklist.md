@@ -19,6 +19,13 @@ Stretch goals:
     [] limit options to teams not already picked
     [] lock fields only after the corresponding game starts (or after the last game of the week starts)
         [] limit options accordingly
+            -- Thoughts on how to complete:
+                [x] add game start time to data (also add gameId or similar to make sure there are not 2 from the same game)
+                turn the team.list data file into a function that receives a week
+                filter the gameData array to that week
+                sort alphabetically by team name
+                map over array to create options list
+                lock fields if game start time is after now()
     [] show scores on weekly pick page
     [] visually show what teams win/lose on weekly pick page
     [] accessability?

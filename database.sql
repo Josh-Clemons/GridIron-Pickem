@@ -31,5 +31,7 @@ CREATE TABLE "game_data" (
     "id" SERIAL PRIMARY KEY,
     "week" INT,
     "team" VARCHAR (3),
-    "is_winner" BOOLEAN
+    "is_winner" BOOLEAN,
+    "start_time" VARCHAR,
+    "game_id" VARCHAR
 );

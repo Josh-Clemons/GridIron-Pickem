@@ -1,10 +1,3 @@
-import { type } from "os"
-
-// this interface needs to be removed/updated
-export interface UserInterface {
-    username: String,
-    password: String,
-}
 
 export interface Store {
     LoginError: LoginError,
@@ -24,10 +17,11 @@ export interface LoginError {
 }
 
 export interface gameResults {
-    id: Number,
     week: Number,
     team: String,
     is_winner: Boolean,
+    game_id: string,
+    start_time: Date
 }
 
 export interface AvailableLeagues {

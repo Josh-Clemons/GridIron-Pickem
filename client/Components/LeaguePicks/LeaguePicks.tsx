@@ -23,7 +23,7 @@ const LeaguePicks = () => {
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
     const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
     const [weeklyPicks, setWeeklyPicks] = React.useState<{ username: string, five: undefined | string, three: undefined | string, one: undefined | string }[]>([]);
-    const dateLockStart: Date = new Date('2022-11-09T01:15:00.007Z');
+    const dateLockStart: Date = new Date('2022-09-09T01:15:00.007Z');
 
     // style for the react-select week chooser
     const customStyles = {

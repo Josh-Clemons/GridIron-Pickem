@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { teams } from '../data/team.list';
 import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
@@ -16,7 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import { toast } from 'react-toastify';
 
 import RefreshApiData from '../RefreshApiData/RefreshApiData';
-import { Store } from '../../../src/interfaces/interfaces';
+import { gameResults, Store } from '../../../src/interfaces/interfaces';
 
 
 const MyPicks: React.FC = () => {
@@ -31,6 +30,8 @@ const MyPicks: React.FC = () => {
     const store: Store = useSelector(store => store) as Store;
     const leagueId: number = store.leagues.leagueDetail[0]?.league_id;
     const userPicks: Pick[] = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
+    const gameData: gameResults[] = store.gameData.gameData;
+
     let currentPicks: Pick[] = [];
     let dateLockStart: Date = new Date('2022-11-02T01:15:00.007Z');
 
@@ -146,12 +147,24 @@ const MyPicks: React.FC = () => {
 
     // function used to build pick selector, it gets called for each weeks picks 
     const weeklyPicks = (week: number) => {
-        const pickFive: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 5));
+        // grabs the pick for each week and value, so it can be used as the default value for react-select
+        const pickFive: any = userPicks.filter(e => (e.week === week && e.amount === 5));
         const pickThree: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 3));
         const pickOne: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 1));
+        // pushes the pick into an array that is used for when changes are made. Current picks are held in this component then 
+        // sent to the DB when saved
         currentPicks.push({ week: week, team: pickFive[0].team, amount: 5 });
         currentPicks.push({ week: week, team: pickThree[0].team, amount: 3 });
         currentPicks.push({ week: week, team: pickOne[0].team, amount: 1 });
+
+        // checks the pick against the game data to get the start time, then uses that in the isDisabled prop for 
+        // react-select. If pick is after start time then user can't change their choice.
+        const fiveLockDetails: any = gameData.filter(e => e.week === pickFive[0].week && e.team === pickFive[0].team)
+        const fiveLockTime: Date = new Date(fiveLockDetails[0]?.start_time);
+        const threeLockDetails: any = gameData.filter(e => e.week === pickThree[0].week && e.team === pickThree[0].team)
+        const threeLockTime: Date = new Date(threeLockDetails[0]?.start_time);
+        const oneLockDetails: any = gameData.filter(e => e.week === pickOne[0].week && e.team === pickOne[0].team)
+        const oneLockTime: Date = new Date(oneLockDetails[0]?.start_time);
 
         // disable date increases by 7 days for each new set of inputs: (24 * 60 * 60 * 1000)ms = 1 day
         dateLockStart.setTime(dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7)
@@ -164,10 +177,10 @@ const MyPicks: React.FC = () => {
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='fiveChoice'
                         defaultValue={pickFive[0]?.team ? { value: pickFive[0].team, label: pickFive[0].team } : ''}
-                        isDisabled={dateLockStart < new Date() ? true : false}
+                        isDisabled={(dateLockStart < new Date() || fiveLockTime < new Date()) ? true : false}
                         isSearchable={true}
                         name={"fiveChoiceWeek" + week}
-                        options={teams}
+                        options={teamOptions(week)}
                         styles={customStyles}
                         theme={(theme) => ({
                             ...theme,
@@ -175,6 +188,7 @@ const MyPicks: React.FC = () => {
                                 ...theme.colors,
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
+                                neutral20: '#0B132B',
                                 neutral40: 'black',
                                 neutral50: 'black',
                                 neutral80: 'black',
@@ -189,9 +203,9 @@ const MyPicks: React.FC = () => {
                         className='threeChoice'
                         defaultValue={pickThree[0]?.team ? { value: pickThree[0].team, label: pickThree[0].team } : ''}
                         isSearchable={true}
-                        isDisabled={(dateLockStart < new Date() ? true : false)}
+                        isDisabled={(dateLockStart < new Date() || threeLockTime < new Date()) ? true : false}
                         name={"threeChoiceWeek" + week}
-                        options={teams}
+                        options={teamOptions(week)}
                         styles={customStyles}
                         theme={(theme) => ({
                             ...theme,
@@ -200,7 +214,7 @@ const MyPicks: React.FC = () => {
                                 primary25: '#1C2541', // -- the first value gets highlighted, this is that color
                                 neutral0: '#1C2541',
                                 // neutral10: 'red', -- this is the border color for disabled
-                                // neutral20: 'red', //-- this is the border color for not disabled
+                                neutral20: '#0B132B', //-- this is the border color for not disabled and the color of disabled options
                                 neutral40: 'black', // -- default value color for disabled fields
                                 neutral50: 'black', // -- default value color for non-disabled fields
                                 neutral80: 'black', // color of value after making selection
@@ -215,9 +229,9 @@ const MyPicks: React.FC = () => {
                         className='oneChoice'
                         defaultValue={pickOne[0]?.team ? { value: pickOne[0].team, label: pickOne[0].team } : ''}
                         isSearchable={true}
-                        isDisabled={(dateLockStart < new Date() ? true : false)}
+                        isDisabled={(dateLockStart < new Date() || oneLockTime < new Date()) ? true : false}
                         name={"oneChoiceWeek" + week}
-                        options={teams}
+                        options={teamOptions(week)}
                         styles={customStyles}
                         theme={(theme) => ({
                             ...theme,
@@ -225,6 +239,7 @@ const MyPicks: React.FC = () => {
                                 ...theme.colors,
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
+                                neutral20: '#0B132B',
                                 neutral40: 'black',
                                 neutral50: 'black',
                                 neutral80: 'black',
@@ -236,6 +251,33 @@ const MyPicks: React.FC = () => {
             </TableRow>
         )
     }
+
+    // builds the options for the react-selectors, it disables teams that have already played that week
+    const teamOptions = (week: number) => {
+        let pickOptions: any[] = [];
+        const currentWeekData: gameResults[] = gameData.filter(e => e.week === week)
+
+        currentWeekData.map((game) => {
+            const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)
+            pickOptions.push({ value: game.team, label: game.team, isDisabled });
+        })
+
+        // sorts options alphabetically
+        pickOptions = pickOptions.sort((a, b) => {
+            let fa = a.value;
+            let fb = b.value;
+
+            if (fa < fb) {
+                return -1;
+            }
+            if (fa > fb) {
+                return 1;
+            }
+            return 0;
+        })
+        return pickOptions;
+    }
+
 
     const weeks = [
         weeklyPicks(1),
@@ -261,7 +303,7 @@ const MyPicks: React.FC = () => {
 
     return (
         <Box component={Paper} elevation={12} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-            <RefreshApiData />
+            {/* <RefreshApiData /> */}
             <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2 }}>Save Picks</Button>
             <TableContainer sx={{ mb: 2, pb: 20 }}>
                 <Table size='small'>
