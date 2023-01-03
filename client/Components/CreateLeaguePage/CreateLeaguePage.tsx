@@ -9,16 +9,15 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 
-const CreateLeaguePage = () => {
+const CreateLeaguePage: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     // variable to hold input text value
-    const [leagueName, setLeagueName] = useState('');
+    const [leagueName, setLeagueName] = React.useState<string>('');
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('in create league handle submit, league name:', leagueName);
         // through this dispatch chain, league is created, user is added as a member, redux is updated
         dispatch({ type: 'CREATE_LEAGUE', payload: leagueName })
         navigate('/dashboard');

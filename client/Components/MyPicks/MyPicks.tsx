@@ -16,19 +16,26 @@ import TableRow from '@mui/material/TableRow';
 import { toast } from 'react-toastify';
 
 import RefreshApiData from '../RefreshApiData/RefreshApiData';
+import { Store } from '../../../src/interfaces/interfaces';
 
 
-const MyPicks = ({ isAdmin }) => {
+const MyPicks: React.FC = () => {
+
+    interface Pick {
+        team: string,
+        week: number,
+        amount: number
+    }
 
     const dispatch = useDispatch();
-    const store: any = useSelector(store => store);
-    const leagueId = store.leagues.leagueDetail[0]?.league_id;
-    const userPicks = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
-    let currentPicks: { week: number, team: string, amount: number }[] = [];
-    let dateLockStart: any = new Date('2022-11-02T01:15:00.007Z');
+    const store: Store = useSelector(store => store) as Store;
+    const leagueId: number = store.leagues.leagueDetail[0]?.league_id;
+    const userPicks: Pick[] = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
+    let currentPicks: Pick[] = [];
+    let dateLockStart: Date = new Date('2022-11-02T01:15:00.007Z');
 
 
-    const customStyles: any = {
+    const customStyles = {
         control: (provided, { isDisabled }) => ({ // passes isDisabled so a different BG color can be applied
             ...provided,
             width: '100%',
@@ -40,9 +47,9 @@ const MyPicks = ({ isAdmin }) => {
     // function to make sure a team is not picked twice in the same week
     const pickCheckWeek = () => {
         for (let i = 0; i <= 17; i++) {
-            const weeklyArray: any = currentPicks.filter((e) => e.week === i + 1)
+            const weeklyArray: Pick[] = currentPicks.filter((e) => e.week === i + 1)
 
-            if ((weeklyArray[0].team === weeklyArray[1].team) && (weeklyArray[0].team !== null) || (weeklyArray[0].team === weeklyArray[2].team) && (weeklyArray[0].team !== null) || (weeklyArray[2].team === weeklyArray[1].team) && (weeklyArray[2].team !== null)) {
+            if ((weeklyArray[0].team === weeklyArray[1].team) && (weeklyArray[0].team !== null) && (weeklyArray[0].team !== '') || (weeklyArray[0].team === weeklyArray[2].team) && (weeklyArray[0].team !== null) && (weeklyArray[0].team !== '') || (weeklyArray[2].team === weeklyArray[1].team) && (weeklyArray[2].team !== null) && (weeklyArray[2].team !== '')) {
                 return true;
             };
         };
@@ -51,13 +58,13 @@ const MyPicks = ({ isAdmin }) => {
 
     // checks to make sure a team is not used twice for the same amount of points (5, 3, or 1)
     const pickCheckDuplicate = () => {
-        const fivePicks: any = currentPicks.filter((e) => e.amount === 5 && e.team !== null && e.team !== '');
-        const threePicks: any = currentPicks.filter((e) => e.amount === 3 && e.team !== null && e.team !== '');
-        const onePicks: any = currentPicks.filter((e) => e.amount === 1 && e.team !== null && e.team !== '');
+        const fivePicks: Pick[] = currentPicks.filter((e) => e.amount === 5 && e.team !== null && e.team !== '');
+        const threePicks: Pick[] = currentPicks.filter((e) => e.amount === 3 && e.team !== null && e.team !== '');
+        const onePicks: Pick[] = currentPicks.filter((e) => e.amount === 1 && e.team !== null && e.team !== '');
 
-        let checkFiveArray: any = [];
-        let checkThreeArray: any = [];
-        let checkOneArray: any = [];
+        let checkFiveArray: string[] = [];
+        let checkThreeArray: string[] = [];
+        let checkOneArray: string[] = [];
 
         for (let i = 0; i < fivePicks.length; i++) {
             checkFiveArray.push(fivePicks[i]?.team);
@@ -88,7 +95,7 @@ const MyPicks = ({ isAdmin }) => {
     // when a pick is changed the function is called and passed props that are used to first filter out the old pick,
     // then push the new pick value in
     const pickChange = (option, week, amount) => {
-        let foundPick: any = currentPicks.filter((pick) => (pick.amount === amount && pick.week === week));
+        let foundPick: Pick[] = currentPicks.filter((pick) => (pick.amount === amount && pick.week === week));
         currentPicks = currentPicks.filter(pick => pick !== foundPick[0]);
         currentPicks.push({ week: week, team: option.value, amount: amount });
     };
@@ -123,8 +130,8 @@ const MyPicks = ({ isAdmin }) => {
 
     // savePicks first checks that the pick checks do not fail, if passed then a dispatch is triggered
     const savePicks = () => {
-        const dupeWeek = pickCheckWeek();
-        const dupeAmount = pickCheckDuplicate();
+        const dupeWeek: boolean = pickCheckWeek();
+        const dupeAmount: boolean = pickCheckDuplicate();
         if (!dupeWeek && !dupeAmount) {
             dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId } });
             alertSavePicks();
@@ -139,9 +146,9 @@ const MyPicks = ({ isAdmin }) => {
 
     // function used to build pick selector, it gets called for each weeks picks 
     const weeklyPicks = (week: number) => {
-        const pickFive = userPicks.filter(e => (e.week === week && e.amount === 5));
-        const pickThree = userPicks.filter(e => (e.week === week && e.amount === 3));
-        const pickOne = userPicks.filter(e => (e.week === week && e.amount === 1));
+        const pickFive: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 5));
+        const pickThree: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 3));
+        const pickOne: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 1));
         currentPicks.push({ week: week, team: pickFive[0].team, amount: 5 });
         currentPicks.push({ week: week, team: pickThree[0].team, amount: 3 });
         currentPicks.push({ week: week, team: pickOne[0].team, amount: 1 });

@@ -25,7 +25,8 @@ Stretch goals:
     [] make a big table that shows everyone's complete picks all at once
     [] setup max users
 
-
-
+notes to self:
+[x] why does it log me out now on refresh?
+    - I am using store to see user, store refreshes and I didn't fetch user again
 
 

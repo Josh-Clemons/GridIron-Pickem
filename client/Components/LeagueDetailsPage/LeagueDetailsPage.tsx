@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
+import { Store, LeagueDetail, LeagueUsers } from '../../../src/interfaces/interfaces';
+
 import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
@@ -20,17 +22,18 @@ import Typography from '@mui/material/Typography';
 
 
 
+
 const LeagueDetailsPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const store: any = useSelector(store => store);
-    const leagueDetail = store.leagues.leagueDetail;
-    const leagueUsers = store.leagues.currentLeagueUsers;
+    const store: Store = useSelector(store => store) as Store;
+    const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
+    const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
 
     // tracks member details so correct button and component options appear
-    const [isMember, setIsMember] = useState<boolean>(false);
-    const [isAdmin, setIsAdmin] = useState<boolean>(false);
+    const [isMember, setIsMember] = React.useState<boolean>(false);
+    const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
 
     // used for determining which league detail component is displayed
     const [viewState, setViewState] = useState<string>('standings');
@@ -156,7 +159,7 @@ const LeagueDetailsPage = () => {
 
             {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
             {viewState === 'standings' && <LeagueStandings />}
-            {viewState === 'myPicks' && <MyPicks isAdmin={isAdmin}/>}
+            {viewState === 'myPicks' && <MyPicks />}
             {viewState === 'overview' && <LeaguePicks />}
 
         </Container>

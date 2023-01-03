@@ -9,6 +9,7 @@ import { Paper } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
+import { Store, UserLeagues } from '../../../src/interfaces/interfaces';
 
 
 
@@ -17,17 +18,17 @@ import { useDispatch } from 'react-redux';
 const UserDashboard: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const store: any = useSelector(store => store)
-    const myLeagues: any = store.leagues.userLeagues;
+    const store: Store = useSelector(store => store) as Store;
+    const myLeagues: UserLeagues[] = store.leagues.userLeagues;
 
     // grabs updated league info if league detail changes (ex. league name change)
     useEffect(() => {
         dispatch({ type: 'FETCH_LEAGUES' })
-    }, [store.leagues.leagueDetail, store.user])
+    }, [])
 
 
     // redirects to league detail page when a user clicks on a league item
-    const leagueClick = (league) => {
+    const leagueClick = (league: UserLeagues) => {
         navigate(`/detail/${league.league_id}`)
     };
 

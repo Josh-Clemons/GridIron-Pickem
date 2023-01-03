@@ -18,9 +18,9 @@ const style = {
     p: 2,
 };
 
-const ModalRules: any = ({ size, width, variant, margin }) => {
+const ModalRules = ({ size, width, variant, margin }) => {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState<boolean>(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => { setOpen(false) };
 

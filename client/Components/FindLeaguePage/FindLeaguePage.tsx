@@ -4,18 +4,19 @@ import { useNavigate } from 'react-router-dom';
 
 import LeagueItem from '../LeagueItem/LeagueItem';
 
-import { AvailableLeagues } from '../../../src/interfaces/interfaces';
+import { AvailableLeagues, Store, User } from '../../../src/interfaces/interfaces';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-const FindLeaguePage = () => {
+const FindLeaguePage: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const store: any = useSelector(store => store);
+    const store: Store = useSelector(store => store) as Store;
     const availableLeagues: AvailableLeagues[] = store.leagues.availableLeagues;
+
 
     // gets available leagues on page load
     useEffect(() => {
@@ -23,7 +24,7 @@ const FindLeaguePage = () => {
     }, []);
 
     // redirects to league detail page when a user clicks on a league item
-    const leagueClick = (league) => {
+    const leagueClick = (league: AvailableLeagues) => {
         navigate(`/detail/${league.id}`)
     };
 

@@ -149,7 +149,6 @@ export default function NavBar() {
                         Grid Iron Pickem
                     </Typography>
                 </Toolbar>
-                {/* <Button onClick={toggleDrawer('left', true)}>Left</Button> */}
                 <Drawer
                     anchor='left'
                     open={state['left']}

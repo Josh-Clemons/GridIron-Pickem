@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 
 
-const Footer = () => {
+const Footer: React.FC = () => {
 
     function Copyright() {
         return (
@@ -17,7 +17,7 @@ const Footer = () => {
                 borderColor: "text.secondary",
                 bgcolor: "#1C2541"
             }}>
-                <Typography variant="body1" color="text.secondary" align="center" sx={{ mt: "5px", mb: "5px"}}>
+                <Typography variant="body1" color="text.secondary" align="center" sx={{ mt: "5px", mb: "5px" }}>
                     {'Copyright © '}
                     <Link color="inherit" href="https://github.com/Josh-Clemons/GridIron-Pickem">
                         Josh Clemons

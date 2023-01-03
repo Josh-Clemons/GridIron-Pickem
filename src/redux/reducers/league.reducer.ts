@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
+import { combineReducers, AnyAction } from 'redux';
 
 // the leagues the logged in user is currently in
-const userLeagues = (state = [], action: any) => {
+const userLeagues = (state = [], action: AnyAction) => {
     switch (action.type) {
         case 'SET_LEAGUES':
             return action.payload;
@@ -13,7 +13,7 @@ const userLeagues = (state = [], action: any) => {
 };
 
 // leagues available for the user to join
-const availableLeagues = (state = [], action: any) => {
+const availableLeagues = (state = [], action: AnyAction) => {
     switch (action.type) {
         case 'SET_AVAILABLE_LEAGUES':
             return action.payload;
@@ -23,7 +23,7 @@ const availableLeagues = (state = [], action: any) => {
 };
 
 // sets the details for the current league a user is viewing
-const leagueDetail = (state = [], action: any) => {
+const leagueDetail = (state = [], action: AnyAction) => {
     switch (action.type) {
         case 'SET_LEAGUE_DETAIL':
             return action.payload.data;
@@ -33,8 +33,8 @@ const leagueDetail = (state = [], action: any) => {
 };
 
 // sets user list for current league the user is viewing
-const currentLeagueUsers = (state = [], action: any ) => {
-    switch(action.type) {
+const currentLeagueUsers = (state = [], action: AnyAction) => {
+    switch (action.type) {
         case 'SET_LEAGUE_USERS':
             return action.payload;
         default:

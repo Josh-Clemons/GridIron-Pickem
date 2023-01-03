@@ -3,10 +3,8 @@ import RegisterForm from '../RegisterForm/RegisterForm';
 
 const RegisterPage = () => {
     return (
-        <div>
-            <RegisterForm />
-        </div>
+        <RegisterForm />
     )
 }
 
-export default RegisterPage
+export default RegisterPage;

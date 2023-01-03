@@ -20,7 +20,7 @@ const style = {
     p: 4,
 };
 
-const ModalDeleteLeague = () => {
+const ModalDeleteLeague: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const ModalDeleteLeague = () => {
     const { id } = useParams();
 
     // sends league ID as payload to know what to delete, server confirms user making request is league owner
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         dispatch({ type: 'DELETE_LEAGUE', payload: id });
         navigate('/dashboard');
