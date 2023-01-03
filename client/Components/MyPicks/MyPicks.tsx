@@ -15,7 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import { toast } from 'react-toastify';
 
 import RefreshApiData from '../RefreshApiData/RefreshApiData';
-import { gameResults, Store, Pick } from '../../../src/interfaces/interfaces';
+import { GameResults, Store, Pick } from '../../../src/interfaces/interfaces';
 import { pickCheckDuplicate, pickCheckWeek, pickCheckGame } from '../PickCheck/PickCheck';
 
 
@@ -25,7 +25,7 @@ const MyPicks: React.FC = () => {
     const store: Store = useSelector(store => store) as Store;
     const leagueId: number = store.leagues.leagueDetail[0]?.league_id;
     const userPicks: Pick[] = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
-    const gameData: gameResults[] = store.gameData.gameData;
+    const gameData: GameResults[] = store.gameData.gameData;
 
     let currentPicks: Pick[] = [];
     let dateLockStart: Date = new Date('2022-11-02T01:15:00.007Z');
@@ -205,7 +205,7 @@ const MyPicks: React.FC = () => {
     // builds the options for the react-selectors, it disables teams that have already played that week
     const teamOptions = (week: number) => {
         let pickOptions: any[] = [];
-        const currentWeekData: gameResults[] = gameData.filter(e => e.week === week)
+        const currentWeekData: GameResults[] = gameData.filter(e => e.week === week)
 
         currentWeekData.map((game) => {
             const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)

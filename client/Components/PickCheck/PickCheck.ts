@@ -1,4 +1,4 @@
-import { Pick, gameResults } from '../../../src/interfaces/interfaces';
+import { Pick, GameResults } from '../../../src/interfaces/interfaces';
 
 
 // checks to make sure a team is not used twice for the same amount of points (5, 3, or 1)
@@ -50,7 +50,7 @@ export const pickCheckWeek = (currentPicks: Pick[]) => {
 };
 
 // checks to ensure two teams are not picked from the same game
-export const pickCheckGame = (currentPicks: Pick[], gameData: gameResults[]) => {
+export const pickCheckGame = (currentPicks: Pick[], gameData: GameResults[]) => {
     for (let i = 0; i <=17; i++) {
         const currentWeekFivePick: Pick[] = currentPicks.filter(e => e.week === i + 1 && e.amount === 5)
         const currentWeekFiveData: any = gameData.filter( e => e.week === i + 1 && currentWeekFivePick[0].team === e.team)

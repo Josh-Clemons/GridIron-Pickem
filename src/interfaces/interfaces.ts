@@ -1,7 +1,7 @@
 
 export interface Store {
     LoginError: LoginError,
-    gameData: {gameData: gameResults[]},
+    gameData: {gameData: GameResults[]},
     leagues: {
         availableLeagues: AvailableLeagues[],
         currentLeagueUsers: LeagueUsers[],
@@ -16,7 +16,7 @@ export interface LoginError {
     registrationMessage: String
 }
 
-export interface gameResults {
+export interface GameResults {
     week: Number,
     team: String,
     is_winner: Boolean,
