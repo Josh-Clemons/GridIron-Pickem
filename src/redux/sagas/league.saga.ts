@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* createLeague(action: any) {
+function* createLeague(action: any) : Generator<any, any, any> {
     try {
         // creates league
         yield axios.post('/api/league/create', action.payload)
@@ -20,7 +20,7 @@ function* createLeague(action: any) {
 };
 
 // grabs the current leagues the user has joined
-function* fetchLeagues(action: any) {
+function* fetchLeagues(): Generator<any, any, any> {
     try {
         const leagues: any = yield axios.get('/api/league/');
         yield put({ type: 'SET_LEAGUES', payload: leagues.data })
@@ -30,10 +30,10 @@ function* fetchLeagues(action: any) {
 };
 
 // gets leagues that are available for a user to join from DB/router
-function* fetchAvailableLeagues(action: any) {
+function* fetchAvailableLeagues(): Generator<any, any, any> {
     try {
         const availableLeagues: any = yield axios.get('/api/league/available');
-        yield put({ type: 'SET_AVAILABLE_LEAGUES', payload: availableLeagues.data})
+        yield put({ type: 'SET_AVAILABLE_LEAGUES', payload: availableLeagues.data })
 
     } catch (error) {
         console.log('error in fetch available leagues', error)
@@ -41,7 +41,7 @@ function* fetchAvailableLeagues(action: any) {
 };
 
 // fetches the pick details for the current league the user is viewing
-function* fetchLeagueDetail(action: any) {
+function* fetchLeagueDetail(action: any): Generator<any, any, any> {
     try {
         const leagueDetail: any = yield axios.get('/api/league/detail/' + action.payload);
 
@@ -60,7 +60,7 @@ function* deleteLeague(action: any) {
     try {
         yield axios.delete('/api/league/delete/' + action.payload);
         yield put({ type: 'FETCH_LEAGUES' });
-    }catch(error) {
+    } catch (error) {
         console.log('error in deleteLeague Saga: ', error)
     };
 };
@@ -68,7 +68,7 @@ function* deleteLeague(action: any) {
 function* leaveLeague(action: any) {
     try {
         yield axios.delete('/api/league/leave/' + action.payload);
-    }catch(error) {
+    } catch (error) {
         console.log('error in leaveLeague Saga:', error);
     };
 };
@@ -76,8 +76,8 @@ function* leaveLeague(action: any) {
 function* renameLeague(action: any) {
     try {
         yield axios.put('api/league/rename', action.payload);
-        yield put({ type: 'FETCH_LEAGUE_DETAIL', payload: action.payload.id})
-    } catch(error) {
+        yield put({ type: 'FETCH_LEAGUE_DETAIL', payload: action.payload.id })
+    } catch (error) {
         console.log('error in renameLeague:', error)
     };
 };

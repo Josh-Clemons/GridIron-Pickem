@@ -1,16 +1,24 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
+import { ErrorRequestHandler } from 'express';
 
+interface GameDataQuery {
+    id: number,
+    week: number,
+    team: string,
+    is_winner: boolean
+}
 
 // grabs the game results from the DB and saves it to Redux
-function* getData() {
+function* getData(): Generator<any, any, GameDataQuery[]> {
     try {
-        const gameData:any = yield axios.get('/api/data/getresults');
-        yield put ({ type: 'SET_GAME_DATA', payload: gameData.data})
+        const gameData: any = yield axios.get('/api/data/getresults');
+        yield put({ type: 'SET_GAME_DATA', payload: gameData.data })
     } catch (error: any) {
         console.log('error GETting game results from DB: ', error)
     };
 };
+
 
 // grabs the weekly results from the router for each game (have to grab it by week due to ESPN API)
 // builds the results into an array then sends it to the DB

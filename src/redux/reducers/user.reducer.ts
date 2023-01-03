@@ -1,5 +1,6 @@
+import { AnyAction } from 'redux';
 
-const userReducer = (state = {}, action: any) => {
+const userReducer = (state = {}, action: AnyAction) => {
     switch (action.type) {
         case 'SET_USER':
             return action.payload;
