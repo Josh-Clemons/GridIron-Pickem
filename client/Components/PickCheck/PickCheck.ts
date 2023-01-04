@@ -51,18 +51,28 @@ export const pickCheckWeek = (currentPicks: Pick[]) => {
 
 // checks to ensure two teams are not picked from the same game
 export const pickCheckGame = (currentPicks: Pick[], gameData: GameResults[]) => {
-    for (let i = 0; i <=17; i++) {
+    for (let i = 0; i <= 17; i++) {
         const currentWeekFivePick: Pick[] = currentPicks.filter(e => e.week === i + 1 && e.amount === 5)
-        const currentWeekFiveData: any = gameData.filter( e => e.week === i + 1 && currentWeekFivePick[0].team === e.team)
+        const currentWeekFiveData: any = gameData.filter(e => e.week === i + 1 && currentWeekFivePick[0].team === e.team)
         const currentWeekThreePick: Pick[] = currentPicks.filter(e => e.week === i + 1 && e.amount === 3)
-        const currentWeekThreeData: any = gameData.filter( e => e.week === i + 1 && currentWeekThreePick[0].team === e.team)
+        const currentWeekThreeData: any = gameData.filter(e => e.week === i + 1 && currentWeekThreePick[0].team === e.team)
         const currentWeekOnePick: Pick[] = currentPicks.filter(e => e.week === i + 1 && e.amount === 1)
-        const currentWeekOneData: any = gameData.filter( e => e.week === i + 1 && currentWeekOnePick[0].team === e.team)
+        const currentWeekOneData: any = gameData.filter(e => e.week === i + 1 && currentWeekOnePick[0].team === e.team)
 
-        console.log('locking pickCheckGame data, 5, 3, 1', currentWeekFivePick, currentWeekFiveData);
-        if (currentWeekFiveData.game_id === currentWeekThreeData.game_id || currentWeekFiveData.game_id === currentWeekOneData.game_id || currentWeekThreeData.game_id === currentWeekOneData.game_id) {
+        console.log('5 pick and data', currentWeekFivePick, currentWeekFiveData);
+        if (
+            (currentWeekFiveData[0]?.game_id === currentWeekThreeData[0]?.game_id && currentWeekFiveData[0]?.game_id && currentWeekFiveData[0]?.game_id !== '')
+            || (currentWeekFiveData[0]?.game_id === currentWeekOneData[0]?.game_id && currentWeekFiveData[0]?.game_id && currentWeekFiveData[0]?.game_id !== '')
+            || (currentWeekThreeData[0]?.game_id === currentWeekOneData[0]?.game_id && currentWeekThreeData[0]?.game_id && currentWeekThreeData[0]?.game_id !== '')
+        
+        ) {
             return true;
         }
     }
     return false;
 }
+
+
+
+// currentWeekFiveData[0]?.game_id === currentWeekThreeData[0]?.game_id && 
+// || currentWeekFiveData.game_id === currentWeekOneData.game_id && currentWeekFiveData.game_id !== null && currentWeekFiveData.game_id !== '' || currentWeekThreeData.game_id === currentWeekOneData.game_id  && currentWeekOneData.game_id !== null && currentWeekOneData.game_id !== '' 

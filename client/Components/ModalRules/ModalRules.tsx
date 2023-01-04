@@ -42,33 +42,26 @@ const ModalRules = ({ size, width, variant, margin }) => {
                     </Typography>
                     <Typography variant='body1' paragraph={true} style={{ width: '95%', height: '60vh', overflow: 'auto' }}>
                         Each week, you must select 3 different teams to win their games.  Do not worry about point spreads.  You only need to select wins.
-                        <br />
-                        <br />
-                        Selections MUST be made prior to the start of the Thursday night game.
-                        <br />
-                        <br />
+
                         Your 3 teams must be placed in the following categories:  5 points, 3 points and 1 point.
-                        <br />
-                        <br />
+
                         If your team wins, you will receive the points in the respective categories.
-                        <br />
-                        <br />
+
                         For example, let's say you select the IND (5), BAL (3) and GB (1).  If only the Colts and Packers win that week, you would receive 6 points (IND 5, GB 1).
-                        <br />
-                        <br />
-                        If in any week of the season, your 3 choices result in 3 wins, you will be awarded 2 additional points.
-                        <br />
-                        <br />
+
+                        If in any week of the season, your 3 choices result in 3 wins, you will be awarded 2 additional points (11 points total for that week).
+
                         Once you select a team in a point category, you cannot place them in that same point category for the remainder of the season.
-                        <br />
-                        <br />
-                        For example, you can only select the Colts to win during 3 separate weeks of the season.  You can place them in the 5 point category once, 3 point once and 1 point once.  Once you select them 3 times, you can no longer select them during the season.
-                        <br />
-                        <br />
+
+                        For example, you can only select the Colts to win for 5 points one time in the season.
+
+                        Selections must be made prior to the game time of your picks or you receive no points. There are Thursday games that will need earlier submittals.
+
                         Additional Rules:
-                        <br />
                         -If a game results in a tie, it's considered a loss in Grid Iron
-                        <br />
+                        -If a game is postponed due to catastrophic conditions/pandemic, another game can be selected as long as it’s done before that game starts.  If this happens on Monday night game, your selection will be considered a loss.
+                        -Only one team from the same game can be selected.
+
                     </Typography>
                     <Stack spacing={1} direction='row-reverse'>
                         <Button variant='outlined' color={'primary'} onClick={handleClose} sx={{ width: 80 }}>Close</Button>
