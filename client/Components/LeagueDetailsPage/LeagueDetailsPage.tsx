@@ -8,6 +8,7 @@ import { Store, LeagueDetail, LeagueUsers } from '../../../src/interfaces/interf
 import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
+import LeagueDetailsAccordion from '../LeagueDetailsAccordion/LeagueDetailsAccordion';
 import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
 import ModalDeleteLeague from '../ModalDeleteLeague/ModalDeleteLeague';
 import ModalLeaveLeague from '../ModalLeaveLeague/ModalLeaveLeague';
@@ -57,6 +58,7 @@ const LeagueDetailsPage = () => {
     }
 
     // sets member type so appropriate options are displayed
+    // Component importing function must have: const [isMember, setIsMember] = React.useState<boolean>(false); const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
     const setMember = () => {
         if (leagueDetail.filter(e => e.owner_id === store.user.id).length > 0) {
             setIsMember(false);
@@ -110,31 +112,20 @@ const LeagueDetailsPage = () => {
                         m: 1
                     }}
                 >
-                    {isAdmin
+                    {isAdmin || isMember
                         ?
                         <>
-                            <ModalDeleteLeague />
-                            <ModalRenameLeague />
                             <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
                             <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>My Leagues</Button>
                         </>
                         :
                         <>
-                            {isMember ?
-                                <>
-                                    <ModalLeaveLeague />
-                                    <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
-                                    <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>My Leagues</Button>
-                                </>
-                                :
-                                <>
-                                    <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 125, color: "white", bgcolor: "primary.main", m: 1 }}>Join</Button>
-                                    <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
-                                </>
-                            }
+                            <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 125, color: "white", bgcolor: "primary.main", m: 1 }}>Join</Button>
+                            <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
                         </>
                     }
                 </Stack>
+                <LeagueDetailsAccordion />
             </Box>
 
             <ButtonGroup
