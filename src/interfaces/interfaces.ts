@@ -1,14 +1,7 @@
-import { type } from "os"
-
-// this interface needs to be removed/updated
-export interface UserInterface {
-    username: String,
-    password: String,
-}
 
 export interface Store {
     LoginError: LoginError,
-    gameData: {gameData: gameResults[]},
+    gameData: {gameData: GameResults[]},
     leagues: {
         availableLeagues: AvailableLeagues[],
         currentLeagueUsers: LeagueUsers[],
@@ -23,11 +16,12 @@ export interface LoginError {
     registrationMessage: String
 }
 
-export interface gameResults {
-    id: Number,
+export interface GameResults {
     week: Number,
     team: String,
     is_winner: Boolean,
+    game_id: string,
+    start_time: Date
 }
 
 export interface AvailableLeagues {
@@ -59,4 +53,10 @@ export interface UserLeagues {
 export interface User {
     id: number
     username: string,
+}
+
+export interface Pick {
+    team: string,
+    week: number,
+    amount: number
 }

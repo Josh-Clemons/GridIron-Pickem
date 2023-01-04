@@ -10,11 +10,15 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useDispatch } from 'react-redux';
-import { UserInterface } from '../../../src/interfaces/interfaces';
 import { toast } from 'react-toastify';
 
+interface user {
+    username: string,
+    password: string
+}
 
 export default function RegisterForm() {
+
 
 
     const [username, setUsername] = React.useState<string>('');
@@ -25,7 +29,7 @@ export default function RegisterForm() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const payload: UserInterface = {
+        const payload: user = {
             username,
             password
         };

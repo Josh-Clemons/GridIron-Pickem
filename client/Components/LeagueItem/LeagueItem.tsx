@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
 // returns a Box (list item) for each league being mapped
-const LeagueItem = ({ league }) => {
+const LeagueItem = ({ league }: any) => {
     return (
         <Box
             component={Paper}

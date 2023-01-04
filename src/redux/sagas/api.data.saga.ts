@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import { ErrorRequestHandler } from 'express';
+import { GameResults } from '../../interfaces/interfaces';
 
 interface GameDataQuery {
     id: number,
@@ -23,19 +24,21 @@ function* getData(): Generator<any, any, GameDataQuery[]> {
 // grabs the weekly results from the router for each game (have to grab it by week due to ESPN API)
 // builds the results into an array then sends it to the DB
 function* setData() {
-    let gameData: any = [];
+    let gameData: GameResults[] = [];
 
     for (let i = 1; i <= 18; i++) {
         yield axios.get('/api/data/update/' + i).then((response: any) => {
             response.data.events.map((e: any) => {
                 const week = i;
+                const gameId: string = e.id;
+                const startTime: Date = e.date;
                 const homeTeam: string = e.competitions[0].competitors[0].team.abbreviation;
                 const awayTeam: string = e.competitions[0].competitors[1].team.abbreviation;
                 const homeWinner: boolean = (e.competitions[0].competitors[0].winner ? true : false);
                 const awayWinner: boolean = (e.competitions[0].competitors[1].winner ? true : false);
 
-                gameData.push({ week: week, team: homeTeam, is_winner: homeWinner });
-                gameData.push({ week: week, team: awayTeam, is_winner: awayWinner });
+                gameData.push({ week: week, team: homeTeam, is_winner: homeWinner, game_id: gameId, start_time: startTime });
+                gameData.push({ week: week, team: awayTeam, is_winner: awayWinner, game_id: gameId, start_time: startTime });
             });
         }).catch((error: Error) => {
             console.log('error GETing API data:', error);

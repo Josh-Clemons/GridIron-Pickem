@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { teams } from '../data/team.list';
 import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
@@ -16,85 +15,34 @@ import TableRow from '@mui/material/TableRow';
 import { toast } from 'react-toastify';
 
 import RefreshApiData from '../RefreshApiData/RefreshApiData';
-import { Store } from '../../../src/interfaces/interfaces';
+import { GameResults, Store, Pick } from '../../../src/interfaces/interfaces';
+import { pickCheckDuplicate, pickCheckWeek, pickCheckGame } from '../PickCheck/PickCheck';
 
 
 const MyPicks: React.FC = () => {
-
-    interface Pick {
-        team: string,
-        week: number,
-        amount: number
-    }
 
     const dispatch = useDispatch();
     const store: Store = useSelector(store => store) as Store;
     const leagueId: number = store.leagues.leagueDetail[0]?.league_id;
     const userPicks: Pick[] = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
+    const gameData: GameResults[] = store.gameData.gameData;
+
     let currentPicks: Pick[] = [];
     let dateLockStart: Date = new Date('2022-11-02T01:15:00.007Z');
 
 
     const customStyles = {
-        control: (provided, { isDisabled }) => ({ // passes isDisabled so a different BG color can be applied
+        control: (provided: any, { isDisabled }: {isDisabled: boolean}) => ({ // passes isDisabled so a different BG color can be applied
             ...provided,
             width: '100%',
             backgroundColor: isDisabled ? '#9AA4AE' : '#F8F8F8',
-            menuPortal: base => ({ ...base, zIndex: 9999 }) // this is used to keep the menu portal above all other page elements (so the list doesn't get cut off)
+            menuPortal: (base: any) => ({ ...base, zIndex: 9999 }) // this is used to keep the menu portal above all other page elements (so the list doesn't get cut off)
         })
     };
 
-    // function to make sure a team is not picked twice in the same week
-    const pickCheckWeek = () => {
-        for (let i = 0; i <= 17; i++) {
-            const weeklyArray: Pick[] = currentPicks.filter((e) => e.week === i + 1)
-
-            if ((weeklyArray[0].team === weeklyArray[1].team) && (weeklyArray[0].team !== null) && (weeklyArray[0].team !== '') || (weeklyArray[0].team === weeklyArray[2].team) && (weeklyArray[0].team !== null) && (weeklyArray[0].team !== '') || (weeklyArray[2].team === weeklyArray[1].team) && (weeklyArray[2].team !== null) && (weeklyArray[2].team !== '')) {
-                return true;
-            };
-        };
-        return false;
-    };
-
-    // checks to make sure a team is not used twice for the same amount of points (5, 3, or 1)
-    const pickCheckDuplicate = () => {
-        const fivePicks: Pick[] = currentPicks.filter((e) => e.amount === 5 && e.team !== null && e.team !== '');
-        const threePicks: Pick[] = currentPicks.filter((e) => e.amount === 3 && e.team !== null && e.team !== '');
-        const onePicks: Pick[] = currentPicks.filter((e) => e.amount === 1 && e.team !== null && e.team !== '');
-
-        let checkFiveArray: string[] = [];
-        let checkThreeArray: string[] = [];
-        let checkOneArray: string[] = [];
-
-        for (let i = 0; i < fivePicks.length; i++) {
-            checkFiveArray.push(fivePicks[i]?.team);
-        };
-        for (let i = 0; i < threePicks.length; i++) {
-            checkThreeArray.push(threePicks[i]?.team);
-        };
-        for (let i = 0; i < onePicks.length; i++) {
-            checkOneArray.push(onePicks[i]?.team);
-        };
-
-
-        // new Set builds a new object, with Set you can't have duplicate values. So if the object size is different than the 
-        // array length, you know there are duplicate values in the array
-        if ((new Set(checkFiveArray).size !== checkFiveArray.length)) {
-            return true;
-        };
-        if ((new Set(checkThreeArray).size !== checkThreeArray.length)) {
-            return true;
-        };
-        if ((new Set(checkOneArray).size !== checkOneArray.length)) {
-            return true;
-        };
-        return false;
-    };
-
-
     // when a pick is changed the function is called and passed props that are used to first filter out the old pick,
     // then push the new pick value in
-    const pickChange = (option, week, amount) => {
+    const pickChange = (option: any, week: number, amount: number) => {
         let foundPick: Pick[] = currentPicks.filter((pick) => (pick.amount === amount && pick.week === week));
         currentPicks = currentPicks.filter(pick => pick !== foundPick[0]);
         currentPicks.push({ week: week, team: option.value, amount: amount });
@@ -130,15 +78,18 @@ const MyPicks: React.FC = () => {
 
     // savePicks first checks that the pick checks do not fail, if passed then a dispatch is triggered
     const savePicks = () => {
-        const dupeWeek: boolean = pickCheckWeek();
-        const dupeAmount: boolean = pickCheckDuplicate();
-        if (!dupeWeek && !dupeAmount) {
+        const dupeWeek: boolean = pickCheckWeek(currentPicks);
+        const dupeAmount: boolean = pickCheckDuplicate(currentPicks);
+        const dupeGame: any = pickCheckGame(currentPicks, gameData)
+        if (!dupeWeek && !dupeAmount && !dupeGame) {
             dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId } });
             alertSavePicks();
         } else if (dupeAmount) {
             alertPickError('Duplicates in Amount Column');
-        } else {
+        } else if (dupeWeek) {
             alertPickError('Duplicates in Same Week');
+        } else if (dupeGame) {
+            alertPickError('Duplicates picked from same game')
         };
     };
 
@@ -146,12 +97,24 @@ const MyPicks: React.FC = () => {
 
     // function used to build pick selector, it gets called for each weeks picks 
     const weeklyPicks = (week: number) => {
-        const pickFive: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 5));
+        // grabs the pick for each week and value, so it can be used as the default value for react-select
+        const pickFive: any = userPicks.filter(e => (e.week === week && e.amount === 5));
         const pickThree: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 3));
         const pickOne: Pick[] = userPicks.filter(e => (e.week === week && e.amount === 1));
+        // pushes the pick into an array that is used for when changes are made. Current picks are held in this component then 
+        // sent to the DB when saved
         currentPicks.push({ week: week, team: pickFive[0].team, amount: 5 });
         currentPicks.push({ week: week, team: pickThree[0].team, amount: 3 });
         currentPicks.push({ week: week, team: pickOne[0].team, amount: 1 });
+
+        // checks the pick against the game data to get the start time, then uses that in the isDisabled prop for 
+        // react-select. If pick is after start time then user can't change their choice.
+        const fiveLockDetails: any = gameData.filter(e => e.week === pickFive[0].week && e.team === pickFive[0].team)
+        const fiveLockTime: Date = new Date(fiveLockDetails[0]?.start_time);
+        const threeLockDetails: any = gameData.filter(e => e.week === pickThree[0].week && e.team === pickThree[0].team)
+        const threeLockTime: Date = new Date(threeLockDetails[0]?.start_time);
+        const oneLockDetails: any = gameData.filter(e => e.week === pickOne[0].week && e.team === pickOne[0].team)
+        const oneLockTime: Date = new Date(oneLockDetails[0]?.start_time);
 
         // disable date increases by 7 days for each new set of inputs: (24 * 60 * 60 * 1000)ms = 1 day
         dateLockStart.setTime(dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7)
@@ -164,10 +127,10 @@ const MyPicks: React.FC = () => {
                         components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
                         className='fiveChoice'
                         defaultValue={pickFive[0]?.team ? { value: pickFive[0].team, label: pickFive[0].team } : ''}
-                        isDisabled={dateLockStart < new Date() ? true : false}
+                        isDisabled={(dateLockStart < new Date() || fiveLockTime < new Date()) ? true : false}
                         isSearchable={true}
                         name={"fiveChoiceWeek" + week}
-                        options={teams}
+                        options={teamOptions(week)}
                         styles={customStyles}
                         theme={(theme) => ({
                             ...theme,
@@ -175,6 +138,7 @@ const MyPicks: React.FC = () => {
                                 ...theme.colors,
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
+                                neutral20: '#0B132B',
                                 neutral40: 'black',
                                 neutral50: 'black',
                                 neutral80: 'black',
@@ -189,9 +153,9 @@ const MyPicks: React.FC = () => {
                         className='threeChoice'
                         defaultValue={pickThree[0]?.team ? { value: pickThree[0].team, label: pickThree[0].team } : ''}
                         isSearchable={true}
-                        isDisabled={(dateLockStart < new Date() ? true : false)}
+                        isDisabled={(dateLockStart < new Date() || threeLockTime < new Date()) ? true : false}
                         name={"threeChoiceWeek" + week}
-                        options={teams}
+                        options={teamOptions(week)}
                         styles={customStyles}
                         theme={(theme) => ({
                             ...theme,
@@ -200,7 +164,7 @@ const MyPicks: React.FC = () => {
                                 primary25: '#1C2541', // -- the first value gets highlighted, this is that color
                                 neutral0: '#1C2541',
                                 // neutral10: 'red', -- this is the border color for disabled
-                                // neutral20: 'red', //-- this is the border color for not disabled
+                                neutral20: '#0B132B', //-- this is the border color for not disabled and the color of disabled options
                                 neutral40: 'black', // -- default value color for disabled fields
                                 neutral50: 'black', // -- default value color for non-disabled fields
                                 neutral80: 'black', // color of value after making selection
@@ -215,9 +179,9 @@ const MyPicks: React.FC = () => {
                         className='oneChoice'
                         defaultValue={pickOne[0]?.team ? { value: pickOne[0].team, label: pickOne[0].team } : ''}
                         isSearchable={true}
-                        isDisabled={(dateLockStart < new Date() ? true : false)}
+                        isDisabled={(dateLockStart < new Date() || oneLockTime < new Date()) ? true : false}
                         name={"oneChoiceWeek" + week}
-                        options={teams}
+                        options={teamOptions(week)}
                         styles={customStyles}
                         theme={(theme) => ({
                             ...theme,
@@ -225,6 +189,7 @@ const MyPicks: React.FC = () => {
                                 ...theme.colors,
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
+                                neutral20: '#0B132B',
                                 neutral40: 'black',
                                 neutral50: 'black',
                                 neutral80: 'black',
@@ -236,6 +201,35 @@ const MyPicks: React.FC = () => {
             </TableRow>
         )
     }
+
+    // builds the options for the react-selectors, it disables teams that have already played that week
+    const teamOptions = (week: number) => {
+        let pickOptions: any[] = [
+            { value: '', label: 'Select...', isDisabled: false },
+        ];
+        const currentWeekData: GameResults[] = gameData.filter(e => e.week === week)
+
+        currentWeekData.map((game) => {
+            const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)
+            pickOptions.push({ value: game.team, label: game.team, isDisabled });
+        })
+
+        // sorts options alphabetically
+        pickOptions = pickOptions.sort((a, b) => {
+            let fa = a.value;
+            let fb = b.value;
+
+            if (fa < fb) {
+                return -1;
+            }
+            if (fa > fb) {
+                return 1;
+            }
+            return 0;
+        })
+        return pickOptions;
+    }
+
 
     const weeks = [
         weeklyPicks(1),

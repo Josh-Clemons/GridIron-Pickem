@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import axios from "axios";
+import { GameResults } from "../interfaces/interfaces";
 const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
@@ -33,12 +34,12 @@ dataRouter.get('/data/update/:week', rejectUnauthenticated, (req: any, res: Resp
 
 // updates game data, first builds a giant query by mapping the game data, then deletes old stuff, and finally writes new info.
 dataRouter.post('/data/save', rejectUnauthenticated, (req: any, res: Response) => {
-    const gameData: { team: string, week: number, is_winner: boolean }[] = req.body;
-    let queryText = `INSERT INTO "game_data" ("team", "week", "is_winner") VAlUES `;
+    const gameData: GameResults[] = req.body;
+    let queryText = `INSERT INTO "game_data" ("team", "week", "is_winner", "game_id", "start_time") VAlUES `;
 
     gameData.map((e) => {
-        queryText = queryText + `('${e.team}', '${e.week}', '${e.is_winner}'),`;
-    })
+        queryText = queryText + `('${e.team}', '${e.week}', '${e.is_winner}', '${e.game_id}', '${e.start_time}'),`;
+    });
 
     // removes the last comma and adds a semi-colon after building queryText
     queryText = queryText.slice(0, -1);

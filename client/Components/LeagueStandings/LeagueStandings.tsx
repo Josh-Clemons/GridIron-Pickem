@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { gameResults, LeagueDetail, LeagueUsers, Store } from '../../../src/interfaces/interfaces';
+import { GameResults, LeagueDetail, LeagueUsers, Store } from '../../../src/interfaces/interfaces';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -19,7 +19,7 @@ const LeagueStandings = () => {
     const store: Store = useSelector(store => store) as Store;
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
     const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
-    const gameData: gameResults[] = store.gameData.gameData;
+    const gameData: GameResults[] = store.gameData.gameData;
     const [leagueScore, setLeagueScore] = useState<{ name: string, score: number }[]>([]);
 
     // updates league scores anytime users change
@@ -35,17 +35,17 @@ const LeagueStandings = () => {
         let tempScore: { name: string, score: number }[] = [];
         leagueUsers.map((user) => {
             let score: number = 0;
-            let bonusCheck: gameResults[] = [];
+            let bonusCheck: GameResults[] = [];
             const userPicks = leagueDetail.filter((pick: LeagueDetail) => pick.username === user.username);
             userPicks.map((pick: LeagueDetail) => {
-                const pickStatus = gameData.filter((obj: gameResults) => obj.week === pick.week && obj.team === pick.team);
+                const pickStatus = gameData.filter((obj: GameResults) => obj.week === pick.week && obj.team === pick.team);
                 if (pickStatus[0]?.is_winner) {
                     bonusCheck.push(pickStatus[0]);
                     score += pick.amount;
                 };
             });
             for (let i = 1; i <= 18; i++) {
-                if (bonusCheck?.filter((pick: gameResults) => pick.week === i && pick.is_winner === true).length === 3) {
+                if (bonusCheck?.filter((pick: GameResults) => pick.week === i && pick.is_winner === true).length === 3) {
                     score += 2;
                 };
             };
@@ -66,6 +66,13 @@ const LeagueStandings = () => {
             backgroundColor: "#242f53",
         },
     }));
+
+
+
+
+
+
+
 
     return (
         <Box width={'80%'} mb={'80px'}>
