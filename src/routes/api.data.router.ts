@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import axios from "axios";
-import { gameResults } from "../interfaces/interfaces";
+import { GameResults } from "../interfaces/interfaces";
 const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
@@ -34,7 +34,7 @@ dataRouter.get('/data/update/:week', rejectUnauthenticated, (req: any, res: Resp
 
 // updates game data, first builds a giant query by mapping the game data, then deletes old stuff, and finally writes new info.
 dataRouter.post('/data/save', rejectUnauthenticated, (req: any, res: Response) => {
-    const gameData: gameResults[] = req.body;
+    const gameData: GameResults[] = req.body;
     let queryText = `INSERT INTO "game_data" ("team", "week", "is_winner", "game_id", "start_time") VAlUES `;
 
     gameData.map((e) => {

@@ -18,6 +18,6 @@ notes to self:
 [x] why does it log me out now on refresh?
     - I am using store to see user, store refreshes and I didn't fetch user again
 
-[] exclude '' and null from same game pick check
+[x] exclude '' and null from same game pick check
 
 

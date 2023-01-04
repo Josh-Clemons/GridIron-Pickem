@@ -18,7 +18,7 @@ const style = {
     p: 2,
 };
 
-const ModalRules = ({ size, width, variant, margin }) => {
+const ModalRules = ({ size, width, variant, margin }: any) => {
 
     const [open, setOpen] = React.useState<boolean>(false);
     const handleOpen = () => setOpen(true);
@@ -42,25 +42,35 @@ const ModalRules = ({ size, width, variant, margin }) => {
                     </Typography>
                     <Typography variant='body1' paragraph={true} style={{ width: '95%', height: '60vh', overflow: 'auto' }}>
                         Each week, you must select 3 different teams to win their games.  Do not worry about point spreads.  You only need to select wins.
-
+                        <br />
+                        <br />
                         Your 3 teams must be placed in the following categories:  5 points, 3 points and 1 point.
-
+                        <br />
+                        <br />
                         If your team wins, you will receive the points in the respective categories.
-
+                        <br />
+                        <br />
                         For example, let's say you select the IND (5), BAL (3) and GB (1).  If only the Colts and Packers win that week, you would receive 6 points (IND 5, GB 1).
-
+                        <br />
+                        <br />
                         If in any week of the season, your 3 choices result in 3 wins, you will be awarded 2 additional points (11 points total for that week).
-
+                        <br />
+                        <br />
                         Once you select a team in a point category, you cannot place them in that same point category for the remainder of the season.
-
+                        <br />
+                        <br />
                         For example, you can only select the Colts to win for 5 points one time in the season.
-
+                        <br />
+                        <br />
                         Selections must be made prior to the game time of your picks or you receive no points. There are Thursday games that will need earlier submittals.
-
+                        <br />
+                        <br />
                         Additional Rules:
+                        <br />
                         -If a game results in a tie, it's considered a loss in Grid Iron
-                        -If a game is postponed due to catastrophic conditions/pandemic, another game can be selected as long as it’s done before that game starts.  If this happens on Monday night game, your selection will be considered a loss.
+                        <br />
                         -Only one team from the same game can be selected.
+                        <br />
 
                     </Typography>
                     <Stack spacing={1} direction='row-reverse'>

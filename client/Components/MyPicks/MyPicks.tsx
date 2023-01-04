@@ -32,17 +32,17 @@ const MyPicks: React.FC = () => {
 
 
     const customStyles = {
-        control: (provided, { isDisabled }) => ({ // passes isDisabled so a different BG color can be applied
+        control: (provided: any, { isDisabled }: {isDisabled: boolean}) => ({ // passes isDisabled so a different BG color can be applied
             ...provided,
             width: '100%',
             backgroundColor: isDisabled ? '#9AA4AE' : '#F8F8F8',
-            menuPortal: base => ({ ...base, zIndex: 9999 }) // this is used to keep the menu portal above all other page elements (so the list doesn't get cut off)
+            menuPortal: (base: any) => ({ ...base, zIndex: 9999 }) // this is used to keep the menu portal above all other page elements (so the list doesn't get cut off)
         })
     };
 
     // when a pick is changed the function is called and passed props that are used to first filter out the old pick,
     // then push the new pick value in
-    const pickChange = (option, week, amount) => {
+    const pickChange = (option: any, week: number, amount: number) => {
         let foundPick: Pick[] = currentPicks.filter((pick) => (pick.amount === amount && pick.week === week));
         currentPicks = currentPicks.filter(pick => pick !== foundPick[0]);
         currentPicks.push({ week: week, team: option.value, amount: amount });
@@ -86,9 +86,9 @@ const MyPicks: React.FC = () => {
             alertSavePicks();
         } else if (dupeAmount) {
             alertPickError('Duplicates in Amount Column');
-        } else if (dupeWeek){
+        } else if (dupeWeek) {
             alertPickError('Duplicates in Same Week');
-        } else if (dupeGame){
+        } else if (dupeGame) {
             alertPickError('Duplicates picked from same game')
         };
     };
@@ -204,7 +204,9 @@ const MyPicks: React.FC = () => {
 
     // builds the options for the react-selectors, it disables teams that have already played that week
     const teamOptions = (week: number) => {
-        let pickOptions: any[] = [];
+        let pickOptions: any[] = [
+            { value: '', label: 'Select...', isDisabled: false },
+        ];
         const currentWeekData: GameResults[] = gameData.filter(e => e.week === week)
 
         currentWeekData.map((game) => {
@@ -253,7 +255,7 @@ const MyPicks: React.FC = () => {
 
     return (
         <Box component={Paper} elevation={12} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-            {/* <RefreshApiData /> */}
+            <RefreshApiData />
             <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2 }}>Save Picks</Button>
             <TableContainer sx={{ mb: 2, pb: 20 }}>
                 <Table size='small'>

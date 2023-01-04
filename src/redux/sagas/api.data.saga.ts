@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import { ErrorRequestHandler } from 'express';
-import { gameResults } from '../../interfaces/interfaces';
+import { GameResults } from '../../interfaces/interfaces';
 
 interface GameDataQuery {
     id: number,
@@ -24,7 +24,7 @@ function* getData(): Generator<any, any, GameDataQuery[]> {
 // grabs the weekly results from the router for each game (have to grab it by week due to ESPN API)
 // builds the results into an array then sends it to the DB
 function* setData() {
-    let gameData: gameResults[] = [];
+    let gameData: GameResults[] = [];
 
     for (let i = 1; i <= 18; i++) {
         yield axios.get('/api/data/update/' + i).then((response: any) => {

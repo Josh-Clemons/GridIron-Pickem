@@ -27,7 +27,7 @@ const LeaguePicks = () => {
 
     // style for the react-select week chooser
     const customStyles = {
-        control: (provided) => ({
+        control: (provided: any) => ({
             ...provided,
             width: '100px',
             backgroundColor: '#F8F8F8',

@@ -59,20 +59,14 @@ export const pickCheckGame = (currentPicks: Pick[], gameData: GameResults[]) => 
         const currentWeekOnePick: Pick[] = currentPicks.filter(e => e.week === i + 1 && e.amount === 1)
         const currentWeekOneData: any = gameData.filter(e => e.week === i + 1 && currentWeekOnePick[0].team === e.team)
 
-        console.log('5 pick and data', currentWeekFivePick, currentWeekFiveData);
+        // checks game IDs so they are not duplicated, excludes null or '' values as the user is allowed to have multiple of them
         if (
             (currentWeekFiveData[0]?.game_id === currentWeekThreeData[0]?.game_id && currentWeekFiveData[0]?.game_id && currentWeekFiveData[0]?.game_id !== '')
             || (currentWeekFiveData[0]?.game_id === currentWeekOneData[0]?.game_id && currentWeekFiveData[0]?.game_id && currentWeekFiveData[0]?.game_id !== '')
             || (currentWeekThreeData[0]?.game_id === currentWeekOneData[0]?.game_id && currentWeekThreeData[0]?.game_id && currentWeekThreeData[0]?.game_id !== '')
-        
         ) {
             return true;
         }
     }
     return false;
 }
-
-
-
-// currentWeekFiveData[0]?.game_id === currentWeekThreeData[0]?.game_id && 
-// || currentWeekFiveData.game_id === currentWeekOneData.game_id && currentWeekFiveData.game_id !== null && currentWeekFiveData.game_id !== '' || currentWeekThreeData.game_id === currentWeekOneData.game_id  && currentWeekOneData.game_id !== null && currentWeekOneData.game_id !== '' 
