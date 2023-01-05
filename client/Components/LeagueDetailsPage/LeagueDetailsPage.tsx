@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
@@ -9,10 +9,6 @@ import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
 import LeagueDetailsAccordion from '../LeagueDetailsAccordion/LeagueDetailsAccordion';
-import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
-import ModalDeleteLeague from '../ModalDeleteLeague/ModalDeleteLeague';
-import ModalLeaveLeague from '../ModalLeaveLeague/ModalLeaveLeague';
-import ModalRules from '../ModalRules/ModalRules';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -26,7 +22,6 @@ import Typography from '@mui/material/Typography';
 
 const LeagueDetailsPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { id } = useParams();
     const store: Store = useSelector(store => store) as Store;
     const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
@@ -54,7 +49,6 @@ const LeagueDetailsPage = () => {
 
 
     // sets member type so appropriate options are displayed
-    // Component importing function must have: const [isMember, setIsMember] = React.useState<boolean>(false); const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
     const setMember = () => {
         if (leagueDetail.filter(e => e.owner_id === store.user.id).length > 0) {
             setIsMember(false);

@@ -15,6 +15,7 @@ const CreateLeaguePage: React.FC = () => {
 
     // variable to hold input text value
     const [leagueName, setLeagueName] = React.useState<string>('');
+    const [isPrivate, setIsPrivate] = React.useState<boolean>(false);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -28,8 +29,8 @@ const CreateLeaguePage: React.FC = () => {
     // makes a random string that is used as an invite code
     const makeId = (length: number) => {
         let result: string = '';
-        let characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let charactersLength: number = characters.length;
+        const characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength: number = characters.length;
         for (let i = 0; i < length; i++) {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         };

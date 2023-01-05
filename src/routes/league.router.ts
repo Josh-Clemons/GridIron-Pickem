@@ -25,6 +25,20 @@ leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => 
     })
 });
 
+// gets league information from invite code
+leagueRouter.put('/league/invitecode', rejectUnauthenticated, (req: any, res: Response) => {
+    const inviteCode: string = req.body.code
+    const queryText: string = `SELECT * FROM "league" WHERE "invite_code"=$1;`;
+
+    console.log('inviteCode', inviteCode);
+    pool.query(queryText, [inviteCode]).then((results: any) => {
+        res.send(results.rows);
+    }).catch( (err: Error) => {
+        console.log('error getting by invite code:', err)
+        res.sendStatus(500);
+    });
+});
+
 // find available leagues for user to join
 leagueRouter.get('/league/available', rejectUnauthenticated, (req: any, res: Response) => {
     const userId: number = req.user.id;

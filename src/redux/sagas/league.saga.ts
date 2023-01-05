@@ -79,6 +79,16 @@ function* renameLeague(action: any) {
     };
 };
 
+function* fetchByCode(action: any): Generator<any, any, any> {
+    try {
+        const league: any = yield axios.put('api/league/invitecode', {code: action.payload});
+        console.log('league.data:', league?.data[0]);
+        window.location.assign('#/detail/'+league?.data[0].id);
+    } catch (error) {
+        console.log('error in fetchById saga:', error)
+    }
+}
+
 function* leagueSaga() {
     yield takeLatest('CREATE_LEAGUE', createLeague);
     yield takeLatest('FETCH_LEAGUES', fetchLeagues);
@@ -87,6 +97,7 @@ function* leagueSaga() {
     yield takeLatest('DELETE_LEAGUE', deleteLeague);
     yield takeLatest('LEAVE_LEAGUE', leaveLeague);
     yield takeLatest('RENAME_LEAGUE', renameLeague);
+    yield takeLatest('FETCH_BY_CODE', fetchByCode)
 };
 
 export default leagueSaga;
