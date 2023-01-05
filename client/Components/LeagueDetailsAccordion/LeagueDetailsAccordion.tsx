@@ -78,7 +78,7 @@ const LeagueDetailsAccordion = () => {
                 <Box>
                     <Typography variant={'body1'} sx={{ fontSize: 18, mt: 2, mb: 1 }}>Commissioner: {commissioner[0]?.username}</Typography>
                     <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {leagueUsers.length} / 100</Typography>
-                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code}</Typography>
+                    {isMember || isAdmin ? <Typography variant={'body1'} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code}</Typography> : null }
                     {isAdmin ? <Stack direction='row'><ModalDeleteLeague /> <ModalRenameLeague /></Stack> : null}
                 </Box>
             </AccordionDetails>

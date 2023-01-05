@@ -1,11 +1,11 @@
 Stretch goals:
     [] update types (remove :any)
     [] private leagues
-    [] league details accordion
-        [] update commissioner field
-        [] get user count
-        [] setup max users
-        [] create access code based on encoded league id
+    [] in dashboard split leagues I own vs leagues I joined
+    [x] league details accordion
+        [x] update commissioner field
+        [x] get user count
+        [x] create access code based on encoded league id
             [] add a 'click to copy' option
     [] league manager tools
         [x] make a new component, move rename/delete there. 
