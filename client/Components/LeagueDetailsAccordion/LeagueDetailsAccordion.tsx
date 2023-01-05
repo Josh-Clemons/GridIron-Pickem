@@ -13,7 +13,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 
 
 
@@ -23,10 +23,11 @@ import { Stack } from '@mui/material';
 const LeagueDetailsAccordion = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { id }: any = useParams();
     const store: Store = useSelector(store => store) as Store;
     const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
+    const commissioner: any = leagueUsers.filter(e => e.id === leagueDetail[0]?.owner_id);
 
     // tracks member details so correct button and component options appear
     const [isMember, setIsMember] = React.useState<boolean>(false);
@@ -35,6 +36,7 @@ const LeagueDetailsAccordion = () => {
     useEffect(() => {
         setMember();
     }, [leagueDetail]);
+
 
     const setMember = () => {
         if (leagueDetail.filter(e => e.owner_id === store.user.id).length > 0) {
@@ -47,7 +49,9 @@ const LeagueDetailsAccordion = () => {
             setIsAdmin(false);
             setIsMember(false);
         };
+
     };
+
 
     return (
         <Accordion sx={{
@@ -61,17 +65,17 @@ const LeagueDetailsAccordion = () => {
                 <Typography>League Details</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Typography>
-                    Comissioner: whomever
+                <Box>
+                    Commissioner: {commissioner[0]?.username}
                     <br />
-                    Members: 18/50
+                    Members: {leagueUsers.length} / 100
                     <br />
                     Access Code: wasdfhoia
                     <br />
                     {isAdmin ? <Stack direction='row'><ModalDeleteLeague /> <ModalRenameLeague /></Stack> : null}
-                    {isMember ? <ModalLeaveLeague/> : null}
+                    {isMember ? <ModalLeaveLeague /> : null}
                     <br />
-                </Typography>
+                </Box>
             </AccordionDetails>
         </Accordion>
     )

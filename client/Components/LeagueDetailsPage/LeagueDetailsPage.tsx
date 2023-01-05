@@ -99,7 +99,7 @@ const LeagueDetailsPage = () => {
                     bgcolor: "#1C2541"
                 }}
             >
-                <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
+                <Typography textAlign={'center'} variant='h6' fontSize={'16'}>League Name: <Box fontSize={30} m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
                 {/* Button group below, changes depending on whether user is owner/member */}
                 <Stack
                     direction="row"

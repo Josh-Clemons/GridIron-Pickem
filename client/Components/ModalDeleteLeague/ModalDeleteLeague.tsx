@@ -44,11 +44,9 @@ const ModalDeleteLeague: React.FC = () => {
             <Modal
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
             >
                 <Box sx={style} component='form' onSubmit={handleSubmit}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography id="modal-modal-title" variant="h6">
                         Are you sure you want to delete?
                     </Typography>
                     <Stack spacing={1} p={2} direction='row-reverse'>

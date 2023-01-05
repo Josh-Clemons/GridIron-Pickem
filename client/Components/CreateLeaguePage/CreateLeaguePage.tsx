@@ -18,10 +18,23 @@ const CreateLeaguePage: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const inviteCode: string = makeId(6);
+        
         // through this dispatch chain, league is created, user is added as a member, redux is updated
-        dispatch({ type: 'CREATE_LEAGUE', payload: leagueName })
+        dispatch({ type: 'CREATE_LEAGUE', payload: {leagueName, inviteCode} })
         navigate('/dashboard');
     };
+
+    // makes a random string that is used as an invite code
+    const makeId = (length: number) => {
+        let result: string = '';
+        let characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let charactersLength: number = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
 
     return (
         <Container

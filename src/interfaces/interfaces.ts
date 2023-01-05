@@ -46,8 +46,9 @@ export interface LeagueDetail {
 }
 
 export interface UserLeagues {
-    league_id: number,
-    league_name: string
+    id: number,
+    league_name: string,
+    invite_code: string
 }
 
 export interface User {

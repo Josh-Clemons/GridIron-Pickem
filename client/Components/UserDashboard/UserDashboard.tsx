@@ -29,7 +29,7 @@ const UserDashboard: React.FC = () => {
 
     // redirects to league detail page when a user clicks on a league item
     const leagueClick = (league: UserLeagues) => {
-        navigate(`/detail/${league.league_id}`)
+        navigate(`/detail/${league.id}`)
     };
 
     return (
@@ -66,7 +66,7 @@ const UserDashboard: React.FC = () => {
                 >
                     {myLeagues.map(league => {
                         return (
-                            <Box onClick={() => { leagueClick(league) }} key={league.league_id}>
+                            <Box onClick={() => { leagueClick(league) }} key={league.id}>
                                 <LeagueItem league={league} />
                             </Box>
                         )

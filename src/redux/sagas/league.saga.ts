@@ -2,15 +2,12 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* createLeague(action: any) : Generator<any, any, any> {
-    try {
-        // creates league
-        yield axios.post('/api/league/create', action.payload)
-        console.log('in create league post')
-        // gets the newest league created by the user and sets to redux
-        const newLeague: any = yield axios.get('/api/league/newest');
 
+    try {
+        // creates league, returns new league ID
+        const newLeague: any = yield axios.post('/api/league/create', {leagueName: action.payload.leagueName, inviteCode: action.payload.inviteCode});
         // joins commissioner to league when they create it
-        yield axios.post('/api/pick/create/' + newLeague.data[0].id, newLeague.data[0].id);
+        yield axios.post('/api/pick/create/' + newLeague.data.id, newLeague.data.id);
 
         // fetches leagues
         yield put({ type: 'FETCH_LEAGUES' });

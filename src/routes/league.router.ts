@@ -9,7 +9,7 @@ export const leagueRouter = Router();
 leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => {
     const userId: number = req.user.id;
     const queryText: string = `
-        SELECT "league"."id" AS "league_id", "league"."league_name" FROM "league"
+        SELECT "league"."id", "league"."league_name" FROM "league"
         JOIN "picks" ON "picks"."league_id" = "league"."id"
         JOIN "user" ON "user"."id" = "picks"."user_id"
         WHERE "user"."id" = $1
@@ -79,32 +79,19 @@ leagueRouter.get('/league/users/:id', rejectUnauthenticated, (req: any, res: Res
     });
 });
 
-// get newest league
-leagueRouter.get('/league/newest', rejectUnauthenticated, (req: any, res: Response) => {
-    const userId: number = req.user.id;
-    const queryText: string = `
-        SELECT * FROM "league"
-        WHERE "owner_id" = $1
-        ORDER BY "id" DESC 
-        LIMIT 1;
-    `
-    pool.query(queryText, [userId]).then((results: any) => {
-        res.send(results.rows);
-    }).catch((error: Error) => {
-        console.log('error in get newest league,', error);
-        res.sendStatus(500);
-    });
-});
-
 
 // create new league
 leagueRouter.post('/league/create', rejectUnauthenticated, (req: any, res: Response) => {
-    const queryText: string = 'INSERT INTO "league" ("league_name", "owner_id") VALUES ($1, $2);';
-    const leagueName: string = Object.keys(req.body)[0]; // why does my payload string come over as an object requiring me to do this work-around?
+    const queryText: string = 'INSERT INTO "league" ("league_name", "owner_id", "invite_code") VALUES ($1, $2, $3) RETURNING "id";';
+    const leagueName: string = req.body.leagueName;
+    const inviteCode: string = req.body.inviteCode;
     const commissionerId: number = req.user.id;
 
-    pool.query(queryText, [leagueName, commissionerId]).then((results: any) => {
-        res.sendStatus(201);
+    console.log(leagueName, commissionerId, inviteCode);
+
+    pool.query(queryText, [leagueName, commissionerId, inviteCode]).then((results: any) => {
+        console.log('results.rows[0]', results.rows[0]);
+        res.send(results.rows[0]);
     }).catch((error: Error) => {
         console.log('error POSTing new league', error);
         res.sendStatus(500);
