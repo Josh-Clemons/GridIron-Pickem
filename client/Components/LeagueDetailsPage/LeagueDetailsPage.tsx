@@ -8,6 +8,7 @@ import { Store, LeagueDetail, LeagueUsers } from '../../../src/interfaces/interf
 import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
+import LeagueDetailsAccordion from '../LeagueDetailsAccordion/LeagueDetailsAccordion';
 import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
 import ModalDeleteLeague from '../ModalDeleteLeague/ModalDeleteLeague';
 import ModalLeaveLeague from '../ModalLeaveLeague/ModalLeaveLeague';
@@ -50,13 +51,10 @@ const LeagueDetailsPage = () => {
         setMember();
     }, [leagueDetail]);
 
-    // anyone can join
-    const joinLeague = () => {
-        dispatch({ type: 'CREATE_PICKS', payload: id });
-        navigate('/dashboard');
-    }
+
 
     // sets member type so appropriate options are displayed
+    // Component importing function must have: const [isMember, setIsMember] = React.useState<boolean>(false); const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
     const setMember = () => {
         if (leagueDetail.filter(e => e.owner_id === store.user.id).length > 0) {
             setIsMember(false);
@@ -97,8 +95,7 @@ const LeagueDetailsPage = () => {
                     bgcolor: "#1C2541"
                 }}
             >
-                <Typography textAlign={'center'} variant='body1'>League Name: <Box component='h2' m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
-                {/* Button group below, changes depending on whether user is owner/member */}
+                <Typography textAlign={'center'} variant='h6' fontSize={'16'}>League Name: <Box fontSize={30} m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
                 <Stack
                     direction="row"
                     sx={{
@@ -110,31 +107,18 @@ const LeagueDetailsPage = () => {
                         m: 1
                     }}
                 >
-                    {isAdmin
+                    {isAdmin || isMember
                         ?
                         <>
-                            <ModalDeleteLeague />
-                            <ModalRenameLeague />
-                            <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
-                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>My Leagues</Button>
+                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
                         </>
                         :
                         <>
-                            {isMember ?
-                                <>
-                                    <ModalLeaveLeague />
-                                    <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
-                                    <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>My Leagues</Button>
-                                </>
-                                :
-                                <>
-                                    <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 125, color: "white", bgcolor: "primary.main", m: 1 }}>Join</Button>
-                                    <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
-                                </>
-                            }
+                            <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
                         </>
                     }
                 </Stack>
+                <LeagueDetailsAccordion />
             </Box>
 
             <ButtonGroup

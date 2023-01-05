@@ -1,9 +1,17 @@
 Stretch goals:
     [] update types (remove :any)
     [] private leagues
+    [] league details accordion
+        [] update commissioner field
+        [] get user count
+        [] setup max users
+        [] create access code based on encoded league id
+            [] add a 'click to copy' option
     [] league manager tools
-        [] make a new component, move rename/delete there. 
+        [x] make a new component, move rename/delete there. 
         [] change other user's picks
+            - this will be done in "My Picks" (rename to just Picks), add a selector for LM to choose member
+            [] add option to enable/disable league edit picks. Reflect in league details accordion
     [] error handle if get logged out of server
     [] limit options to teams not already picked
     [x] lock fields only after the corresponding game starts (or after the last game of the week starts)

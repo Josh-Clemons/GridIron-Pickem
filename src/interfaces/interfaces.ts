@@ -42,12 +42,14 @@ export interface LeagueDetail {
     league_name: string,
     team: string,
     week: number,
-    amount: number
+    amount: number,
+    invite_code: string
 }
 
 export interface UserLeagues {
-    league_id: number,
-    league_name: string
+    id: number,
+    league_name: string,
+    invite_code: string
 }
 
 export interface User {
