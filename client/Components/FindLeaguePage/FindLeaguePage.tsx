@@ -46,7 +46,7 @@ const FindLeaguePage: React.FC = () => {
             <Typography variant="h4" color='primary.main'>Find a New League</Typography>
             <Button variant="outlined" color="warning" href="#/create" sx={{ width: 250, m: 1 }}>Create A League</Button>
             <ModalJoinByInvite />
-            <Typography variant='h6' color='primary.main' sx={{ textDecoration: 'underline' }}>Available Leagues:</Typography>
+            <Typography variant='h6' color='primary.main' sx={{ textDecoration: 'underline' }}>Public Leagues:</Typography>
             <Box height={"75vh"} width={"92%"} >
                 {availableLeagues.length > 0 ?
                     availableLeagues.map(league => {

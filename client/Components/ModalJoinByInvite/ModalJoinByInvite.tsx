@@ -35,12 +35,12 @@ const ModalJoinByInvite: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        dispatch({ type: 'FETCH_LEAGUE_ID', payload: inviteCode})
+        dispatch({ type: 'FETCH_BY_CODE', payload: inviteCode})
     };
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'success'} sx={{ width: 250, mb: 2 }}>Join by Invite Code</Button>
+            <Button variant="outlined" onClick={handleOpen} color={'success'} sx={{ width: 250, mb: 2 }}>Find by Invite Code</Button>
             <Modal
                 open={open}
                 onClose={handleClose}

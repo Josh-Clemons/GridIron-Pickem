@@ -11,11 +11,11 @@ import ModalLeaveLeague from '../ModalLeaveLeague/ModalLeaveLeague';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Button, ClickAwayListener, Stack, Tooltip } from '@mui/material';
 import ModalRules from '../ModalRules/ModalRules';
-
 
 
 
@@ -33,6 +33,8 @@ const LeagueDetailsAccordion = () => {
     // tracks member details so correct button and component options appear
     const [isMember, setIsMember] = React.useState<boolean>(false);
     const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
+
+    const [openCopied, setOpenCopied] = React.useState<boolean>(false);
 
     useEffect(() => {
         setMember();
@@ -58,6 +60,14 @@ const LeagueDetailsAccordion = () => {
         navigate('/dashboard');
     }
 
+    const handleTooltipClose = () => {
+        setOpenCopied(false);
+    };
+
+    const handleTooltipOpen = () => {
+        setOpenCopied(true);
+        navigator.clipboard.writeText(leagueDetail[0]?.invite_code);
+    };
 
     return (
         <Accordion disableGutters={true} sx={{
@@ -78,7 +88,32 @@ const LeagueDetailsAccordion = () => {
                 <Box>
                     <Typography variant={'body1'} sx={{ fontSize: 18, mt: 2, mb: 1 }}>Commissioner: {commissioner[0]?.username}</Typography>
                     <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {leagueUsers.length} / 100</Typography>
-                    {isMember || isAdmin ? <Typography variant={'body1'} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code}</Typography> : null }
+                    {isMember || isAdmin
+                        ?
+                        <Box>
+                            <ClickAwayListener onClickAway={handleTooltipClose}>
+                                <div>
+                                    <Tooltip
+                                        PopperProps={{
+                                            disablePortal: true,
+                                        }}
+                                        onClose={handleTooltipClose}
+                                        open={openCopied}
+                                        disableFocusListener
+                                        disableHoverListener
+                                        leaveTouchDelay={1000}
+                                        leaveDelay={1000}
+                                        title="Copied!"
+                                        sx={{
+                                            color: 'red'
+                                        }}
+                                    >
+                                        <Typography variant={'body1'} onClick={handleTooltipOpen} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code} <ContentCopyIcon sx={{ ml: 1}}/></Typography>
+                                    </Tooltip>
+                                </div>
+                            </ClickAwayListener>
+                        </Box> : null
+                    }
                     {isAdmin ? <Stack direction='row'><ModalDeleteLeague /> <ModalRenameLeague /></Stack> : null}
                 </Box>
             </AccordionDetails>

@@ -25,6 +25,15 @@ const theme: Theme = createTheme({
             primary: '#F8F8F8'
         }
     },
+    components: {
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    backgroundColor: '#0B132B'
+                }
+            }
+        }
+    }
 });
 
 
