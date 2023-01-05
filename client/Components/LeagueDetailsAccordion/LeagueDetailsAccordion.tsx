@@ -13,7 +13,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Stack } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
+import ModalRules from '../ModalRules/ModalRules';
 
 
 
@@ -49,32 +50,36 @@ const LeagueDetailsAccordion = () => {
             setIsAdmin(false);
             setIsMember(false);
         };
-
     };
+
+    // anyone can join
+    const joinLeague = () => {
+        dispatch({ type: 'CREATE_PICKS', payload: id });
+        navigate('/dashboard');
+    }
 
 
     return (
-        <Accordion sx={{
+        <Accordion disableGutters={true} sx={{
             width: '100%'
         }}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
                 id="leagueDetailsAccordion"
             >
-                <Typography>League Details</Typography>
+                <Typography sx={{ fontSize: 18 }}>League Details</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Box>
-                    Commissioner: {commissioner[0]?.username}
-                    <br />
-                    Members: {leagueUsers.length} / 100
-                    <br />
-                    Access Code: wasdfhoia
-                    <br />
-                    {isAdmin ? <Stack direction='row'><ModalDeleteLeague /> <ModalRenameLeague /></Stack> : null}
+                <Stack direction={'row'}>
+                    <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
+                    {!isMember && !isAdmin ? <Button variant="outlined" color='success' onClick={joinLeague} size='small' sx={{ width: 125, m: 1 }}>Join</Button> : null}
                     {isMember ? <ModalLeaveLeague /> : null}
-                    <br />
+                </Stack>
+                <Box>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mt: 2, mb: 1 }}>Commissioner: {commissioner[0]?.username}</Typography>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {leagueUsers.length} / 100</Typography>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code}</Typography>
+                    {isAdmin ? <Stack direction='row'><ModalDeleteLeague /> <ModalRenameLeague /></Stack> : null}
                 </Box>
             </AccordionDetails>
         </Accordion>

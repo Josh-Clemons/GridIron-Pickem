@@ -42,7 +42,8 @@ export interface LeagueDetail {
     league_name: string,
     team: string,
     week: number,
-    amount: number
+    amount: number,
+    invite_code: string
 }
 
 export interface UserLeagues {

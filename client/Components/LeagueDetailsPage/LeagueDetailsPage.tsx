@@ -51,11 +51,7 @@ const LeagueDetailsPage = () => {
         setMember();
     }, [leagueDetail]);
 
-    // anyone can join
-    const joinLeague = () => {
-        dispatch({ type: 'CREATE_PICKS', payload: id });
-        navigate('/dashboard');
-    }
+
 
     // sets member type so appropriate options are displayed
     // Component importing function must have: const [isMember, setIsMember] = React.useState<boolean>(false); const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
@@ -100,7 +96,6 @@ const LeagueDetailsPage = () => {
                 }}
             >
                 <Typography textAlign={'center'} variant='h6' fontSize={'16'}>League Name: <Box fontSize={30} m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
-                {/* Button group below, changes depending on whether user is owner/member */}
                 <Stack
                     direction="row"
                     sx={{
@@ -115,12 +110,10 @@ const LeagueDetailsPage = () => {
                     {isAdmin || isMember
                         ?
                         <>
-                            <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
-                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>My Leagues</Button>
+                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
                         </>
                         :
                         <>
-                            <Button variant="outlined" onClick={joinLeague} size='small' sx={{ width: 125, color: "white", bgcolor: "primary.main", m: 1 }}>Join</Button>
                             <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
                         </>
                     }
