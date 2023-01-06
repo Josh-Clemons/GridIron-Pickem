@@ -21,6 +21,7 @@ Stretch goals:
     [] make a big table that shows everyone's complete picks all at once
     [] setup max users
     [] somehow display team matchups and/or more team info to help player decide on a pick
+    [] route to invite code instead of league id (this will stop people from guessing links to private leagues)
 
 notes to self:
 [x] why does it log me out now on refresh?

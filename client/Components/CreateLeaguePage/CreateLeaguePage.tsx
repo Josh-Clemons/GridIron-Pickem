@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { Switch } from '@mui/material';
 
 
 const CreateLeaguePage: React.FC = () => {
@@ -20,11 +21,14 @@ const CreateLeaguePage: React.FC = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const inviteCode: string = makeId(6);
-        
         // through this dispatch chain, league is created, user is added as a member, redux is updated
-        dispatch({ type: 'CREATE_LEAGUE', payload: {leagueName, inviteCode} })
+        dispatch({ type: 'CREATE_LEAGUE', payload: { leagueName, inviteCode, isPrivate} })
         navigate('/dashboard');
     };
+
+    const handleIsPrivate = (event: any) => {
+        setIsPrivate(event.target.checked)
+    }
 
     // makes a random string that is used as an invite code
     const makeId = (length: number) => {
@@ -50,7 +54,11 @@ const CreateLeaguePage: React.FC = () => {
             }}
         >
             <Typography variant="h4">Create a New League</Typography>
-            <Box component="form" onSubmit={handleSubmit}>
+            <Box component="form" onSubmit={handleSubmit} sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
+            }}>
                 <TextField
                     required
                     id="leagueName"
@@ -64,6 +72,11 @@ const CreateLeaguePage: React.FC = () => {
                         marginTop: 4
                     }}
                 />
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', mb: 2 }}>
+                    <Typography variant='body1'>Set to Private:</Typography>
+                    <Switch checked={isPrivate} onClick={handleIsPrivate}/>
+                    <Typography variant='body1' width={30}>{isPrivate ? 'Yes' : 'No'}</Typography>
+                </Box>
                 <Button variant="outlined" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px" }}>Create</Button>
             </Box>
             <Button variant="outlined" href="#/dashboard" sx={{ width: "250px", position: "fixed", bottom: 60 }}>My Leagues</Button>

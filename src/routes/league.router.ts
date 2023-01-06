@@ -30,7 +30,6 @@ leagueRouter.put('/league/invitecode', rejectUnauthenticated, (req: any, res: Re
     const inviteCode: string = req.body.code
     const queryText: string = `SELECT * FROM "league" WHERE "invite_code"=$1;`;
 
-    console.log('inviteCode', inviteCode);
     pool.query(queryText, [inviteCode]).then((results: any) => {
         res.send(results.rows);
     }).catch( (err: Error) => {
@@ -96,15 +95,15 @@ leagueRouter.get('/league/users/:id', rejectUnauthenticated, (req: any, res: Res
 
 // create new league
 leagueRouter.post('/league/create', rejectUnauthenticated, (req: any, res: Response) => {
-    const queryText: string = 'INSERT INTO "league" ("league_name", "owner_id", "invite_code") VALUES ($1, $2, $3) RETURNING "id";';
+    const queryText: string = 'INSERT INTO "league" ("league_name", "owner_id", "invite_code", "is_private") VALUES ($1, $2, $3, $4) RETURNING "id";';
     const leagueName: string = req.body.leagueName;
     const inviteCode: string = req.body.inviteCode;
+    const isPrivate: boolean = req.body.isPrivate;
     const commissionerId: number = req.user.id;
 
-    console.log(leagueName, commissionerId, inviteCode);
+    // console.log('isPrivate boolean test in league router: ', isPrivate);
 
-    pool.query(queryText, [leagueName, commissionerId, inviteCode]).then((results: any) => {
-        console.log('results.rows[0]', results.rows[0]);
+    pool.query(queryText, [leagueName, commissionerId, inviteCode, isPrivate]).then((results: any) => {
         res.send(results.rows[0]);
     }).catch((error: Error) => {
         console.log('error POSTing new league', error);

@@ -1,11 +1,11 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* createLeague(action: any) : Generator<any, any, any> {
-
+function* createLeague(action: any): Generator<any, any, any> {
+    console.log('isPrivate test: ', action.payload.isPrivate);
     try {
         // creates league, returns new league ID
-        const newLeague: any = yield axios.post('/api/league/create', {leagueName: action.payload.leagueName, inviteCode: action.payload.inviteCode});
+        const newLeague: any = yield axios.post('/api/league/create', { leagueName: action.payload.leagueName, inviteCode: action.payload.inviteCode, isPrivate: action.payload.isPrivate });
         // joins commissioner to league when they create it
         yield axios.post('/api/pick/create/' + newLeague.data.id, newLeague.data.id);
 
@@ -81,9 +81,9 @@ function* renameLeague(action: any) {
 
 function* fetchByCode(action: any): Generator<any, any, any> {
     try {
-        const league: any = yield axios.put('api/league/invitecode', {code: action.payload});
+        const league: any = yield axios.put('api/league/invitecode', { code: action.payload });
         console.log('league.data:', league?.data[0]);
-        window.location.assign('#/detail/'+league?.data[0].id);
+        window.location.assign('#/detail/' + league?.data[0].id);
     } catch (error) {
         console.log('error in fetchById saga:', error)
     }
