@@ -91,6 +91,7 @@ const LeagueDetailsAccordion = () => {
                     {isMember || isAdmin
                         ?
                         <Box>
+                            {/* tooltip and listener for the copying the invite code */}
                             <ClickAwayListener onClickAway={handleTooltipClose}>
                                 <div>
                                     <Tooltip
