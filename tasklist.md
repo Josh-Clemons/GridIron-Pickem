@@ -5,6 +5,7 @@ Stretch goals:
     [x] league details accordion
         [x] update commissioner field
         [x] get user count
+        ![] need to rework how league data is stored so non-members can see counts
         [x] create access code based on encoded league id
             [x] add a 'click to copy' option
     [] league manager tools

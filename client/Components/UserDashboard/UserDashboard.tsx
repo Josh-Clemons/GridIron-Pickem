@@ -43,7 +43,8 @@ const UserDashboard: React.FC = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                maxWidth: 600
             }}
         >
             <Typography sx={{ m: 2 }} variant="h4">Dashboard</Typography>
@@ -85,7 +86,7 @@ const UserDashboard: React.FC = () => {
                             null
                         }
 
-                        <Typography variant='h6'>Leagues:</Typography>
+                        <Typography variant='h6'>Leagues I'm In:</Typography>
                         <Box>
                             {othersLeagues.map(league => {
                                 return (

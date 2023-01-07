@@ -52,7 +52,8 @@ const CreateLeaguePage: React.FC = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 padding: "10px",
-                textAlign: "center"
+                textAlign: "center",
+                maxWidth: 600
             }}
         >
             <Typography variant="h4">Create a New League</Typography>

@@ -73,6 +73,7 @@ const LeagueDetailsPage = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                maxWidth: 600,
                 pr: 1,
                 pl: 1
             }}
@@ -123,7 +124,8 @@ const LeagueDetailsPage = () => {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
-                    width: '100vw',
+                    width: '90%',
+                    maxWidth: 600,
                     mt: 2,
                     mb: 2
                 }}
