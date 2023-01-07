@@ -254,7 +254,7 @@ const MyPicks: React.FC = () => {
 
 
     return (
-        <Box component={Paper} elevation={12} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
+        <Box component={Paper} elevation={2} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
             <RefreshApiData />
             <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2 }}>Save Picks</Button>
             <TableContainer sx={{ mb: 2, pb: 20 }}>
@@ -272,7 +272,7 @@ const MyPicks: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 20, mt: -20 }}>Save Picks</Button>
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 15, mt: -15 }}>Save Picks</Button>
         </Box>
     )
 }
