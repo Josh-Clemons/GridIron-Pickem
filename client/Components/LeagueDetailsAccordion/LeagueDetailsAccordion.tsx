@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { LeagueDetail, LeagueUsers, Store } from '../../../src/interfaces/interfaces';
+import { LeagueDetail, LeagueUsers, Store, User, UserLeagues } from '../../../src/interfaces/interfaces';
 
 import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
 import ModalDeleteLeague from '../ModalDeleteLeague/ModalDeleteLeague';
@@ -28,7 +28,9 @@ const LeagueDetailsAccordion = () => {
     const store: Store = useSelector(store => store) as Store;
     const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
-    const commissioner: any = leagueUsers.filter(e => e.id === leagueDetail[0]?.owner_id);
+    const userLeagues: UserLeagues[] = store.leagues.userLeagues;
+    const thisLeague: UserLeagues[] = userLeagues.filter(e => e.id == id)
+    const commissioner: User[] = leagueUsers.filter(e => e.id === leagueDetail[0]?.owner_id);
 
     // tracks member details so correct button and component options appear
     const [isMember, setIsMember] = React.useState<boolean>(false);
@@ -87,7 +89,8 @@ const LeagueDetailsAccordion = () => {
                 </Stack>
                 <Box>
                     <Typography variant={'body1'} sx={{ fontSize: 18, mt: 2, mb: 1 }}>Commissioner: {commissioner[0]?.username}</Typography>
-                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {leagueUsers.length} / 100</Typography>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {thisLeague[0]?.user_count} / {thisLeague[0]?.max_users}</Typography>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Availability: {thisLeague[0]?.is_private ? "Private" : "Public"} </Typography>
                     {isMember || isAdmin
                         ?
                         <Box>
@@ -109,7 +112,7 @@ const LeagueDetailsAccordion = () => {
                                             color: 'red'
                                         }}
                                     >
-                                        <Typography variant={'body1'} onClick={handleTooltipOpen} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code} <ContentCopyIcon sx={{ ml: 1}}/></Typography>
+                                        <Typography variant={'body1'} onClick={handleTooltipOpen} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code} <ContentCopyIcon sx={{ ml: 1 }} /></Typography>
                                     </Tooltip>
                                 </div>
                             </ClickAwayListener>

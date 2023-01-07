@@ -49,7 +49,11 @@ export interface LeagueDetail {
 export interface UserLeagues {
     id: number,
     league_name: string,
-    invite_code: string
+    invite_code: string,
+    is_private: boolean,
+    owner_id: number,
+    user_count: number,
+    max_users: number
 }
 
 export interface User {
