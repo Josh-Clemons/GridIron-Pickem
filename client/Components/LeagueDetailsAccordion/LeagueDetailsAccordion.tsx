@@ -12,6 +12,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import AddIcon from '@mui/icons-material/Add';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, ClickAwayListener, Stack, Tooltip } from '@mui/material';
@@ -84,7 +85,7 @@ const LeagueDetailsAccordion = () => {
             <AccordionDetails>
                 <Stack direction={'row'}>
                     <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
-                    {!isMember && !isAdmin ? <Button variant="outlined" color='success' onClick={joinLeague} size='small' sx={{ width: 125, m: 1 }}>Join</Button> : null}
+                    {!isMember && !isAdmin ? <Button variant="outlined" color='success' onClick={joinLeague} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Join<AddIcon sx={{ ml: 2 }} /></Button> : null}
                     {isMember ? <ModalLeaveLeague /> : null}
                 </Stack>
                 <Box>
@@ -112,7 +113,7 @@ const LeagueDetailsAccordion = () => {
                                             color: 'red'
                                         }}
                                     >
-                                        <Typography variant={'body1'} onClick={handleTooltipOpen} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code} <ContentCopyIcon sx={{ ml: 1 }} /></Typography>
+                                        <Typography variant={'body1'} onClick={handleTooltipOpen} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code} <ContentCopyIcon sx={{ ml: 1, '&:hover': { cursor: 'pointer' } }} /></Typography>
                                     </Tooltip>
                                 </div>
                             </ClickAwayListener>

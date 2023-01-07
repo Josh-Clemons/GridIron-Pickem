@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Modal from '@mui/material/Modal';
@@ -40,7 +41,7 @@ const ModalDeleteLeague: React.FC = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1 }}>DELETE</Button>
+            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>DELETE<DeleteIcon sx={{ ml: 2 }} /></Button>
             <Modal
                 open={open}
                 onClose={handleClose}

@@ -10,6 +10,7 @@ import MyPicks from '../MyPicks/MyPicks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
 import LeagueDetailsAccordion from '../LeagueDetailsAccordion/LeagueDetailsAccordion';
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -104,11 +105,11 @@ const LeagueDetailsPage = () => {
                     {isAdmin || isMember
                         ?
                         <>
-                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
+                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Back<ArrowBackIcon sx={{ ml: 2 }} /></Button>
                         </>
                         :
                         <>
-                            <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
+                            <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Back<ArrowBackIcon sx={{ ml: 2 }} /></Button>
                         </>
                     }
                 </Stack>

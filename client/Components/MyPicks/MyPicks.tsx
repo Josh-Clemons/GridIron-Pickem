@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 import Paper from '@mui/material/Paper';
 import Select from 'react-select';
 import Table from '@mui/material/Table';
@@ -32,7 +33,7 @@ const MyPicks: React.FC = () => {
 
 
     const customStyles = {
-        control: (provided: any, { isDisabled }: {isDisabled: boolean}) => ({ // passes isDisabled so a different BG color can be applied
+        control: (provided: any, { isDisabled }: { isDisabled: boolean }) => ({ // passes isDisabled so a different BG color can be applied
             ...provided,
             width: '100%',
             backgroundColor: isDisabled ? '#9AA4AE' : '#F8F8F8',
@@ -255,8 +256,8 @@ const MyPicks: React.FC = () => {
 
     return (
         <Box component={Paper} elevation={2} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-            <RefreshApiData />
-            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2 }}>Save Picks</Button>
+            {/* <RefreshApiData /> */}
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2, borderWidth: '2px' }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
             <TableContainer sx={{ mb: 2, pb: 20 }}>
                 <Table size='small'>
                     <TableHead>
@@ -272,7 +273,7 @@ const MyPicks: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 15, mt: -15 }}>Save Picks</Button>
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 15, mt: -15, borderWidth: '2px' }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
         </Box>
     )
 }
