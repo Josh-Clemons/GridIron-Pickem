@@ -7,6 +7,11 @@ import { Store } from '../../../src/interfaces/interfaces';
 import ModalRules from '../ModalRules/ModalRules';
 import bgImg from '/public/football_player_shadow.jpeg';
 
+import GridViewIcon from '@mui/icons-material/GridView';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -52,13 +57,13 @@ const LandingPage = () => {
                 {!store.user.id
                     ?
                     <>
-                        <Button variant="contained" color="success" href="#/login" sx={{ width: "250px" }}>Login</Button>
-                        <Button variant="contained" color="info" href="#/register" sx={{ width: "250px" }}>Register</Button>
+                        <Button variant="contained" color="success" href="#/login" sx={{ width: "250px" }}>Login<LoginIcon sx={{ ml: 2 }} /></Button>
+                        <Button variant="contained" color="info" href="#/register" sx={{ width: "250px" }}>Register<HowToRegIcon sx={{ ml: 2 }} /></Button>
                     </>
                     :
                     <>
-                        <Button variant="contained" color="success" href="#/dashboard" sx={{ width: "250px" }}>My Dashboard</Button>
-                        <Button variant="contained" color="error" onClick={logout} sx={{ width: "250px" }}>Logout</Button>
+                        <Button variant="contained" color="success" href="#/dashboard" sx={{ width: "250px" }}>Dashboard<GridViewIcon sx={{ ml: 2}} /></Button>
+                        <Button variant="contained" color="error" onClick={logout} sx={{ width: "250px" }}>Logout<LogoutIcon sx={{ ml: 2 }} /></Button>
                     </>
                 }
                 <ModalRules size={'medium'} variant={'contained'} width={'250px'} />
