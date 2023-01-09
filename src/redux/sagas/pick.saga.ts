@@ -16,7 +16,7 @@ function* createPicks(action: any) {
 // this is used to "update" picks, the old picks are first deleted, then new ones created
 function* updatePicks(action: any) {
     try {
-        yield axios.put('/api/pick/update/' + action.payload.leagueId, action.payload.picks);
+        yield axios.put('/api/pick/update/' + action.payload.leagueId, {picks: action.payload.picks, userId: action.payload.userId});
         yield put({ type: 'FETCH_LEAGUE_DETAIL', payload: action.payload.leagueId });
     } catch (error) {
         console.log('error in updatePicks Saga', error)

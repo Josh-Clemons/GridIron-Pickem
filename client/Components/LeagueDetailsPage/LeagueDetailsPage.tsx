@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Store, LeagueDetail, LeagueUsers } from '../../../src/interfaces/interfaces';
 
 import LeagueStandings from '../LeagueStandings/LeagueStandings';
-import MyPicks from '../MyPicks/MyPicks';
+import Picks from '../Picks/Picks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
 import LeagueDetailsAccordion from '../LeagueDetailsAccordion/LeagueDetailsAccordion';
 
@@ -17,6 +17,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import PicksCommissioner from '../PicksCommissioner/PicksCommissioner';
 
 
 
@@ -131,7 +132,7 @@ const LeagueDetailsPage = () => {
                 }}
             >
                 <Button onClick={() => setViewState('standings')} sx={{ width: '30%' }}>Standings</Button>
-                {(isMember || isAdmin) && <Button onClick={() => setViewState('myPicks')} sx={{ width: '30%' }}>My Picks</Button>}
+                {(isMember || isAdmin) && <Button onClick={() => setViewState('Picks')} sx={{ width: '30%' }}>Picks</Button>}
                 {(isMember || isAdmin) && <Button onClick={() => setViewState('overview')} sx={{ width: '30%' }}>Overview</Button>}
 
             </ButtonGroup>
@@ -140,7 +141,8 @@ const LeagueDetailsPage = () => {
 
             {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
             {viewState === 'standings' && <LeagueStandings />}
-            {viewState === 'myPicks' && <MyPicks />}
+            {(viewState === 'Picks' && isMember) && <Picks />}
+            {(viewState === 'Picks' && isAdmin) && <PicksCommissioner />}
             {viewState === 'overview' && <LeaguePicks />}
 
         </Container>
