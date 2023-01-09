@@ -6,16 +6,18 @@ import { useSelector } from 'react-redux';
 import { Store, LeagueDetail, LeagueUsers } from '../../../src/interfaces/interfaces';
 
 import LeagueStandings from '../LeagueStandings/LeagueStandings';
-import MyPicks from '../MyPicks/MyPicks';
+import Picks from '../Picks/Picks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
 import LeagueDetailsAccordion from '../LeagueDetailsAccordion/LeagueDetailsAccordion';
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import PicksCommissioner from '../PicksCommissioner/PicksCommissioner';
 
 
 
@@ -72,6 +74,7 @@ const LeagueDetailsPage = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                maxWidth: 600,
                 pr: 1,
                 pl: 1
             }}
@@ -104,11 +107,11 @@ const LeagueDetailsPage = () => {
                     {isAdmin || isMember
                         ?
                         <>
-                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
+                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Back<ArrowBackIcon sx={{ ml: 2 }} /></Button>
                         </>
                         :
                         <>
-                            <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1 }}>Back</Button>
+                            <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Back<ArrowBackIcon sx={{ ml: 2 }} /></Button>
                         </>
                     }
                 </Stack>
@@ -122,13 +125,14 @@ const LeagueDetailsPage = () => {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'center',
-                    width: '100vw',
+                    width: '90%',
+                    maxWidth: 600,
                     mt: 2,
                     mb: 2
                 }}
             >
                 <Button onClick={() => setViewState('standings')} sx={{ width: '30%' }}>Standings</Button>
-                {(isMember || isAdmin) && <Button onClick={() => setViewState('myPicks')} sx={{ width: '30%' }}>My Picks</Button>}
+                {(isMember || isAdmin) && <Button onClick={() => setViewState('Picks')} sx={{ width: '30%' }}>Picks</Button>}
                 {(isMember || isAdmin) && <Button onClick={() => setViewState('overview')} sx={{ width: '30%' }}>Overview</Button>}
 
             </ButtonGroup>
@@ -137,7 +141,8 @@ const LeagueDetailsPage = () => {
 
             {/* Shows a different component contingent on the choice the user makes, starts at league standings */}
             {viewState === 'standings' && <LeagueStandings />}
-            {viewState === 'myPicks' && <MyPicks />}
+            {(viewState === 'Picks' && isMember) && <Picks />}
+            {(viewState === 'Picks' && isAdmin) && <PicksCommissioner />}
             {viewState === 'overview' && <LeaguePicks />}
 
         </Container>

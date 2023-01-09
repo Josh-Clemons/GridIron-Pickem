@@ -1,6 +1,9 @@
 import React from 'react'
 import Box from '@mui/material/Box';
+
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from '@mui/material/Button';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Modal from '@mui/material/Modal';
@@ -40,7 +43,7 @@ const ModalDeleteLeague: React.FC = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1 }}>DELETE</Button>
+            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>DELETE<DeleteOutlineOutlinedIcon sx={{ ml: 2 }} /></Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -50,8 +53,8 @@ const ModalDeleteLeague: React.FC = () => {
                         Are you sure you want to delete?
                     </Typography>
                     <Stack spacing={1} p={2} direction='row-reverse'>
-                        <Button variant='outlined' color={'error'} onClick={handleSubmit} sx={{ width: 80 }}>Yes</Button>
-                        <Button variant='outlined' color={'warning'} onClick={handleClose} sx={{ width: 80 }}>Cancel</Button>
+                        <Button variant='outlined' color={'error'} onClick={handleSubmit} sx={{ minWidth: 80, borderWidth: 2 }}>Yes<DeleteOutlineOutlinedIcon sx={{ ml: 1 }} /></Button>
+                        <Button variant='outlined' color={'warning'} onClick={handleClose} sx={{ minWidth: 80, borderWidth: 2 }}>Cancel<ArrowBackIcon sx={{ ml: 1 }} /></Button>
                     </Stack>
                 </Box>
             </Modal>

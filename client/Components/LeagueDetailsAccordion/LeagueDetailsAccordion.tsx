@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { LeagueDetail, LeagueUsers, Store } from '../../../src/interfaces/interfaces';
+import { LeagueDetail, LeagueUsers, Store, User, UserLeagues } from '../../../src/interfaces/interfaces';
 
 import ModalRenameLeague from '../ModalRenameLeague/ModalRenameLeague';
 import ModalDeleteLeague from '../ModalDeleteLeague/ModalDeleteLeague';
@@ -12,6 +12,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import AddIcon from '@mui/icons-material/Add';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, ClickAwayListener, Stack, Tooltip } from '@mui/material';
@@ -28,7 +29,9 @@ const LeagueDetailsAccordion = () => {
     const store: Store = useSelector(store => store) as Store;
     const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
-    const commissioner: any = leagueUsers.filter(e => e.id === leagueDetail[0]?.owner_id);
+    const userLeagues: UserLeagues[] = store.leagues.userLeagues;
+    const thisLeague: UserLeagues[] = userLeagues.filter(e => e.id == id)
+    const commissioner: User[] = leagueUsers.filter(e => e.id === leagueDetail[0]?.owner_id);
 
     // tracks member details so correct button and component options appear
     const [isMember, setIsMember] = React.useState<boolean>(false);
@@ -82,12 +85,13 @@ const LeagueDetailsAccordion = () => {
             <AccordionDetails>
                 <Stack direction={'row'}>
                     <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
-                    {!isMember && !isAdmin ? <Button variant="outlined" color='success' onClick={joinLeague} size='small' sx={{ width: 125, m: 1 }}>Join</Button> : null}
+                    {!isMember && !isAdmin ? <Button variant="outlined" color='success' onClick={joinLeague} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Join<AddIcon sx={{ ml: 2 }} /></Button> : null}
                     {isMember ? <ModalLeaveLeague /> : null}
                 </Stack>
                 <Box>
                     <Typography variant={'body1'} sx={{ fontSize: 18, mt: 2, mb: 1 }}>Commissioner: {commissioner[0]?.username}</Typography>
-                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {leagueUsers.length} / 100</Typography>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {thisLeague[0]?.user_count} / {thisLeague[0]?.max_users}</Typography>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Availability: {thisLeague[0]?.is_private ? "Private" : "Public"} </Typography>
                     {isMember || isAdmin
                         ?
                         <Box>
@@ -109,7 +113,7 @@ const LeagueDetailsAccordion = () => {
                                             color: 'red'
                                         }}
                                     >
-                                        <Typography variant={'body1'} onClick={handleTooltipOpen} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code} <ContentCopyIcon sx={{ ml: 1}}/></Typography>
+                                        <Typography variant={'body1'} onClick={handleTooltipOpen} sx={{ fontSize: 18, mb: 3 }}>Invite Code: {leagueDetail[0]?.invite_code} <ContentCopyIcon sx={{ ml: 1, '&:hover': { cursor: 'pointer' } }} /></Typography>
                                     </Tooltip>
                                 </div>
                             </ClickAwayListener>

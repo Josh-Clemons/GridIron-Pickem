@@ -70,7 +70,7 @@ export default function NavBar() {
                             <ListItemIcon>
                                 <GridViewIcon />
                             </ListItemIcon>
-                            <ListItemText primary='My Dashboard' />
+                            <ListItemText primary='Dashboard' />
                         </ListItemButton>
                     </ListItem>
                     :

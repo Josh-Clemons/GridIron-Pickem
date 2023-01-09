@@ -9,12 +9,12 @@ export const leagueRouter = Router();
 leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => {
     const userId: number = req.user.id;
     const queryText: string = `
-        SELECT "league"."id", "league"."league_name" FROM "league"
-        JOIN "picks" ON "picks"."league_id" = "league"."id"
-        JOIN "user" ON "user"."id" = "picks"."user_id"
-        WHERE "user"."id" = $1
-        GROUP BY 1
-        ORDER BY 1;
+    SELECT "league"."id", "league"."league_name", "league"."is_private", "league"."owner_id", "league"."user_count", "league"."max_users" FROM "league"
+    JOIN "picks" ON "picks"."league_id" = "league"."id"
+    JOIN "user" ON "user"."id" = "picks"."user_id"
+    WHERE "user"."id" = $1
+    GROUP BY 1
+    ORDER BY 1;
     `
 
     pool.query(queryText, [userId]).then((results: any) => {
@@ -22,7 +22,7 @@ leagueRouter.get('/league', rejectUnauthenticated, (req: any, res: Response) => 
     }).catch((error: Error) => {
         console.log('error in league GET, error:', error);
         res.sendStatus(500);
-    })
+    });
 });
 
 // gets league information from invite code

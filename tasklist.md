@@ -1,12 +1,13 @@
 Stretch goals:
     [] update types (remove :any)
-    [] private leagues
-    [] in dashboard split leagues I own vs leagues I joined
+    [x] private leagues
+    [x] in dashboard split leagues I own vs leagues I joined
     [x] league details accordion
         [x] update commissioner field
         [x] get user count
+        ![] need to rework how league data is stored so non-members can see counts
         [x] create access code based on encoded league id
-            [] add a 'click to copy' option
+            [x] add a 'click to copy' option
     [] league manager tools
         [x] make a new component, move rename/delete there. 
         [] change other user's picks

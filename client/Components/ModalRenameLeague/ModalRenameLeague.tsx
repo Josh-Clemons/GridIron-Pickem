@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Modal from '@mui/material/Modal';
@@ -54,7 +55,7 @@ const ModalRenameLeague: React.FC = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'warning'} size='small' sx={{ width: 125, m: 1 }}>Rename</Button>
+            <Button variant="outlined" onClick={handleOpen} color={'warning'} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Rename<DriveFileRenameOutlineIcon sx={{ ml: 2 }} /></Button>
             <Modal
                 open={open}
                 onClose={handleClose}

@@ -83,8 +83,9 @@ pickRouter.post('/pick/create/:id', rejectUnauthenticated, (req: any, res: Respo
 // updates a users picks, first removes old ones, then posts new ones.
 pickRouter.put('/pick/update/:leagueId', rejectUnauthenticated, (req: any, res: Response) => {
     const leagueId: number = req.params.leagueId;
-    const userId: number = req.user.id;
-    const picks: { week: number, team: string, amount: number }[] = req.body;
+    console.log('req.body in pick update:', req.body)
+    const userId: number = req.body.userId;
+    const picks: { week: number, team: string, amount: number }[] = req.body.picks;
     const queryDeleteText: string = `DELETE FROM "picks" WHERE "league_id" = $1 AND "user_id" = $2;`;
 
     const queryAddText: string = `

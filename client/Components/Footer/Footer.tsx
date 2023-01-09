@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
                     <Link color="inherit" href="https://github.com/Josh-Clemons/GridIron-Pickem">
                         Josh Clemons
                     </Link>{' '}
-                    2022
+                    2023
                     {'.'}
                 </Typography>
 

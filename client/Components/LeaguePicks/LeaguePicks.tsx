@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { LeagueDetail, LeagueUsers, Store } from '../../../src/interfaces/interfaces';
@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material';
 
 
 
@@ -23,7 +24,11 @@ const LeaguePicks = () => {
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
     const leagueDetail: LeagueDetail[] = store.leagues.leagueDetail;
     const [weeklyPicks, setWeeklyPicks] = React.useState<{ username: string, five: undefined | string, three: undefined | string, one: undefined | string }[]>([]);
-    const dateLockStart: Date = new Date('2022-09-09T01:15:00.007Z');
+    const dateLockStart: Date = new Date('2022-09-11T18:00:00.007Z');
+
+    useEffect(() => {
+        weekChange({ value: 0, label: 'Select...', isDisabled: false })
+    }, [])
 
     // style for the react-select week chooser
     const customStyles = {
@@ -34,8 +39,19 @@ const LeaguePicks = () => {
         })
     };
 
+    // styles for the table rows
+    const StyledTableRow = styled(TableRow)(() => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: "#1C2541",
+        },
+        '&:nth-of-type(even)': {
+            backgroundColor: "#242f53",
+        },
+    }));
+
     // options for the select dropdown
-    const week: { value: number, label: number, isDisabled: boolean }[] = [
+    const week: { value: number, label: number | "Select...", isDisabled: boolean }[] = [
+        { value: 0, label: 'Select...', isDisabled: false },
         { value: 1, label: 1, isDisabled: (dateLockStart.getTime() > new Date().getTime() ? true : false) },
         { value: 2, label: 2, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7) > new Date().getTime() ? true : false) },
         { value: 3, label: 3, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 2) > new Date().getTime() ? true : false) },
@@ -56,7 +72,7 @@ const LeaguePicks = () => {
         { value: 18, label: 18, isDisabled: ((dateLockStart.getTime() + (24 * 60 * 60 * 1000) * 7 * 17) > new Date().getTime() ? true : false) }
     ];
 
-    const weekChange = (choice: SingleValue<{ value: number, label: number, isDisabled: boolean }>) => {
+    const weekChange = (choice: SingleValue<{ value: number, label: number | 'Select...', isDisabled: boolean }>) => {
         const tempPicks: { username: string, five: undefined | string, three: undefined | string, one: undefined | string }[] = [];
         // sorts users in alphabetical order for easier use
         const sortedUsers: LeagueUsers[] = leagueUsers.sort((a, b) => {
@@ -83,11 +99,11 @@ const LeaguePicks = () => {
     };
 
     return (
-        <div>
+        <Box width={"100%"} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                alignItems: 'center'
+                alignItems: 'center',
             }}
             >
                 <Typography variant='h6' sx={{ mr: 3 }}>Week: </Typography>
@@ -110,32 +126,41 @@ const LeaguePicks = () => {
                     })}
                 />
             </Box>
-            <TableContainer component={Paper} elevation={12} sx={{ mb: '30px', padding: 1, marginTop: '20px', marginBottom: '80px', width: '90vw' }}>
-                <Table size='small'>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell sx={{ padding: '6px', maxWidth: '25%' }}>User</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>5 Pts</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>3 Pts</TableCell>
-                            <TableCell sx={{ padding: '6px', width: '20%' }}>1 Pt</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {weeklyPicks.map((pick: { username: string, five: undefined | string, three: undefined | string, one: undefined | string }) => {
-                            return (
-                                <TableRow key={pick.username}>
-                                    <TableCell sx={{ pl: 1, pr: 1 }}><Typography variant='body1' noWrap={true} sx={{ maxWidth: 140 }} >{pick.username}</Typography></TableCell>
-                                    <TableCell>{pick.five}</TableCell>
-                                    <TableCell>{pick.three}</TableCell>
-                                    <TableCell>{pick.one}</TableCell>
-                                </TableRow>
-                            )
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
+            <Box width={'90%'} mb={'80px'} maxWidth={700}>
+                <TableContainer component={Paper} sx={{ marginTop: '20px' }}>
+                    <Table size='small'>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell sx={{ padding: '6px', maxWidth: '30vw'}}>User</TableCell>
+                                <TableCell sx={{ padding: '6px'}}>5 Pts</TableCell>
+                                <TableCell sx={{ padding: '6px'}}>3 Pts</TableCell>
+                                <TableCell sx={{ padding: '6px'}}>1 Pt</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {weeklyPicks.map((pick: { username: string, five: undefined | string, three: undefined | string, one: undefined | string }) => {
+                                return (
+                                    <StyledTableRow key={pick.username}>
+                                        <TableCell sx={{ pl: 1, pr: 1, maxWidth: '30vw' }}><Typography variant='body1' noWrap={true} >{pick.username}</Typography></TableCell>
+                                        <TableCell>{pick.five}</TableCell>
+                                        <TableCell>{pick.three}</TableCell>
+                                        <TableCell>{pick.one}</TableCell>
+                                    </StyledTableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+
+        </Box>
     )
 }
 
 export default LeaguePicks;
+
+
+                                // <TableCell sx={{ padding: '6px', maxWidth: '25%' }}>User</TableCell>
+                                // <TableCell sx={{ padding: '6px', width: '20%' }}>5 Pts</TableCell>
+                                // <TableCell sx={{ padding: '6px', width: '20%' }}>3 Pts</TableCell>
+                                // <TableCell sx={{ padding: '6px', width: '20%' }}>1 Pt</TableCell>

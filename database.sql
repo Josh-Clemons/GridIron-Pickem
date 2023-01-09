@@ -13,8 +13,10 @@ CREATE TABLE "league" (
     "id" SERIAL PRIMARY KEY,
     "league_name" VARCHAR (80) UNIQUE NOT NULL,
     "is_private" BOOLEAN DEFAULT false,
-    "max_users" INT DEFAULT 100
+    "max_users" INT DEFAULT 100,
+    "user_count" INT
 );
+
 
 -- user/league many-to-many, holds pick information
 CREATE TABLE "picks" (
@@ -25,6 +27,9 @@ CREATE TABLE "picks" (
     "team" VARCHAR (3),
     "amount" INT
 );
+
+UPDATE league
+SET user_count = (SELECT COUNT(DISTINCT "picks"."user_id") FROM "picks" WHERE "league"."id" = "picks"."league_id");
 
 -- game data table for API stats
 CREATE TABLE "game_data" (

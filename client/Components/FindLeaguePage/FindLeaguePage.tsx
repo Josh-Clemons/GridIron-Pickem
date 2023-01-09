@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import LeagueItem from '../LeagueItem/LeagueItem';
 import ModalJoinByInvite from '../ModalJoinByInvite/ModalJoinByInvite';
+import CreateLeagueButton from '../Button/CreateLeagueButton';
 
 import { AvailableLeagues, Store, User } from '../../../src/interfaces/interfaces';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -40,11 +40,12 @@ const FindLeaguePage: React.FC = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 padding: "10px",
-                textAlign: "center"
+                textAlign: "center",
+                maxWidth: 600
             }}
         >
             <Typography variant="h4" color='primary.main'>Find a New League</Typography>
-            <Button variant="outlined" color="warning" href="#/create" sx={{ width: 250, m: 1 }}>Create A League</Button>
+            <CreateLeagueButton />
             <ModalJoinByInvite />
             <Typography variant='h6' color='primary.main' sx={{ textDecoration: 'underline' }}>Public Leagues:</Typography>
             <Box height={"75vh"} width={"92%"} >

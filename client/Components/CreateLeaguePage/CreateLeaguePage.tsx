@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -22,7 +24,7 @@ const CreateLeaguePage: React.FC = () => {
         event.preventDefault();
         const inviteCode: string = makeId(6);
         // through this dispatch chain, league is created, user is added as a member, redux is updated
-        dispatch({ type: 'CREATE_LEAGUE', payload: { leagueName, inviteCode, isPrivate} })
+        dispatch({ type: 'CREATE_LEAGUE', payload: { leagueName, inviteCode, isPrivate } })
         navigate('/dashboard');
     };
 
@@ -50,7 +52,8 @@ const CreateLeaguePage: React.FC = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 padding: "10px",
-                textAlign: "center"
+                textAlign: "center",
+                maxWidth: 600
             }}
         >
             <Typography variant="h4">Create a New League</Typography>
@@ -74,12 +77,12 @@ const CreateLeaguePage: React.FC = () => {
                 />
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', mb: 2 }}>
                     <Typography variant='body1'>Set to Private:</Typography>
-                    <Switch checked={isPrivate} onClick={handleIsPrivate}/>
+                    <Switch checked={isPrivate} onClick={handleIsPrivate} />
                     <Typography variant='body1' width={30}>{isPrivate ? 'Yes' : 'No'}</Typography>
                 </Box>
-                <Button variant="outlined" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px" }}>Create</Button>
+                <Button variant="outlined" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px", borderWidth: 2 }}>Create<AddCircleIcon sx={{ ml: 2 }} /></Button>
             </Box>
-            <Button variant="outlined" href="#/dashboard" sx={{ width: "250px", position: "fixed", bottom: 60 }}>My Leagues</Button>
+            <Button variant="outlined" href="#/dashboard" sx={{ width: "250px", position: "fixed", bottom: 60, borderWidth: 2 }}>My Leagues<ArrowBackIcon sx={{ ml: 2 }} /></Button>
         </Container>
     )
 }
