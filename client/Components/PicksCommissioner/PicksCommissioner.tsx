@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -32,11 +32,6 @@ const PicksCommissioner: React.FC = () => {
 
     let currentPicks: Pick[] = [];
     let dateLockStart: Date = new Date('2022-11-02T01:15:00.007Z');
-
-    // useEffect({
-        
-    // }, [selectedUser])
-
 
 const customStyles = {
     control: (provided: any, { isDisabled }: { isDisabled: boolean }) => ({ // passes isDisabled so a different BG color can be applied
@@ -111,7 +106,6 @@ const savePicks = () => {
 const handleUserChange = (option: any) => {
     setSelectedUser({username: option.label, id: option.value});
     const findUserPicks: any = store.leagues.leagueDetail.filter(e => e.username === option.label);
-    console.log('User Picks: ', findUserPicks);
     setUserPicks(findUserPicks);
 };
 

@@ -14,14 +14,16 @@ emailRouter.post('/email', rejectUnauthenticated, (req: any, res: any) => {
         }
     });
 
+    // TODO: update email links when grid iron gets hosted
     let mailDetails = {
         from: 'Grid Iron Pickem <gridironpickem@outlook.com>',
         to: req.body.emailAddress,
         subject: 'You are invited to Grid Iron!',
-        text: 'This field is used for plain text support only',
-        html: `<p>You have been invited to Grid Iron Pickem! League: ${req.body.leagueName}</p>
-                <section>Please login or register:<a href='http://localhost:3000/#/register'> New User</a></section>
-                <section>Then click:<a href='http://localhost:3000/#/detail/${req.body.leagueId}'> here<a/></section>`
+        text: `You have been invited to GridIron.Pickem. Please create an account then search for the league with invite code: ${req.body.inviteCode}`,
+        html: `<h2>You have been invited to Grid Iron Pickem!</h2>
+                <h3>League: ${req.body.leagueName}</h3>
+                <h4>Please login or register:<a href='http://localhost:3000/#/home'> GridIron.Pickem</a></h4>
+                <h4>Then <a href='http://localhost:3000/#/detail/${req.body.leagueId}'> find the league <a/>by invite code: ${req.body.inviteCode}</h4>`
     };
 
     mailTransporter.sendMail(mailDetails, (err: any, data: any) => {

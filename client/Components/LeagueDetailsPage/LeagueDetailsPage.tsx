@@ -74,15 +74,16 @@ const LeagueDetailsPage = () => {
 
 
     return (
-        <Container
+        <Box
+            maxWidth={600}
             sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                maxWidth: 600,
                 pr: 1,
-                pl: 1
+                pl: 1,
+                margin: 'auto'
             }}
         >
             <Box
@@ -151,7 +152,7 @@ const LeagueDetailsPage = () => {
             {(viewState === 'Picks' && isAdmin) && <PicksCommissioner />}
             {viewState === 'overview' && <LeaguePicks />}
 
-        </Container>
+        </Box>
 
     )
 }

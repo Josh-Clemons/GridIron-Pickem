@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Modal from '@mui/material/Modal';
@@ -11,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Store } from '../../../src/interfaces/interfaces';
+import { toast } from 'react-toastify';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -18,13 +18,27 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '95%',
+    maxWidth: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
 };
 
-// takes the old league name as a prop to pre-populate input text
+const alertSendEmail = () => {
+    toast.success('Invite Sent!', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+    });
+};
+
+
 const ModalEmailInvite: React.FC = () => {
     const dispatch = useDispatch();
     const store: Store = useSelector(store => store) as Store;
@@ -40,9 +54,10 @@ const ModalEmailInvite: React.FC = () => {
         event.preventDefault();
 
         if (emailAddress !== '') { // find a better way to confirm they entered a legit email
-            dispatch({ type: 'SEND_INVITE', payload: { emailAddress, leagueId: id, leagueName: store.leagues.leagueDetail[0].league_name } });
+            dispatch({ type: 'SEND_INVITE', payload: { emailAddress, leagueId: id, leagueName: store.leagues.leagueDetail[0].league_name, inviteCode: store.leagues.leagueDetail[0].invite_code } });
             handleClose();
             setEmailAddress('');
+            alertSendEmail();
 
         } else {
             handleClose();
@@ -51,7 +66,7 @@ const ModalEmailInvite: React.FC = () => {
 
     return (
         <Box>
-            <Typography fontSize={18} onClick={handleOpen} color={'primary'} sx={{ width: 250, mb: 1, mt: 1 }}>Invite Friend by Email</Typography>
+            <Typography fontSize={18} onClick={handleOpen} color={'primary'} sx={{ width: 250, mb: 1, mt: 1, '&:hover': { cursor: 'pointer' } }}>Invite Friend by Email</Typography>
             <Modal
                 open={open}
                 onClose={handleClose}

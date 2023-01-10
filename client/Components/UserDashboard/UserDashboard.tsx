@@ -37,15 +37,8 @@ const UserDashboard: React.FC = () => {
 
     return (
 
-        <Container
-
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                maxWidth: 600
-            }}
+        <Box
+            sx={{ maxWidth: 600, display: 'flex', flexDirection:'column', margin: 'auto', alignItems: 'center' }}
         >
             <Typography sx={{ m: 2 }} variant="h4">Dashboard</Typography>
             <Box
@@ -99,7 +92,7 @@ const UserDashboard: React.FC = () => {
                     </>
                 }
             </Box>
-        </Container>
+        </Box>
     )
 }
 
