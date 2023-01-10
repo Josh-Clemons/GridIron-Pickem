@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+// const nodemailer = require('nodemailer');
+
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -9,6 +11,7 @@ import LeagueStandings from '../LeagueStandings/LeagueStandings';
 import Picks from '../Picks/Picks';
 import LeaguePicks from '../LeaguePicks/LeaguePicks';
 import LeagueDetailsAccordion from '../LeagueDetailsAccordion/LeagueDetailsAccordion';
+
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
@@ -48,6 +51,9 @@ const LeagueDetailsPage = () => {
         setMember();
     }, [leagueDetail]);
 
+    const inviteMember = () => {
+        dispatch({ type: 'SEND_INVITE' });
+    };
 
 
     // sets member type so appropriate options are displayed
@@ -92,7 +98,7 @@ const LeagueDetailsPage = () => {
                     bgcolor: "#1C2541"
                 }}
             >
-                <Typography textAlign={'center'} variant='h6' fontSize={'16'}>League Name: <Box fontSize={30} m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
+                <Typography onClick={inviteMember} textAlign={'center'} variant='h6' fontSize={'16'}>League Name: <Box fontSize={30} m={1}>{leagueDetail[0]?.league_name}</Box></Typography>
                 <Stack
                     direction="row"
                     sx={{

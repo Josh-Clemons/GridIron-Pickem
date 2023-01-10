@@ -26,7 +26,6 @@ const PicksCommissioner: React.FC = () => {
     const store: Store = useSelector(store => store) as Store;
     const leagueId: number = store.leagues.leagueDetail[0]?.league_id;
     const leagueUsers: any[] = store.leagues.currentLeagueUsers;
-    // const userPicks: Pick[] = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
     const [userPicks, setUserPicks] = React.useState(store.leagues.leagueDetail.filter(e => e.username === store.user.username));
     const [selectedUser, setSelectedUser] = React.useState(store.user)
     const gameData: GameResults[] = store.gameData.gameData;
