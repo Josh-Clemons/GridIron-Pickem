@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -26,18 +26,12 @@ const PicksCommissioner: React.FC = () => {
     const store: Store = useSelector(store => store) as Store;
     const leagueId: number = store.leagues.leagueDetail[0]?.league_id;
     const leagueUsers: any[] = store.leagues.currentLeagueUsers;
-    // const userPicks: Pick[] = store.leagues.leagueDetail.filter(e => e.username === store.user.username);
     const [userPicks, setUserPicks] = React.useState(store.leagues.leagueDetail.filter(e => e.username === store.user.username));
     const [selectedUser, setSelectedUser] = React.useState(store.user)
     const gameData: GameResults[] = store.gameData.gameData;
 
     let currentPicks: Pick[] = [];
     let dateLockStart: Date = new Date('2022-11-02T01:15:00.007Z');
-
-    // useEffect({
-        
-    // }, [selectedUser])
-
 
 const customStyles = {
     control: (provided: any, { isDisabled }: { isDisabled: boolean }) => ({ // passes isDisabled so a different BG color can be applied
@@ -112,7 +106,6 @@ const savePicks = () => {
 const handleUserChange = (option: any) => {
     setSelectedUser({username: option.label, id: option.value});
     const findUserPicks: any = store.leagues.leagueDetail.filter(e => e.username === option.label);
-    console.log('User Picks: ', findUserPicks);
     setUserPicks(findUserPicks);
 };
 

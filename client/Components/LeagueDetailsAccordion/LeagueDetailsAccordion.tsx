@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, ClickAwayListener, Stack, Tooltip } from '@mui/material';
 import ModalRules from '../ModalRules/ModalRules';
+import ModalEmailInvite from '../ModalEmailInvite/ModalEmailInvite';
 
 
 
@@ -95,6 +96,7 @@ const LeagueDetailsAccordion = () => {
                     {isMember || isAdmin
                         ?
                         <Box>
+                            <ModalEmailInvite />
                             {/* tooltip and listener for the copying the invite code */}
                             <ClickAwayListener onClickAway={handleTooltipClose}>
                                 <div>

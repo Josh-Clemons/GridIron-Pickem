@@ -48,7 +48,7 @@ const App: React.FC = () => {
                     <Route path='/dashboard' element={user.id ? <UserDashboard /> : <Navigate replace to="/login" />} />
                     <Route path='/find' element={user.id ? <FindLeaguePage /> : <Navigate replace to="/login" />} />
                     <Route path='/create' element={user.id ? <CreateLeaguePage /> : <Navigate replace to="/login" />} />
-                    <Route path='/detail/:id' element={user.id ? <LeagueDetailsPage /> : <Navigate replace to="/login" />} />
+                    <Route path='/detail/:id' element={<LeagueDetailsPage />} />
                 </Routes>
                 <Footer />
                 <ToastContainer

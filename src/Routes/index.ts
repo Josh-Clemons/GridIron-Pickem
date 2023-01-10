@@ -3,6 +3,7 @@ import { userRouter } from './user.router';
 import { leagueRouter } from './league.router';
 import { pickRouter } from './pick.router';
 import { dataRouter } from './api.data.router';
+import { emailRouter } from './email.router';
 
 export const routes = express.Router();
 
@@ -10,5 +11,6 @@ routes.use(
     userRouter,
     leagueRouter,
     pickRouter,
-    dataRouter
+    dataRouter,
+    emailRouter
 );

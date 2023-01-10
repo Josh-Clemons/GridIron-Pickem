@@ -1,5 +1,6 @@
 import { all } from 'redux-saga/effects';
 import apiData from './api.data.saga';
+import emailSaga from './email.saga';
 import leagueSaga from './league.saga';
 import loginSaga from './login.saga';
 import pickSaga from './pick.saga';
@@ -14,5 +15,6 @@ export default function* rootSaga() {
         pickSaga(),
         registrationSaga(),
         userSaga(),
+        emailSaga(),
     ]);
 };

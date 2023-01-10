@@ -32,7 +32,7 @@ const FindLeaguePage: React.FC = () => {
 
     // returns a list of available leagues, excludes leagues the user is currently in
     return (
-        <Container
+        <Box
             sx={{
 
                 display: "flex",
@@ -41,7 +41,8 @@ const FindLeaguePage: React.FC = () => {
                 justifyContent: "center",
                 padding: "10px",
                 textAlign: "center",
-                maxWidth: 600
+                maxWidth: 600,
+                margin: 'auto'
             }}
         >
             <Typography variant="h4" color='primary.main'>Find a New League</Typography>
@@ -64,7 +65,7 @@ const FindLeaguePage: React.FC = () => {
                     <Typography>Join or Create a league!</Typography>
                 }
             </Box>
-        </Container>
+        </Box>
     )
 }
 
