@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_USER' })
-    }, []);
+    }, []); // Lydia's group had 'dispatch' as trigger for this useeffect
 
     const user: User = useSelector((store: Store) => store.user);
 

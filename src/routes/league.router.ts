@@ -60,7 +60,7 @@ leagueRouter.get('/league/available', rejectUnauthenticated, (req: any, res: Res
 leagueRouter.get('/league/detail/:id', rejectUnauthenticated, (req: any, res: Response) => {
     const leagueId = req.params.id;
     const queryText = `
-        SELECT "league"."id" AS "league_id", "user"."username", "league"."league_name", "picks"."week", "picks"."amount", "picks"."team", "league"."owner_id", "league"."invite_code" FROM "user"
+        SELECT "league"."id" AS "league_id", "user"."username", "league"."league_name", "picks"."week", "picks"."amount", "picks"."team", "league"."owner_id", "league"."invite_code", "league"."user_count", "league"."max_users", "league"."is_private" FROM "user"
         JOIN "picks" ON "picks"."user_id" = "user"."id"
         JOIN "league" ON "league"."id" = "picks"."league_id"
         WHERE "picks"."league_id" = $1;

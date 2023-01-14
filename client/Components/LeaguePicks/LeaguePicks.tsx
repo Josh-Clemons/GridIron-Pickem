@@ -18,7 +18,7 @@ import { styled } from '@mui/material';
 
 
 // returns a component that allows users to see picks by week for everyone in the league
-const LeaguePicks = () => {
+const LeaguePicks: React.FC = () => {
 
     const store: Store = useSelector(store => store) as Store;
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
@@ -110,6 +110,7 @@ const LeaguePicks = () => {
                 <Select
                     className='week'
                     name={"week"}
+                    isSearchable={false}
                     options={week}
                     styles={customStyles}
                     onChange={(choice) => weekChange(choice)}
@@ -141,7 +142,7 @@ const LeaguePicks = () => {
                             {weeklyPicks.map((pick: { username: string, five: undefined | string, three: undefined | string, one: undefined | string }) => {
                                 return (
                                     <StyledTableRow key={pick.username}>
-                                        <TableCell sx={{ pl: 1, pr: 1, maxWidth: '30vw' }}><Typography variant='body1' noWrap={true} >{pick.username}</Typography></TableCell>
+                                        <TableCell sx={{ pl: 1, pr: 1, maxWidth: '30vw'}}><Typography variant='body1' noWrap={true} >{pick.username}</Typography></TableCell>
                                         <TableCell>{pick.five}</TableCell>
                                         <TableCell>{pick.three}</TableCell>
                                         <TableCell>{pick.one}</TableCell>

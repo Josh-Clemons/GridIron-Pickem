@@ -86,13 +86,16 @@ const LeagueDetailsAccordion = () => {
             <AccordionDetails>
                 <Stack direction={'row'}>
                     <ModalRules variant={'outlined'} size={'small'} width={125} margin={8} />
-                    {!isMember && !isAdmin ? <Button variant="outlined" color='success' onClick={joinLeague} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Join<AddIcon sx={{ ml: 2 }} /></Button> : null}
+                    {!isMember && !isAdmin
+                        ? <Button variant="outlined" color='success' onClick={joinLeague} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Join<AddIcon sx={{ ml: 2 }} /></Button>
+                        : null
+                    }
                     {isMember ? <ModalLeaveLeague /> : null}
                 </Stack>
                 <Box>
                     <Typography variant={'body1'} sx={{ fontSize: 18, mt: 2, mb: 1 }}>Commissioner: {commissioner[0]?.username}</Typography>
-                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {thisLeague[0]?.user_count} / {thisLeague[0]?.max_users}</Typography>
-                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Availability: {thisLeague[0]?.is_private ? "Private" : "Public"} </Typography>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Members: {leagueDetail[0]?.user_count} / {leagueDetail[0]?.max_users}</Typography>
+                    <Typography variant={'body1'} sx={{ fontSize: 18, mb: 1 }}>Availability: {leagueDetail[0]?.is_private ? "Private" : "Public"} </Typography>
                     {isMember || isAdmin
                         ?
                         <Box>

@@ -29,7 +29,7 @@ const Picks: React.FC = () => {
     const gameData: GameResults[] = store.gameData.gameData;
 
     let currentPicks: Pick[] = [];
-    let dateLockStart: Date = new Date('2022-09-02T01:15:00.007Z');
+    let dateLockStart: Date = new Date('2022-11-02T01:15:00.007Z');
 
 
     const customStyles = {
@@ -81,7 +81,7 @@ const Picks: React.FC = () => {
     const savePicks = () => {
         const dupeWeek: boolean = pickCheckWeek(currentPicks);
         const dupeAmount: boolean = pickCheckDuplicate(currentPicks);
-        const dupeGame: any = pickCheckGame(currentPicks, gameData)
+        const dupeGame: boolean = pickCheckGame(currentPicks, gameData)
         if (!dupeWeek && !dupeAmount && !dupeGame) {
             dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId, userId: store.user.id } });
             alertSavePicks();
@@ -180,7 +180,8 @@ const Picks: React.FC = () => {
                         className='oneChoice'
                         defaultValue={pickOne[0]?.team ? { value: pickOne[0].team, label: pickOne[0].team } : ''}
                         isSearchable={true}
-                        isDisabled={(dateLockStart < new Date() || oneLockTime < new Date()) ? true : false}
+                        // PRESENTATION CHANGE: removing isDisabled for this field
+                        // isDisabled={(dateLockStart < new Date() || oneLockTime < new Date()) ? true : false}
                         name={"oneChoiceWeek" + week}
                         options={teamOptions(week)}
                         styles={customStyles}
@@ -210,9 +211,14 @@ const Picks: React.FC = () => {
         ];
         const currentWeekData: GameResults[] = gameData.filter(e => e.week === week)
 
+        // PRESENTATION CHANGE BELOW: added a counter for isDisabled so half the choices are available.
+        let choiceCount: number = 0;
         currentWeekData.map((game) => {
-            const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)
-            pickOptions.push({ value: game.team, label: game.team, isDisabled });
+            // const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)
+            // (choiceCount < 15 ? isDisabled : false)
+
+            (choiceCount < 15 ? pickOptions.push({ value: game.team, label: game.team }) : null);
+            choiceCount ++;
         })
 
         // sorts options alphabetically
