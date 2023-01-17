@@ -114,11 +114,11 @@ const LeagueDetailsPage = () => {
                     {isAdmin || isMember
                         ?
                         <>
-                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Back<ArrowBackIcon sx={{ ml: 2 }} /></Button>
+                            <Button variant="outlined" href="#/dashboard" size='small' sx={{ width: 125, m: 1, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>Back<ArrowBackIcon sx={{ ml: 2 }} /></Button>
                         </>
                         :
                         <>
-                            <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Back<ArrowBackIcon sx={{ ml: 2 }} /></Button>
+                            <Button variant="outlined" href="#/find" size='small' sx={{ width: 125, m: 1, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>Back<ArrowBackIcon sx={{ ml: 2 }} /></Button>
                         </>
                     }
                 </Stack>

@@ -221,12 +221,15 @@ const Picks: React.FC = () => {
         ];
         const currentWeekData: GameResults[] = gameData.filter(e => e.week === week)
 
-        // PRESENTATION CHANGE BELOW: removed isDisabled ternary so all selection choices are available
         let choiceCount: number = 0;
         currentWeekData.map((game) => {
-            // const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)
+            const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)
 
-            pickOptions.push({ value: game.team, label: game.team });
+            if (isDisabled) {
+                return;
+            } else {
+                pickOptions.push({ value: game.team, label: game.team })
+            };
         })
 
         // sorts options alphabetically
@@ -270,9 +273,9 @@ const Picks: React.FC = () => {
 
     return (
         <Box component={Paper} elevation={2} width={'100%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-            {/* <RefreshApiData /> */}
-            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2, borderWidth: '2px' }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
-            <TableContainer sx={{ mb: 2, pb: 20 }}>
+            <RefreshApiData />
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2, borderWidth: '2px', '&:hover': { borderWidth: '2px' } }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
+            <TableContainer sx={{ mb: 2, pb: 40 }}>
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
@@ -287,7 +290,7 @@ const Picks: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 15, mt: -15, borderWidth: '2px' }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 35, mt: -35, borderWidth: '2px', '&:hover': { borderWidth: '2px' } }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
         </Box>
     )
 }

@@ -45,7 +45,7 @@ const AboutPage = () => {
                 </ListItem>
             </List>
             <Typography variant='h6' sx={{ textDecoration: 'underline', pt: 2 }}>Special Thanks</Typography>
-            <List dense={true} sx={{ listStyleType: 'disc', pl: 2, }}>
+            <List dense={true} sx={{ listStyleType: 'disc', pl: 2, mb: 6 }}>
                 <ListItem sx={{ display: 'list-item', fontSize: 16 }}>
                     Shawl! My family, Prime instructors, and mentors Jimmy and Tom!
                 </ListItem>

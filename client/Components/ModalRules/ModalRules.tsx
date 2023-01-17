@@ -31,7 +31,7 @@ const ModalRules = ({ size, width, variant, margin }: any) => {
     // that would need to be implemented for those rules to apply
     return (
         <Box>
-            <Button variant={variant} onClick={handleOpen} color={'secondary'} size={size} sx={{ width: { width }, margin: { margin }, borderWidth: 2 }}>Rules<GavelIcon sx={{ ml: 2 }} /></Button>
+            <Button variant={variant} onClick={handleOpen} color={'secondary'} size={size} sx={{ width: { width }, margin: { margin }, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>Rules<GavelIcon sx={{ ml: 2 }} /></Button>
             <Modal
                 open={open}
                 onClose={handleClose}

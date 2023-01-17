@@ -80,9 +80,9 @@ const CreateLeaguePage: React.FC = () => {
                     <Switch checked={isPrivate} onClick={handleIsPrivate} />
                     <Typography variant='body1' width={30}>{isPrivate ? 'Yes' : 'No'}</Typography>
                 </Box>
-                <Button variant="outlined" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px", borderWidth: 2 }}>Create<AddCircleIcon sx={{ ml: 2 }} /></Button>
+                <Button variant="outlined" color="warning" type="submit" sx={{ width: "250px", marginTop: "10px", marginBottom: "8px", borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>Create<AddCircleIcon sx={{ ml: 2 }} /></Button>
             </Box>
-            <Button variant="outlined" href="#/dashboard" sx={{ width: "250px", position: "fixed", bottom: 60, borderWidth: 2 }}>My Leagues<ArrowBackIcon sx={{ ml: 2 }} /></Button>
+            <Button variant="outlined" href="#/dashboard" sx={{ width: "250px", position: "fixed", bottom: 60, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>My Leagues<ArrowBackIcon sx={{ ml: 2 }} /></Button>
         </Container>
     )
 }

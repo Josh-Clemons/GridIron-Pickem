@@ -42,7 +42,7 @@ const ModalLeaveLeague: React.FC = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Leave<ExitToAppIcon sx={{ ml: 2 }} /></Button>
+            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>Leave<ExitToAppIcon sx={{ ml: 2 }} /></Button>
             <Modal
                 open={open}
                 onClose={handleClose}

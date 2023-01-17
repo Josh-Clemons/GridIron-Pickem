@@ -4,7 +4,7 @@ import React from 'react';
 
 const FindLeagueButton = () => {
     return (
-        <Button variant="outlined" color="success" href="#/find" sx={{ width: 250, m: 1, borderWidth: 2 }}>Find A League<SearchIcon sx={{ ml: 2 }} /></Button>
+        <Button variant="outlined" color="success" href="#/find" sx={{ width: 250, m: 1, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>Find A League<SearchIcon sx={{ ml: 2 }} /></Button>
     )
 }
 
