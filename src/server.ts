@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 // Middleware
 const app = express();
 app.use(express.json());
-app.use(cors({origin: "http://http://localhost:3000", credentials: true}));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(
     session({
         secret: "secretcode",
@@ -37,7 +37,7 @@ app.use('/api', routes);
 app.use(express.static(path.join(__dirname, "../public")));
 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);

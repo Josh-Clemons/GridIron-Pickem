@@ -14,7 +14,9 @@ CREATE TABLE "league" (
     "league_name" VARCHAR (80) UNIQUE NOT NULL,
     "is_private" BOOLEAN DEFAULT false,
     "max_users" INT DEFAULT 100,
-    "user_count" INT
+    "owner_id" INT REFERENCES "user",
+    "user_count" INT,
+    "invite_code" VARCHAR (6)
 );
 
 
