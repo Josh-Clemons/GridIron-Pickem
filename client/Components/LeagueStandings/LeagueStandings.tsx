@@ -75,9 +75,9 @@ const LeagueStandings = () => {
 
 
     return (
-        <Box width={'90%'} mb={'80px'} maxWidth={500}>
-            <TableContainer component={Paper}>
-                <Table size='small'>
+        <Box width={'100%'} mb={'80px'}>
+            <TableContainer component={Paper} sx={{ width: '100%'}}>
+                <Table size='small' sx={{ width: '100%'}}>
                     <TableHead>
                         <TableRow>
                             <TableCell width={20}>Rank</TableCell>

@@ -257,7 +257,7 @@ const userOptions = () => {
 
 
 return (
-    <Box component={Paper} elevation={2} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
+    <Box component={Paper} elevation={2} width={'100%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
         <Box display={'flex'} flexDirection={'row'} alignItems={'center'} mt={2} mb={2}>
             <Typography fontSize={16} sx={{ mr: 2 }}>Username: </Typography>
             <Select

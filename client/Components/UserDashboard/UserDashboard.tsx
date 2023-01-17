@@ -38,7 +38,7 @@ const UserDashboard: React.FC = () => {
     return (
 
         <Box
-            sx={{ maxWidth: 600, display: 'flex', flexDirection:'column', margin: 'auto', alignItems: 'center' }}
+            sx={{ maxWidth: 600, display: 'flex', flexDirection: 'column', margin: 'auto', alignItems: 'center' }}
         >
             <Typography sx={{ m: 2 }} variant="h4">Dashboard</Typography>
             <Box
@@ -55,32 +55,32 @@ const UserDashboard: React.FC = () => {
                 }}
             >
                 {/* If user has no leagues, display the find/create league buttons, otherwise display the leagues they are in */}
-                {!allLeagues[0] ?
-                    <Stack direction={'column'} alignItems={'center'}>
-                        <FindLeagueButton />
-                        <CreateLeagueButton />
-                    </Stack>
+                {/* {!allLeagues[0] ?
+                    
                     :
+                    <> */}
+                {myLeagues[0] ?
                     <>
-                        {myLeagues[0] ?
-                            <>
-                                <Typography variant='h6'>Leagues I Manage:</Typography>
-                                <Box sx={{ mb: 2 }}>
-                                    {myLeagues.map(league => {
-                                        return (
-                                            <Box onClick={() => { leagueClick(league) }} key={league.id}>
-                                                <LeagueItem league={league} />
-                                            </Box>
-                                        )
-                                    })}
-                                </Box>
-                            </>
-                            :
-                            null
-                        }
+                        <Typography variant='h6'>Leagues I Manage:</Typography>
+                        <Box sx={{ mb: 2 }}>
+                            {myLeagues.map(league => {
+                                return (
+                                    <Box onClick={() => { leagueClick(league) }} key={league.id}>
+                                        <LeagueItem league={league} />
+                                    </Box>
+                                )
+                            })}
+                        </Box>
 
+                    </>
+                    :
+                    null
+                }
+
+                {othersLeagues[0] ?
+                    <>
                         <Typography variant='h6'>Leagues I'm In:</Typography>
-                        <Box>
+                        <Box mb={6}>
                             {othersLeagues.map(league => {
                                 return (
                                     <Box onClick={() => { leagueClick(league) }} key={league.id}>
@@ -90,7 +90,15 @@ const UserDashboard: React.FC = () => {
                             })}
                         </Box>
                     </>
+                    :
+                    null
                 }
+                {/* </>
+                } */}
+                <Stack direction={'column'} alignItems={'center'}>
+                    <FindLeagueButton />
+                    <CreateLeagueButton />
+                </Stack>
             </Box>
         </Box>
     )

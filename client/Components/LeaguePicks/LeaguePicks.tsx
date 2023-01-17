@@ -99,7 +99,7 @@ const LeaguePicks: React.FC = () => {
     };
 
     return (
-        <Box width={"100%"} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Box width={"100%"} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -118,6 +118,7 @@ const LeaguePicks: React.FC = () => {
                         ...theme,
                         colors: {
                             ...theme.colors,
+                            primary: '#1C2541',
                             primary25: '#1C2541',
                             neutral0: '#1C2541',
                             neutral20: '#0B132B',
@@ -127,22 +128,22 @@ const LeaguePicks: React.FC = () => {
                     })}
                 />
             </Box>
-            <Box width={'90%'} mb={'80px'} maxWidth={700}>
+            <Box width={'100%'} mb={'80px'}>
                 <TableContainer component={Paper} sx={{ marginTop: '20px' }}>
-                    <Table size='small'>
+                    <Table size='small' sx={{ width: '100%' }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ padding: '6px', maxWidth: '30vw'}}>User</TableCell>
-                                <TableCell sx={{ padding: '6px'}}>5 Pts</TableCell>
-                                <TableCell sx={{ padding: '6px'}}>3 Pts</TableCell>
-                                <TableCell sx={{ padding: '6px'}}>1 Pt</TableCell>
+                                <TableCell sx={{ padding: '6px', maxWidth: '30vw' }}>User</TableCell>
+                                <TableCell sx={{ padding: '6px' }}>5 Pts</TableCell>
+                                <TableCell sx={{ padding: '6px' }}>3 Pts</TableCell>
+                                <TableCell sx={{ padding: '6px' }}>1 Pt</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {weeklyPicks.map((pick: { username: string, five: undefined | string, three: undefined | string, one: undefined | string }) => {
                                 return (
                                     <StyledTableRow key={pick.username}>
-                                        <TableCell sx={{ pl: 1, pr: 1, maxWidth: '30vw'}}><Typography variant='body1' noWrap={true} >{pick.username}</Typography></TableCell>
+                                        <TableCell sx={{ pl: 1, pr: 1, maxWidth: '30vw' }}><Typography variant='body1' noWrap={true} >{pick.username}</Typography></TableCell>
                                         <TableCell>{pick.five}</TableCell>
                                         <TableCell>{pick.three}</TableCell>
                                         <TableCell>{pick.one}</TableCell>

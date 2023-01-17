@@ -89,7 +89,7 @@ const LeagueDetailsPage = () => {
             <Box
                 m={3}
                 p={2}
-                width={'95%'}
+                width={'100%'}
                 sx={{
                     display: "flex",
                     flexDirection: "column",

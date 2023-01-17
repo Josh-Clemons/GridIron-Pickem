@@ -44,16 +44,10 @@ const AboutPage = () => {
                     Learning TypeScript
                 </ListItem>
             </List>
-            <Typography variant='h6' sx={{ textDecoration: 'underline', pt: 2 }}>Next Steps</Typography>
-            <List dense={true} sx={{ listStyleType: 'disc', pl: 2, }}>
-                <ListItem sx={{ display: 'list-item', fontSize: 16 }}>
-                    Update this at the end of the project
-                </ListItem>
-            </List>
             <Typography variant='h6' sx={{ textDecoration: 'underline', pt: 2 }}>Special Thanks</Typography>
             <List dense={true} sx={{ listStyleType: 'disc', pl: 2, }}>
                 <ListItem sx={{ display: 'list-item', fontSize: 16 }}>
-                    Update this at the end of the project
+                    Shawl! My family, Prime instructors, and mentors Jimmy and Tom!
                 </ListItem>
             </List>
         </Box>

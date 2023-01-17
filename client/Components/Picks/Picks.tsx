@@ -29,7 +29,13 @@ const Picks: React.FC = () => {
     const gameData: GameResults[] = store.gameData.gameData;
 
     let currentPicks: Pick[] = [];
-    let dateLockStart: Date = new Date('2022-11-02T01:15:00.007Z');
+    let dateLockStart: Date = new Date('2022-09-16T01:15:00.007Z');
+
+    // THIS FUNCTION IS USED FOR PRESENTATION PURPOSES ONLY
+    const presentationTrigger = () => {
+        dispatch({ type: 'SET_API_DATA' });
+        dateLockStart = new Date('2022-09-02T01:15:00.007Z')
+    }
 
 
     const customStyles = {
@@ -85,6 +91,8 @@ const Picks: React.FC = () => {
         if (!dupeWeek && !dupeAmount && !dupeGame) {
             dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId, userId: store.user.id } });
             alertSavePicks();
+            dispatch({ type: 'SET_API_DATA' });
+            dateLockStart = new Date('2022-09-02T01:15:00.007Z')
         } else if (dupeAmount) {
             alertPickError('Duplicates in Amount Column');
         } else if (dupeWeek) {
@@ -137,6 +145,7 @@ const Picks: React.FC = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary: '#1C2541',
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
                                 neutral20: '#0B132B',
@@ -162,6 +171,7 @@ const Picks: React.FC = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary: '#1C2541',
                                 primary25: '#1C2541', // -- the first value gets highlighted, this is that color
                                 neutral0: '#1C2541',
                                 // neutral10: 'red', -- this is the border color for disabled
@@ -180,8 +190,7 @@ const Picks: React.FC = () => {
                         className='oneChoice'
                         defaultValue={pickOne[0]?.team ? { value: pickOne[0].team, label: pickOne[0].team } : ''}
                         isSearchable={true}
-                        // PRESENTATION CHANGE: removing isDisabled for this field
-                        // isDisabled={(dateLockStart < new Date() || oneLockTime < new Date()) ? true : false}
+                        isDisabled={(dateLockStart < new Date() || oneLockTime < new Date()) ? true : false}
                         name={"oneChoiceWeek" + week}
                         options={teamOptions(week)}
                         styles={customStyles}
@@ -189,6 +198,7 @@ const Picks: React.FC = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary: '#1C2541',
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
                                 neutral20: '#0B132B',
@@ -211,14 +221,12 @@ const Picks: React.FC = () => {
         ];
         const currentWeekData: GameResults[] = gameData.filter(e => e.week === week)
 
-        // PRESENTATION CHANGE BELOW: added a counter for isDisabled so half the choices are available.
+        // PRESENTATION CHANGE BELOW: removed isDisabled ternary so all selection choices are available
         let choiceCount: number = 0;
         currentWeekData.map((game) => {
             // const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)
-            // (choiceCount < 15 ? isDisabled : false)
 
-            (choiceCount < 15 ? pickOptions.push({ value: game.team, label: game.team }) : null);
-            choiceCount ++;
+            pickOptions.push({ value: game.team, label: game.team });
         })
 
         // sorts options alphabetically
@@ -261,7 +269,7 @@ const Picks: React.FC = () => {
 
 
     return (
-        <Box component={Paper} elevation={2} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
+        <Box component={Paper} elevation={2} width={'100%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
             {/* <RefreshApiData /> */}
             <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2, borderWidth: '2px' }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
             <TableContainer sx={{ mb: 2, pb: 20 }}>
