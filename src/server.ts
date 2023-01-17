@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
-import { routes } from './routes/index.js';
+import { routes } from './Routes/index.js';
 import cors from 'cors';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
