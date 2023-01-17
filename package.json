@@ -7,7 +7,6 @@
     "build:dev": "tsc --watch --preserveWatchOutput",
     "start:dev": "nodemon dist/server.js & webpack -w",
     "start": "node dist/index.js",
-    "postinstall": "tsc",
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w",
     "deploy": "git add . && git commit -m Heroku && git push heroku main"
