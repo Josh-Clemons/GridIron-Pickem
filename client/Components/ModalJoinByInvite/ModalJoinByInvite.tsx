@@ -42,7 +42,7 @@ const ModalJoinByInvite: React.FC = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'success'} sx={{ width: 250, mb: 2, borderWidth: 2 }}>Find by Invite Code<SearchIcon sx={{ ml: 2 }} /></Button>
+            <Button variant="outlined" onClick={handleOpen} color={'success'} sx={{ width: 250, mb: 2, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>Find by Invite Code<SearchIcon sx={{ ml: 2 }} /></Button>
             <Modal
                 open={open}
                 onClose={handleClose}

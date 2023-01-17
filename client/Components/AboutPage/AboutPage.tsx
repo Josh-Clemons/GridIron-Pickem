@@ -35,7 +35,7 @@ const AboutPage = () => {
             <Typography variant='h6' sx={{ textDecoration: 'underline', pt: 2 }}>Challenges I Faced</Typography>
             <List dense={true} sx={{ listStyleType: 'disc', pl: 2, }}>
                 <ListItem sx={{ display: 'list-item', fontSize: 16 }}>
-                    Controlling all of the inputs on the My Picks page
+                    Controlling all of the inputs on the Picks page
                 </ListItem>
                 <ListItem sx={{ display: 'list-item', fontSize: 16 }}>
                     Calculating the scores by checking them against the data API
@@ -44,16 +44,10 @@ const AboutPage = () => {
                     Learning TypeScript
                 </ListItem>
             </List>
-            <Typography variant='h6' sx={{ textDecoration: 'underline', pt: 2 }}>Next Steps</Typography>
-            <List dense={true} sx={{ listStyleType: 'disc', pl: 2, }}>
-                <ListItem sx={{ display: 'list-item', fontSize: 16 }}>
-                    Update this at the end of the project
-                </ListItem>
-            </List>
             <Typography variant='h6' sx={{ textDecoration: 'underline', pt: 2 }}>Special Thanks</Typography>
-            <List dense={true} sx={{ listStyleType: 'disc', pl: 2, }}>
+            <List dense={true} sx={{ listStyleType: 'disc', pl: 2, mb: 6 }}>
                 <ListItem sx={{ display: 'list-item', fontSize: 16 }}>
-                    Update this at the end of the project
+                    Shawl! My family, Prime instructors, and mentors Jimmy and Tom!
                 </ListItem>
             </List>
         </Box>

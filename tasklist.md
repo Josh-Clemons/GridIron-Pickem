@@ -10,7 +10,7 @@ Stretch goals:
             [x] add a 'click to copy' option
     [] league manager tools
         [x] make a new component, move rename/delete there. 
-        [] change other user's picks
+        [x] change other user's picks
             - this will be done in "My Picks" (rename to just Picks), add a selector for LM to choose member
             [] add option to enable/disable league edit picks. Reflect in league details accordion
     [] error handle if get logged out of server
@@ -19,7 +19,6 @@ Stretch goals:
     [] show scores on weekly pick page
     [] visually show what teams win/lose on weekly pick page
     [] accessability?
-    [] make a big table that shows everyone's complete picks all at once
     [] setup max users
     [] somehow display team matchups and/or more team info to help player decide on a pick
     [] route to invite code instead of league id (this will stop people from guessing links to private leagues)

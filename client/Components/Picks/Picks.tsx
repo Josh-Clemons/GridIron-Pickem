@@ -29,7 +29,13 @@ const Picks: React.FC = () => {
     const gameData: GameResults[] = store.gameData.gameData;
 
     let currentPicks: Pick[] = [];
-    let dateLockStart: Date = new Date('2022-09-02T01:15:00.007Z');
+    let dateLockStart: Date = new Date('2022-09-16T01:15:00.007Z');
+
+    // THIS FUNCTION IS USED FOR PRESENTATION PURPOSES ONLY
+    const presentationTrigger = () => {
+        dispatch({ type: 'SET_API_DATA' });
+        dateLockStart = new Date('2022-09-02T01:15:00.007Z')
+    }
 
 
     const customStyles = {
@@ -81,10 +87,12 @@ const Picks: React.FC = () => {
     const savePicks = () => {
         const dupeWeek: boolean = pickCheckWeek(currentPicks);
         const dupeAmount: boolean = pickCheckDuplicate(currentPicks);
-        const dupeGame: any = pickCheckGame(currentPicks, gameData)
+        const dupeGame: boolean = pickCheckGame(currentPicks, gameData)
         if (!dupeWeek && !dupeAmount && !dupeGame) {
             dispatch({ type: 'UPDATE_PICKS', payload: { picks: currentPicks, leagueId: leagueId, userId: store.user.id } });
             alertSavePicks();
+            dispatch({ type: 'SET_API_DATA' });
+            dateLockStart = new Date('2022-09-02T01:15:00.007Z')
         } else if (dupeAmount) {
             alertPickError('Duplicates in Amount Column');
         } else if (dupeWeek) {
@@ -137,6 +145,7 @@ const Picks: React.FC = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary: '#1C2541',
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
                                 neutral20: '#0B132B',
@@ -162,6 +171,7 @@ const Picks: React.FC = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary: '#1C2541',
                                 primary25: '#1C2541', // -- the first value gets highlighted, this is that color
                                 neutral0: '#1C2541',
                                 // neutral10: 'red', -- this is the border color for disabled
@@ -188,6 +198,7 @@ const Picks: React.FC = () => {
                             ...theme,
                             colors: {
                                 ...theme.colors,
+                                primary: '#1C2541',
                                 primary25: '#1C2541',
                                 neutral0: '#1C2541',
                                 neutral20: '#0B132B',
@@ -210,9 +221,15 @@ const Picks: React.FC = () => {
         ];
         const currentWeekData: GameResults[] = gameData.filter(e => e.week === week)
 
+        let choiceCount: number = 0;
         currentWeekData.map((game) => {
             const isDisabled: boolean = (new Date(game.start_time) < new Date() ? true : false)
-            pickOptions.push({ value: game.team, label: game.team, isDisabled });
+
+            if (isDisabled) {
+                return;
+            } else {
+                pickOptions.push({ value: game.team, label: game.team })
+            };
         })
 
         // sorts options alphabetically
@@ -255,10 +272,10 @@ const Picks: React.FC = () => {
 
 
     return (
-        <Box component={Paper} elevation={2} width={'95%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-            {/* <RefreshApiData /> */}
-            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2, borderWidth: '2px' }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
-            <TableContainer sx={{ mb: 2, pb: 20 }}>
+        <Box component={Paper} elevation={2} width={'100%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
+            <RefreshApiData />
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2, borderWidth: '2px', '&:hover': { borderWidth: '2px' } }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
+            <TableContainer sx={{ mb: 2, pb: 40 }}>
                 <Table size='small'>
                     <TableHead>
                         <TableRow>
@@ -273,7 +290,7 @@ const Picks: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 15, mt: -15, borderWidth: '2px' }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
+            <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mb: 35, mt: -35, borderWidth: '2px', '&:hover': { borderWidth: '2px' } }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
         </Box>
     )
 }

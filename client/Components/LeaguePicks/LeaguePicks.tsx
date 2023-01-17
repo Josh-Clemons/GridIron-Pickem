@@ -18,7 +18,7 @@ import { styled } from '@mui/material';
 
 
 // returns a component that allows users to see picks by week for everyone in the league
-const LeaguePicks = () => {
+const LeaguePicks: React.FC = () => {
 
     const store: Store = useSelector(store => store) as Store;
     const leagueUsers: LeagueUsers[] = store.leagues.currentLeagueUsers;
@@ -99,7 +99,7 @@ const LeaguePicks = () => {
     };
 
     return (
-        <Box width={"100%"} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Box width={"100%"} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -110,6 +110,7 @@ const LeaguePicks = () => {
                 <Select
                     className='week'
                     name={"week"}
+                    isSearchable={false}
                     options={week}
                     styles={customStyles}
                     onChange={(choice) => weekChange(choice)}
@@ -117,6 +118,7 @@ const LeaguePicks = () => {
                         ...theme,
                         colors: {
                             ...theme.colors,
+                            primary: '#1C2541',
                             primary25: '#1C2541',
                             neutral0: '#1C2541',
                             neutral20: '#0B132B',
@@ -126,15 +128,15 @@ const LeaguePicks = () => {
                     })}
                 />
             </Box>
-            <Box width={'90%'} mb={'80px'} maxWidth={700}>
+            <Box width={'100%'} mb={'80px'}>
                 <TableContainer component={Paper} sx={{ marginTop: '20px' }}>
-                    <Table size='small'>
+                    <Table size='small' sx={{ width: '100%' }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ padding: '6px', maxWidth: '30vw'}}>User</TableCell>
-                                <TableCell sx={{ padding: '6px'}}>5 Pts</TableCell>
-                                <TableCell sx={{ padding: '6px'}}>3 Pts</TableCell>
-                                <TableCell sx={{ padding: '6px'}}>1 Pt</TableCell>
+                                <TableCell sx={{ padding: '6px', maxWidth: '30vw' }}>User</TableCell>
+                                <TableCell sx={{ padding: '6px' }}>5 Pts</TableCell>
+                                <TableCell sx={{ padding: '6px' }}>3 Pts</TableCell>
+                                <TableCell sx={{ padding: '6px' }}>1 Pt</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

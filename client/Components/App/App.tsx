@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
-import { Zoom } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { Store, User } from '../../../src/interfaces/interfaces';
@@ -30,7 +29,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_USER' })
-    }, []);
+    }, []); // Lydia's group had 'dispatch' as trigger for this useeffect
 
     const user: User = useSelector((store: Store) => store.user);
 

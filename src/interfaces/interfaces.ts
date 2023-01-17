@@ -43,7 +43,10 @@ export interface LeagueDetail {
     team: string,
     week: number,
     amount: number,
-    invite_code: string
+    invite_code: string,
+    is_private: boolean,
+    user_count: number,
+    max_users: number
 }
 
 export interface UserLeagues {

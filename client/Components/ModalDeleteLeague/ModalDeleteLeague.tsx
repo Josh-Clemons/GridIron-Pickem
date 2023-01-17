@@ -44,7 +44,7 @@ const ModalDeleteLeague: React.FC = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>DELETE<DeleteOutlineOutlinedIcon sx={{ ml: 2 }} /></Button>
+            <Button variant="outlined" onClick={handleOpen} color={'error'} size='small' sx={{ width: 125, m: 1, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>DELETE<DeleteOutlineOutlinedIcon sx={{ ml: 2 }} /></Button>
             <Modal
                 open={open}
                 onClose={handleClose}

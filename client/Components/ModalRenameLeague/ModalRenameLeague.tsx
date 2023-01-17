@@ -56,7 +56,7 @@ const ModalRenameLeague: React.FC = () => {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleOpen} color={'warning'} size='small' sx={{ width: 125, m: 1, borderWidth: 2 }}>Rename<DriveFileRenameOutlineIcon sx={{ ml: 2 }} /></Button>
+            <Button variant="outlined" onClick={handleOpen} color={'warning'} size='small' sx={{ width: 125, m: 1, borderWidth: 2, '&:hover': { borderWidth: '2px' } }}>Rename<DriveFileRenameOutlineIcon sx={{ ml: 2 }} /></Button>
             <Modal
                 open={open}
                 onClose={handleClose}
