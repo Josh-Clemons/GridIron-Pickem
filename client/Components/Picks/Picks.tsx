@@ -273,7 +273,7 @@ const Picks: React.FC = () => {
 
     return (
         <Box component={Paper} elevation={2} width={'100%'} mb={15} sx={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-            <RefreshApiData />
+            {/* <RefreshApiData /> */}
             <Button variant='outlined' size='large' color='success' onClick={savePicks} sx={{ mt: 2, mb: 2, borderWidth: '2px', '&:hover': { borderWidth: '2px' } }}>Save Picks<DoneAllIcon sx={{ ml: 2 }} /></Button>
             <TableContainer sx={{ mb: 2, pb: 40 }}>
                 <Table size='small'>
