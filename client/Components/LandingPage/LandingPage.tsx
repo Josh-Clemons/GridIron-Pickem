@@ -62,7 +62,7 @@ const LandingPage = () => {
                     </>
                     :
                     <>
-                        <Button variant="contained" color="success" href="#/dashboard" sx={{ width: "250px" }}>Dashboard<GridViewIcon sx={{ ml: 2}} /></Button>
+                        <Button variant="contained" color="success" href="#/dashboard" sx={{ width: "250px" }}>Dashboard<GridViewIcon sx={{ ml: 2 }} /></Button>
                         <Button variant="contained" color="error" onClick={logout} sx={{ width: "250px" }}>Logout<LogoutIcon sx={{ ml: 2 }} /></Button>
                     </>
                 }
