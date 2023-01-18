@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import { routes } from './Routes/index.js';
+import { routes } from './routes/index.router.js';
 import cors from 'cors';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
