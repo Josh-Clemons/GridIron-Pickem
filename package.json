@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": { "node": "18.12.0" },
-  "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
   "scripts": {
     "build:dev": "tsc --watch --preserveWatchOutput",
-    "build": "tsc && mv -i -v public dist/ && rm -v -rf src",
+    "postinstall": "tsc",
     "start:dev": "nodemon dist/server.js & webpack -w",
     "start": "node dist/index.js",
     "watch-node": "nodemon dist/index.js",
@@ -75,5 +74,6 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },
-  "description": ""
+  "description": "",
+  "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src"
 }
