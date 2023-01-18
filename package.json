@@ -6,6 +6,7 @@
   "scripts": {
     "build:dev": "tsc --watch --preserveWatchOutput",
     "start:dev": "nodemon dist/server.js & webpack -w",
+    "build": "tsc",
     "postinstall": "tsc",
     "start": "node dist/index.js",
     "watch-node": "nodemon dist/index.js",
