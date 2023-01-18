@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import path from "path";
 import { routes } from './Routes/index.router';
 import cors from 'cors';
@@ -36,6 +36,13 @@ app.use('/api', routes);
 
 app.use(express.static(path.join(__dirname, "../public")));
 
+app.get("/", (req: Request, res: Response, next: NextFunction): void => {
+    try {
+        res.send("index.html");
+    } catch (error) {
+        next(error);
+    }
+});
 
 const PORT = process.env.PORT || 3000;
 
