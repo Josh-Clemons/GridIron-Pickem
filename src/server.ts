@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import path from "path";
 import { routes } from './Routes/index.js';
 import cors from 'cors';
@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 // Middleware
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+// app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(
     session({
         secret: "secretcode",
