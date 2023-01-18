@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./Components/App/App";
 import { Provider } from 'react-redux';
-import store from '../src/redux/store';
 import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import store from "../src/redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("app") as HTMLElement);
 
